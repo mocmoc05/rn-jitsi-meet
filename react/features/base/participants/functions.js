@@ -164,11 +164,13 @@ export function getParticipantDisplayName(
             return participant.name;
         }
 
-        if (participant.local) {
-            return typeof interfaceConfig === 'object'
-                ? interfaceConfig.DEFAULT_LOCAL_DISPLAY_NAME
-                : 'me';
-        }
+        return participant.name;
+
+        // if (participant.local) {
+        //     return typeof interfaceConfig === 'object'
+        //         ? interfaceConfig.DEFAULT_LOCAL_DISPLAY_NAME
+        //         : 'me';
+        // }
     }
 
     return typeof interfaceConfig === 'object'

@@ -244,6 +244,9 @@ class Conference extends AbstractConference<Props, *> {
         if (_reducedUI) {
             return this._renderContentForReducedUi();
         }
+        console.info({
+            props: this.props
+        });
 
         return (
             <>
