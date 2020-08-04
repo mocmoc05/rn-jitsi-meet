@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import { View } from 'react-native';
 
 import { combineStyles } from '../../styles';
 
@@ -276,10 +277,13 @@ export default class AbstractButton<P: Props, S: *> extends Component<P, S> {
         };
 
         return (
-            <ToolboxItem
-                disabled = { this._isDisabled() }
-                onClick = { this._onClick }
-                { ...props } />
+            <View>
+                <ToolboxItem
+                    disabled = { this._isDisabled() }
+                    onClick = { this._onClick }
+                    { ...props } />
+                {props.children}
+            </View>
         );
     }
 }

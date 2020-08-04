@@ -55,7 +55,7 @@ class ChatButton extends AbstractButton<Props, *> {
      * @returns {void}
      */
     _handleClick() {
-        if (this.props._showNamePrompt) {
+        if (!this.props._showNamePrompt) {
             this.props._displayNameInputDialog(() => {
                 this.props._displayChat();
             });
@@ -123,7 +123,7 @@ function _mapStateToProps(state, ownProps) {
     const { visible = enabled } = ownProps;
 
     return {
-        _showNamePrompt: !localParticipant.name,
+        _showNamePrompt: localParticipant.name,
         _unreadMessageCount: getUnreadCount(state),
         visible
     };

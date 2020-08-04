@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 
 import { ColorSchemeRegistry } from '../../../base/color-scheme';
 import { Container } from '../../../base/react';
@@ -15,6 +15,8 @@ import VideoMuteButton from '../VideoMuteButton';
 
 import OverflowMenuButton from './OverflowMenuButton';
 import styles from './styles';
+import { getUnreadCount } from '../../../chat/functions';
+import ChatAppCounter from '../../../chat/components/native/ChatAppCounter';
 
 /**
  * The type of {@link Toolbox}'s React {@code Component} props.
@@ -99,6 +101,8 @@ class Toolbox extends PureComponent<Props> {
         const { _styles } = this.props;
         const { buttonStyles, buttonStylesBorderless, hangupButtonStyles, toggledButtonStyles } = _styles;
 
+        console.info('props toolbox: ', this.props);
+
         return (
             <View
                 accessibilityRole = 'toolbar'
@@ -106,7 +110,13 @@ class Toolbox extends PureComponent<Props> {
                 style = { styles.toolbar }>
                 <ChatButton
                     styles = { buttonStylesBorderless }
-                    toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) } />
+                    toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) }
+                    _unreadMessageCount = { this.props._unreadMessageCount }>
+                    {
+                        Boolean(this.props._unreadMessageCount)
+                        && <ChatAppCounter _count = {this.props._unreadMessageCount} />
+                    }
+                </ChatButton>
                 <AudioMuteButton
                     styles = { buttonStyles }
                     toggledStyles = { toggledButtonStyles } />
@@ -135,7 +145,8 @@ class Toolbox extends PureComponent<Props> {
 function _mapStateToProps(state: Object): Object {
     return {
         _styles: ColorSchemeRegistry.get(state, 'Toolbox'),
-        _visible: isToolboxVisible(state)
+        _visible: isToolboxVisible(state),
+        _unreadMessageCount: getUnreadCount(state)
     };
 }
 
