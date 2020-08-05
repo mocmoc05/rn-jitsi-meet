@@ -70,6 +70,7 @@ class Toolbox extends PureComponent<Props> {
      */
     _getChatButtonToggledStyle(baseStyle) {
         const { _styles } = this.props;
+        console.info({_styles, baseStyle})
 
         if (Array.isArray(baseStyle.style)) {
             return {
@@ -98,10 +99,8 @@ class Toolbox extends PureComponent<Props> {
      * @returns {React$Node}
      */
     _renderToolbar() {
-        const { _styles } = this.props;
+        const { _styles, _unreadMessageCount } = this.props;
         const { buttonStyles, buttonStylesBorderless, hangupButtonStyles, toggledButtonStyles } = _styles;
-
-        console.info('props toolbox: ', this.props);
 
         return (
             <View
@@ -110,12 +109,8 @@ class Toolbox extends PureComponent<Props> {
                 style = { styles.toolbar }>
                 <ChatButton
                     styles = { buttonStylesBorderless }
-                    toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) }
-                    _unreadMessageCount = { this.props._unreadMessageCount }>
-                    {
-                        Boolean(this.props._unreadMessageCount)
-                        && <ChatAppCounter _count = {this.props._unreadMessageCount} />
-                    }
+                    toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) }>
+                    <ChatAppCounter _count = { _unreadMessageCount } />
                 </ChatButton>
                 <AudioMuteButton
                     styles = { buttonStyles }
@@ -143,6 +138,7 @@ class Toolbox extends PureComponent<Props> {
  * @returns {Props}
  */
 function _mapStateToProps(state: Object): Object {
+    // console.info({stateToolBox: state});
     return {
         _styles: ColorSchemeRegistry.get(state, 'Toolbox'),
         _visible: isToolboxVisible(state),

@@ -275,7 +275,7 @@
         "screenSharingFailedTitle": "Screen sharing failed!",
         "screenSharingPermissionDeniedError": "Oops! Something went wrong with your screen sharing permissions. Please reload and try again.",
         "sendPrivateMessage": "You recently received a private message. Did you intend to reply to that privately, or you want to send your message to the group?",
-        "sendPrivateMessageCancel": "Send to the group",
+        "sendPrivateMessageCancel": "Send group",
         "sendPrivateMessageOk": "Send privately",
         "sendPrivateMessageTitle": "Send privately?",
         "serviceUnavailable": "Service unavailable",

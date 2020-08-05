@@ -65,7 +65,9 @@ export function getUnreadCount(state: Object) {
     const { lastReadMessage, messages } = state['features/chat'];
     const messagesCount = messages.length;
 
-    // console.info({ lastReadMessage, messagesCount, messages, product: navigator.product, index: messages.lastIndexOf(lastReadMessage) });
+    if (!lastReadMessage) {
+        return 0;
+    }
 
     if (!messagesCount) {
         return 0;

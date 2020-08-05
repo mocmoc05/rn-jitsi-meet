@@ -73,7 +73,7 @@ class ChatInputBar extends Component<Props, State> {
             <View
                 style = { [
                     styles.inputBar,
-                    this.state.addPadding ? styles.extraBarPadding : null
+                    this.state.addPadding && Platform.OS === 'ios' ? styles.extraBarPadding : { paddingBottom: 0 }
                 ] }>
                 <TextInput
                     blurOnSubmit = { false }

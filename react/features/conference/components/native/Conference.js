@@ -244,9 +244,6 @@ class Conference extends AbstractConference<Props, *> {
         if (_reducedUI) {
             return this._renderContentForReducedUi();
         }
-        console.info({
-            props: this.props
-        });
 
         return (
             <>
@@ -333,7 +330,11 @@ class Conference extends AbstractConference<Props, *> {
 
                 { this._renderConferenceNotification() }
 
-                { this._renderConferenceModals() }
+                {
+
+                    /* modal chat in conference*/
+                    this._renderConferenceModals()
+                }
             </>
         );
     }

@@ -6,7 +6,8 @@ import {
     Text,
     TouchableOpacity,
     TouchableWithoutFeedback,
-    View
+    View,
+    Platform
 } from 'react-native';
 
 import { Icon, IconClose } from '../../../icons';
@@ -55,7 +56,7 @@ class BaseDialog<P: Props, S: State> extends AbstractDialog<P, S> {
         return (
             <TouchableWithoutFeedback>
                 <KeyboardAvoidingView
-                    behavior = 'height'
+                    behavior = { 'height' }
                     style = { [
                         styles.overlay
                     ] }>
@@ -63,7 +64,8 @@ class BaseDialog<P: Props, S: State> extends AbstractDialog<P, S> {
                         pointerEvents = 'box-none'
                         style = { [
                             _dialogStyles.dialog,
-                            style
+                            style,
+                            { marginBottom: Platform.OS === 'android' ? 100 : 0 }
                         ] }>
                         <TouchableOpacity
                             onPress = { this._onCancel }

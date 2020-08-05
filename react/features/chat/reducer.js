@@ -15,7 +15,9 @@ const DEFAULT_STATE = {
     isOpen: false,
     lastReadMessage: undefined,
     messages: [],
-    privateMessageRecipient: undefined
+    privateMessageRecipient: undefined,
+    ts_joined: Date.now(),
+    idx: 1
 };
 
 ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
@@ -42,11 +44,15 @@ ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
                 ...state.messages,
                 newMessage
             ];
-
+        let lastMessage = state.lastReadMessage, idx = state.idx;
+        if (state.ts_joined < newMessage.timestamp) {
+            idx = idx + 1;
+            lastMessage = messages[state.idx];
+        }
         return {
             ...state,
-            lastReadMessage:
-                action.hasRead ? newMessage : state.lastReadMessage,
+            lastReadMessage: lastMessage,
+            idx,
             messages
         };
     }
@@ -55,7 +61,8 @@ ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
         return {
             ...state,
             lastReadMessage: undefined,
-            messages: []
+            messages: [],
+            idx: 1
         };
 
     case SET_ACTIVE_MODAL_ID:
@@ -88,8 +95,8 @@ function updateChatState(state) {
     return {
         ...state,
         isOpen: !state.isOpen,
-        lastReadMessage: state.messages[
-            navigator.product === 'ReactNative' ? 0 : state.messages.length - 1],
-        privateMessageRecipient: state.isOpen ? undefined : state.privateMessageRecipient
+        lastReadMessage: state.messages[navigator.product === 'ReactNative' ? 0 : state.messages.length - 1],
+        privateMessageRecipient: state.isOpen ? undefined : state.privateMessageRecipient,
+        idx: 1
     };
 }
