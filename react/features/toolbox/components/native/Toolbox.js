@@ -70,7 +70,6 @@ class Toolbox extends PureComponent<Props> {
      */
     _getChatButtonToggledStyle(baseStyle) {
         const { _styles } = this.props;
-        console.info({_styles, baseStyle})
 
         if (Array.isArray(baseStyle.style)) {
             return {
@@ -138,7 +137,6 @@ class Toolbox extends PureComponent<Props> {
  * @returns {Props}
  */
 function _mapStateToProps(state: Object): Object {
-    // console.info({stateToolBox: state});
     return {
         _styles: ColorSchemeRegistry.get(state, 'Toolbox'),
         _visible: isToolboxVisible(state),

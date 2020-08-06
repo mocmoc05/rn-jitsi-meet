@@ -121,6 +121,7 @@ class Conference extends AbstractConference<Props, *> {
      */
     componentDidMount() {
         BackButtonRegistry.addListener(this._onHardwareBackPress);
+        this.props.dispatch({type: 'JOINED'})
     }
 
     /**

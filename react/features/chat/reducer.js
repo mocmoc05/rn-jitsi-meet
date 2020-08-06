@@ -17,11 +17,14 @@ const DEFAULT_STATE = {
     messages: [],
     privateMessageRecipient: undefined,
     ts_joined: Date.now(),
-    idx: 1
+    idx: -1,
+    joined: false
 };
 
 ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
     switch (action.type) {
+        case 'JOINED':
+        return {...state, idx: -1, joined: true, ts_joined: Date.now()};
     case ADD_MESSAGE: {
         const newMessage = {
             displayName: action.displayName,
@@ -45,9 +48,14 @@ ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
                 newMessage
             ];
         let lastMessage = state.lastReadMessage, idx = state.idx;
-        if (state.ts_joined < newMessage.timestamp) {
-            idx = idx + 1;
-            lastMessage = messages[state.idx];
+        if (state.joined && state.ts_joined < newMessage.timestamp) {
+            if (messages.length === 1) {
+                idx = 0;
+                lastMessage = { ...newMessage };
+            } else {
+                idx = idx + 1;
+                lastMessage = messages[idx];
+            }
         }
         return {
             ...state,
@@ -62,7 +70,7 @@ ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
             ...state,
             lastReadMessage: undefined,
             messages: [],
-            idx: 1
+            idx: -1
         };
 
     case SET_ACTIVE_MODAL_ID:
@@ -76,6 +84,16 @@ ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
             ...state,
             isOpen: Boolean(action.participant) || state.isOpen,
             privateMessageRecipient: action.participant
+        };
+
+
+    case 'HANGUP':
+        return {
+            ...state,
+            ts_joined: null,
+            idx: -1,
+            lastReadMessage: undefined,
+            joined: false
         };
 
     case TOGGLE_CHAT:
@@ -95,8 +113,8 @@ function updateChatState(state) {
     return {
         ...state,
         isOpen: !state.isOpen,
-        lastReadMessage: state.messages[navigator.product === 'ReactNative' ? 0 : state.messages.length - 1],
+        lastReadMessage: state.messages[navigator.product === 'ReactNative' ? -1 : state.messages.length - 1],
         privateMessageRecipient: state.isOpen ? undefined : state.privateMessageRecipient,
-        idx: 1
+        idx: -1
     };
 }
