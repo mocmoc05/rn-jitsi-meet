@@ -63,15 +63,20 @@ MiddlewareRegistry.register(store => next => action => {
                 action.participant.id
             );
 
-            if (typeof interfaceConfig === 'object'
-                && participant
-                && !participant.local) {
-                store.dispatch(showNotification({
-                    descriptionKey: 'notify.disconnected',
-                    titleKey: 'notify.somebody',
-                    title: participant.name
-                }, NOTIFICATION_TIMEOUT));
-            }
+            // if (typeof interfaceConfig === 'object'
+            //     && participant
+            //     && !participant.local) {
+            //     store.dispatch(showNotification({
+            //         descriptionKey: 'notify.disconnected',
+            //         titleKey: 'notify.somebody',
+            //         title: participant.name
+            //     }, NOTIFICATION_TIMEOUT));
+            // }
+            store.dispatch(showNotification({
+                descriptionKey: `${participant.name} disconnected`,
+                titleKey: 'notify.somebody',
+                title: participant.name
+            }, NOTIFICATION_TIMEOUT));
         }
 
         return next(action);
