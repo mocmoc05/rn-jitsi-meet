@@ -9,6 +9,7 @@ import { connect } from '../../../base/redux';
 import { AbstractButton } from '../../../base/toolbox';
 import type { AbstractButtonProps } from '../../../base/toolbox';
 import { enterPictureInPicture } from '../actions';
+import { appNavigate } from '../../../app/actions';
 
 type Props = AbstractButtonProps & {
 
@@ -38,7 +39,8 @@ class PictureInPictureButton extends AbstractButton<Props, *> {
      * @returns {void}
      */
     _handleClick() {
-        this.props.dispatch(enterPictureInPicture());
+        // this.props.dispatch(enterPictureInPicture());
+        this.props.dispatch(appNavigate(undefined));
     }
 
     /**
