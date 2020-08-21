@@ -322,7 +322,7 @@ class Conference extends AbstractConference<Props, *> {
                 <SafeAreaView
                     pointerEvents = 'box-none'
                     style = { styles.navBarSafeView }>
-                    <NavigationBar />
+                    <NavigationBar { ...this.props } />
                     { this._renderNotificationsContainer() }
                     <KnockingParticipantList />
                 </SafeAreaView>
@@ -419,7 +419,7 @@ class Conference extends AbstractConference<Props, *> {
  * @returns {Props}
  */
 function _mapStateToProps(state) {
-    const { connecting, connection } = state['features/base/connection'];
+    const { connecting, connection, locationURL } = state['features/base/connection'];
     const {
         conference,
         joining,
@@ -440,6 +440,7 @@ function _mapStateToProps(state) {
     const connecting_
         = connecting || (connection && (!membersOnly && (joining || (!conference && !leaving))));
 
+    // console.info({ locationURL: locationURL._url });
     return {
         ...abstractMapStateToProps(state),
         _aspectRatio: aspectRatio,

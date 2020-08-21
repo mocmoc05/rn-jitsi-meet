@@ -39,8 +39,8 @@ class PictureInPictureButton extends AbstractButton<Props, *> {
      * @returns {void}
      */
     _handleClick() {
-        // this.props.dispatch(enterPictureInPicture());
-        this.props.dispatch(appNavigate(undefined));
+        this.props.dispatch(enterPictureInPicture());
+        // this.props.dispatch(appNavigate(undefined));
     }
 
     /**

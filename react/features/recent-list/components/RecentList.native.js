@@ -72,6 +72,7 @@ class RecentList extends AbstractRecentList<Props> {
      * @inheritdoc
      */
     render() {
+        console.info({url: this.props.url})
         if (!isRecentListEnabled()) {
             return null;
         }
@@ -139,9 +140,11 @@ class RecentList extends AbstractRecentList<Props> {
  * }}
  */
 export function _mapStateToProps(state: Object) {
+    const { locationURL } = state['features/base/connection'];
     return {
         _defaultServerURL: getDefaultURL(state),
-        _recentList: state['features/recent-list']
+        _recentList: state['features/recent-list'],
+        url: locationURL
     };
 }
 
