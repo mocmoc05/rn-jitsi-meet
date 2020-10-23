@@ -66,6 +66,11 @@ export default {
     LOCAL_RAISE_HAND_CHANGED: 'UI.local_raise_hand_changed',
 
     /**
+     * Notifies that the vote has been changed.
+     */
+    LOCAL_VOTE_CHANGED: 'UI.local_vote_changed',
+
+    /**
      * Notifies that the avatar is displayed or not on the largeVideo.
      */
     LARGE_VIDEO_AVATAR_VISIBLE: 'UI.large_video_avatar_visible',

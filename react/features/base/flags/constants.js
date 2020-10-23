@@ -119,6 +119,12 @@ export const TOOLBOX_ALWAYS_VISIBLE = 'toolbox.alwaysVisible';
 export const VIDEO_SHARE_BUTTON_ENABLED = 'video-share.enabled';
 
 /**
+ * Flag indicating if the vote button should be enabled
+ * Default: disabled (false).
+ */
+export const VOTE_BUTTON_ENABLED = 'vote.enabled';
+
+/**
  * Flag indicating if the welcome page should be enabled.
  * Default: disabled (false).
  */

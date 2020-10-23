@@ -29,6 +29,7 @@ import ModeratorIndicator from './ModeratorIndicator';
 import RaisedHandIndicator from './RaisedHandIndicator';
 import VideoMutedIndicator from './VideoMutedIndicator';
 import styles, { AVATAR_SIZE } from './styles';
+import VotedIndicator from './VotedIndicator';
 
 /**
  * Thumbnail component's property types.
@@ -172,6 +173,7 @@ function Thumbnail(props: Props) {
                     styles.thumbnailTopLeftIndicatorContainer
                 ] }>
                 <RaisedHandIndicator participantId = { participant.id } />
+                <VotedIndicator participantId = { participant.id } />
                 { renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }
             </View> }
 

@@ -23,6 +23,7 @@ import {
     RaisedHandIndicator,
     StatusIndicators
 } from '../../../react/features/filmstrip';
+import VotedIndicator from '../../../react/features/filmstrip/components/native/VotedIndicator';
 import {
     LAYOUTS,
     getCurrentLayout,
@@ -130,6 +131,14 @@ export default class SmallVideo {
          * @type {boolean}
          */
         this._showRaisedHand = false;
+
+        /**
+         * Whether or not the raised hand indicator should be displayed.
+         *
+         * @private
+         * @type {boolean}
+         */
+        this._showVoted = false;
 
         // Bind event handlers so they are only bound once for every instance.
         this._onPopoverHover = this._onPopoverHover.bind(this);
@@ -618,6 +627,22 @@ export default class SmallVideo {
     }
 
     /**
+     * Shows or hides the voted indicator.
+     * @param show whether to show or hide.
+     */
+    showVotedIndicator(show) {
+        if (!this.container) {
+            logger.warn(`Unable to voted indication - ${
+                this.videoSpanId} does not exist`);
+
+            return;
+        }
+
+        this._showVoted = show;
+        this.updateIndicators();
+    }
+
+    /**
      * Initalizes any browser specific properties. Currently sets the overflow
      * property for Qt browsers on Windows to hidden, thus fixing the following
      * problem:
@@ -729,6 +754,10 @@ export default class SmallVideo {
                             <RaisedHandIndicator
                                 iconSize = { iconSize }
                                 participantId = { this.id }
+                                tooltipPosition = { tooltipPosition } />
+                            <VotedIndicator
+                                iconSize = { iconSize }
+                                participantID = { this.id }
                                 tooltipPosition = { tooltipPosition } />
                             { this._showDominantSpeaker && participantCount > 2
                                 ? <DominantSpeakerIndicator

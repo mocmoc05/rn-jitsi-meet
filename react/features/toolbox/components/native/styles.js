@@ -30,7 +30,7 @@ const toolbarButton = {
  */
 const toolbarButtonIcon = {
     alignSelf: 'center',
-    color: ColorPalette.darkGrey,
+    // color: ColorPalette.darkGrey,
     fontSize: 22
 };
 
@@ -39,7 +39,7 @@ const toolbarButtonIcon = {
  */
 const whiteToolbarButton = {
     ...toolbarButton,
-    backgroundColor: schemeColor('buttonToggled')
+    // backgroundColor: schemeColor('buttonToggled')
 };
 
 /**
@@ -50,6 +50,10 @@ const whiteToolbarButtonIcon = {
     color: ColorPalette.white
 };
 
+const whiteHangUpToolbarButtonIcon = {
+    ...toolbarButtonIcon,
+    color: 'transparent'
+}
 /**
  * The Toolbox and toolbar related styles.
  */
@@ -59,7 +63,7 @@ const styles = {
         alignItems: 'center',
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
-        flexDirection: 'column'
+        flexDirection: 'column',
     },
 
     sheetGestureRecognizer: {
@@ -99,7 +103,32 @@ ColorSchemeRegistry.register('Toolbox', {
      */
     buttonStyles: {
         iconStyle: toolbarButtonIcon,
-        style: toolbarButton
+        style: toolbarButton,
+        underlayColor: 'white'
+    },
+
+    smallButtonStyles: {
+        iconStyle: {
+            alignSelf: 'center',
+            // color: ColorPalette.darkGrey,
+            fontSize: 22
+        },
+        style: {
+            backgroundColor: 'rgba(255, 255, 255, 0.4)',
+            opacity: 40,
+            borderRadius: BUTTON_SIZE / 2,
+            borderWidth: 0,
+            flex: 0,
+            flexDirection: 'row',
+            height: BUTTON_SIZE/1.5,
+            justifyContent: 'center',
+        
+            // XXX We probably tested BoxModel.margin and discovered it to be too small
+            // for our taste.
+            marginHorizontal: 7,
+            width: BUTTON_SIZE/1.5
+        }, 
+        underlayColor: 'rgba(255, 255, 255, 0.4)'
     },
 
     buttonStylesBorderless: {
@@ -121,7 +150,7 @@ ColorSchemeRegistry.register('Toolbox', {
     },
 
     hangupButtonStyles: {
-        iconStyle: whiteToolbarButtonIcon,
+        iconStyle: whiteHangUpToolbarButtonIcon,
         style: {
             ...toolbarButton,
             backgroundColor: schemeColor('hangup')
@@ -138,6 +167,7 @@ ColorSchemeRegistry.register('Toolbox', {
             ...whiteToolbarButton,
             borderColor: schemeColor('buttonToggledBorder'),
             borderWidth: 1
-        }
+        },
+        underlayColor: 'white'
     }
 });

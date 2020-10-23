@@ -81,7 +81,8 @@ MiddlewareRegistry.register(store => next => action => {
                 conference,
                 id,
                 local: participant.id === id,
-                raisedHand: false
+                raisedHand: false,
+                voted: false,
             }));
 
         break;
@@ -230,6 +231,10 @@ StateListenerRegistry.register(
                         _raiseHandUpdated(store, conference, participant.getId(), newValue);
                         break;
                     }
+                    case 'voted': {
+                        _votedUpdate(store, conference, participant.getId(), newValue);
+                        break;
+                    }
                     default:
 
                         // Ignore for now.
@@ -242,6 +247,7 @@ StateListenerRegistry.register(
             // We left the conference, the local participant must be updated.
             _e2eeUpdated(store, conference, localParticipantId, false);
             _raiseHandUpdated(store, conference, localParticipantId, false);
+            _votedUpdate(store, conference, localParticipantId, false);
         }
     }
 );
@@ -360,7 +366,7 @@ function _maybePlaySounds({ getState, dispatch }, action) {
  * @returns {Object} The value returned by {@code next(action)}.
  */
 function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
-    const { participant: { avatarURL, e2eeEnabled, email, id, local, name, raisedHand } } = action;
+    const { participant: { avatarURL, e2eeEnabled, email, id, local, name, raisedHand, voted } } = action;
 
     // Send an external update of the local participant's raised hand state
     // if a new raised hand state is defined in the action.
@@ -372,6 +378,18 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
                 && conference.setLocalParticipantProperty(
                     'raisedHand',
                     raisedHand);
+        }
+    }
+
+    if (typeof voted !== 'undefined') {
+        if (local) {
+            const { conference } = getState()['features/base/conference'];
+
+            conference
+                && conference.setLocalParticipantProperty(
+                    'voted',
+                    voted
+                );
         }
     }
 
@@ -436,6 +454,25 @@ function _raiseHandUpdated({ dispatch, getState }, conference, participantId, ne
                 name: getParticipantDisplayName(getState, participantId)
             },
             titleKey: 'notify.raisedHand'
+        }, NOTIFICATION_TIMEOUT));
+    }
+}
+
+function _votedUpdate({ dispatch, getState }, conference, participantId, newValue) {
+    const voted = newValue === 'true';
+
+    dispatch(participantUpdated({
+        conference,
+        id: participantId,
+        voted
+    }));
+
+    if (voted) {
+        dispatch(showNotification({
+            titleArguments: {
+                name: getParticipantDisplayName(getState, participantId)
+            },
+            titleKey: 'notify.voted'
         }, NOTIFICATION_TIMEOUT));
     }
 }

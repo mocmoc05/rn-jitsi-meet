@@ -530,6 +530,16 @@ UI.onLocalRaiseHandChanged = function(isRaisedHand) {
 };
 
 /**
+ * Notifies interested listeners that the raise hand property has changed.
+ *
+ * @param {boolean} isVote indicates the current state of the
+ * "raised hand"
+ */
+UI.onLocalVoteChanged = function(isVote) {
+    eventEmitter.emit(UIEvents.LOCAL_VOTE_CHANGED, isVote);
+};
+
+/**
  * Update list of available physical devices.
  */
 UI.onAvailableDevicesChanged = function() {

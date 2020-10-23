@@ -147,11 +147,11 @@ export default {
 
     roomNameWrapper: {
         flexDirection: 'column',
-        alignItems: 'center',
+        // alignItems: 'center',
         left: 0,
         paddingHorizontal: 48,
         position: 'absolute',
-        right: 0
+        // right: 0
     },
 
     /**

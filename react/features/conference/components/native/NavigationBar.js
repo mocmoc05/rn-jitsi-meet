@@ -12,7 +12,9 @@ import { isToolboxVisible } from '../../../toolbox';
 import ConferenceTimer from '../ConferenceTimer';
 
 import styles, { NAVBAR_GRADIENT_COLORS } from './styles';
-
+import { ChatButton } from '../../../chat'
+import VolumeNew from './VolumeNew'
+import FlipButton from './FlipCamera';
 type Props = {
 
     /**
@@ -67,6 +69,23 @@ class NavigationBar extends Component<Props> {
                 style = { styles.navBarWrapper }>
                 <PictureInPictureButton
                     styles = { styles.navBarButton } { ...this.props } />
+                    <View style={{alignSelf: 'flex-start', paddingTop: 3}}>
+                        <ChatButton
+                            styles = { {iconStyle: { color: 'transparent', fontSize: 24, },   } }
+                            // toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) }
+                            >
+                            {/* <ChatAppCounter _count = { _unreadMessageCount } /> */}
+                        </ChatButton>
+                    </View>
+                    <View style={{display: 'flex', flexDirection: 'row', paddingHorizontal: 10}}>
+                        <VolumeNew
+                            styles
+                             = { {iconStyle: { color: 'transparent', fontSize: 24, marginRight: 5 } } }
+                        />
+                        <FlipButton
+                            styles = { {iconStyle: { fontSize: 24, } } }
+                        />
+                    </View>
                 <View
                     pointerEvents = 'box-none'
                     style = { styles.roomNameWrapper }>

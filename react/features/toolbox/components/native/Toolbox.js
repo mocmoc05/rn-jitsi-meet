@@ -17,7 +17,12 @@ import OverflowMenuButton from './OverflowMenuButton';
 import styles from './styles';
 import { getUnreadCount } from '../../../chat/functions';
 import ChatAppCounter from '../../../chat/components/native/ChatAppCounter';
-
+import VoteButton from './VoteButton';
+import { Dimensions } from 'react-native';
+import RaiseHandButton from './RaiseHandButton';
+import { RecordButton } from '../../../recording'
+import ShareScreenButton from './ShareScreenButton';
+import ReportStatButton from './ReportStatButton';
 /**
  * The type of {@link Toolbox}'s React {@code Component} props.
  */
@@ -99,30 +104,55 @@ class Toolbox extends PureComponent<Props> {
      */
     _renderToolbar() {
         const { _styles, _unreadMessageCount } = this.props;
-        const { buttonStyles, buttonStylesBorderless, hangupButtonStyles, toggledButtonStyles } = _styles;
+        const { buttonStyles, buttonStylesBorderless, hangupButtonStyles, toggledButtonStyles, smallButtonStyles } = _styles;
 
         return (
-            <View
-                accessibilityRole = 'toolbar'
-                pointerEvents = 'box-none'
-                style = { styles.toolbar }>
-                <ChatButton
-                    styles = { buttonStylesBorderless }
-                    toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) }>
-                    <ChatAppCounter _count = { _unreadMessageCount } />
-                </ChatButton>
-                <AudioMuteButton
-                    styles = { buttonStyles }
-                    toggledStyles = { toggledButtonStyles } />
-                <HangupButton
-                    styles = { hangupButtonStyles } />
-                <VideoMuteButton
-                    styles = { buttonStyles }
-                    toggledStyles = { toggledButtonStyles } />
-                <OverflowMenuButton
-                    styles = { buttonStylesBorderless }
-                    toggledStyles = { toggledButtonStyles } />
-            </View>
+            <>
+                <View accessibilityRole = 'toolbar'
+                    pointerEvents = 'box-none'
+                    style = { [styles.toolbar, { marginBottom: 10 } ] }>
+                        <RaiseHandButton
+                            styles = { smallButtonStyles }
+                        />
+                        <VoteButton 
+                            styles = { smallButtonStyles }
+                        />
+                        <ShareScreenButton
+                            styles = { smallButtonStyles }
+                        />
+                        <RecordButton
+                            styles = { smallButtonStyles }/>
+                        <ReportStatButton
+                            styles = { smallButtonStyles }
+                        />
+                </View>
+                <View
+                    accessibilityRole = 'toolbar'
+                    pointerEvents = 'box-none'
+                    style = { styles.toolbar }>
+                    {/* <ChatButton
+                        styles = { buttonStylesBorderless }
+                        toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) }>
+                        <ChatAppCounter _count = { _unreadMessageCount } />
+                    </ChatButton> */}
+                        <AudioMuteButton
+                            styles = { buttonStyles }
+                            toggledStyles = { toggledButtonStyles } />
+                        <VideoMuteButton
+                            styles = { buttonStyles }
+                            toggledStyles = { toggledButtonStyles } />
+                        <HangupButton
+                            styles = { hangupButtonStyles } />
+                        {/* <VoteButton 
+                            styles = { buttonStyles }
+                            toggledStyles = { toggledButtonStyles } /> */}
+                    <View style={{position: 'absolute', right: 0}}>
+                        <OverflowMenuButton
+                            styles = { buttonStylesBorderless }
+                            toggledStyles = { toggledButtonStyles } />
+                    </View>
+                </View>
+            </>
         );
     }
 }
