@@ -1,7 +1,7 @@
 // @flow
 
 export { default as IconAdd } from './add.svg';
-export { default as IconAddPeople } from './link.svg';
+export { default as IconAddPeople } from './add-user.svg';
 export { default as IconArrowBack } from './arrow_back.svg';
 export { default as IconArrowDown } from './arrow_down.svg';
 export { default as IconArrowDownSmall } from './arrow-down-small.svg';
@@ -31,7 +31,7 @@ export { default as IconDeviceHeadphone } from './headset.svg';
 export { default as IconDeviceSpeaker } from './volume.svg';
 export { default as IconDominantSpeaker } from './dominant-speaker.svg';
 export { default as IconDownload } from './download.svg';
-export { default as IconDragHandle } from './drag-handle.svg';
+export { default as IconDragHandle } from './rectangle.svg';
 export { default as IconE2EE } from './e2ee.svg';
 export { default as IconEdit } from './edit.svg';
 export { default as IconEmail } from './envelope.svg';
@@ -110,3 +110,5 @@ export { default as IconShareScreen } from './screen.svg';
 export { default as IconReportStat } from './chart.svg';
 export { default as IconVolumeNew } from './volume-2.svg';
 export { default as IconFlipCamera } from './refresh.svg';
+export { default as IconSwitchMod } from './switch-user.svg';
+export { default as IconKickUser } from './del-user.svg';

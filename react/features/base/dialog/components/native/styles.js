@@ -141,7 +141,7 @@ ColorSchemeRegistry.register('BottomSheet', {
          * Style for the {@code Icon} element in a generic item of the menu.
          */
         iconStyle: {
-            color: schemeColor('icon'),
+            color: 'transparent',
             fontSize: 24
         },
 
@@ -174,7 +174,7 @@ ColorSchemeRegistry.register('BottomSheet', {
     expandIcon: {
         color: schemeColor('icon'),
         fontSize: 48,
-        opacity: 0.8
+        opacity: 1
     },
 
     /**

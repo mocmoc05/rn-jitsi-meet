@@ -25,6 +25,9 @@ import MoreOptionsButton from './MoreOptionsButton';
 import RaiseHandButton from './RaiseHandButton';
 import ToggleCameraButton from './ToggleCameraButton';
 import styles from './styles';
+import VoteButton from './VoteButton';
+import KickUserButton from './KickUserButton';
+import SwitchModButton from './SwitchModButton';
 
 /**
  * The type of the React {@code Component} props of {@link OverflowMenu}.
@@ -126,12 +129,13 @@ class OverflowMenu extends PureComponent<Props, State> {
                 onCancel = { this._onCancel }
                 onSwipe = { this._onSwipe }
                 renderHeader = { this._renderMenuExpandToggle }>
-                <AudioRouteButton { ...buttonProps } />
-                {/* <InviteButton { ...buttonProps } /> */}
-                <AudioOnlyButton { ...buttonProps } />
-                <RaiseHandButton { ...buttonProps } />
-                <LobbyModeButton { ...buttonProps } />
-                <MoreOptionsButton { ...moreOptionsButtonProps } />
+                {/* <AudioRouteButton { ...buttonProps } /> */}
+                <InviteButton { ...buttonProps } />
+                {/* <AudioOnlyButton { ...buttonProps } /> */}
+                <KickUserButton { ...buttonProps } />
+                <SwitchModButton { ...buttonProps }/>
+                {/* <LobbyModeButton { ...buttonProps } /> */}
+                {/* <MoreOptionsButton { ...moreOptionsButtonProps } /> */}
                 <Collapsible collapsed = { !showMore }>
                     <ToggleCameraButton { ...buttonProps } />
                     <TileViewButton { ...buttonProps } />
@@ -161,7 +165,7 @@ class OverflowMenu extends PureComponent<Props, State> {
                     this.props._bottomSheetStyles.sheet,
                     styles.expandMenuContainer
                 ] }>
-                <TouchableOpacity onPress = { this._onToggleMenu }>
+                <TouchableOpacity onPress = { this._onToggleMenu } >
                     { /* $FlowFixMeProps */ }
                     <IconDragHandle style = { this.props._bottomSheetStyles.expandIcon } />
                 </TouchableOpacity>

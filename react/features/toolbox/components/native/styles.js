@@ -64,6 +64,8 @@ const styles = {
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
         flexDirection: 'column',
+        paddingTop: 10,
+        height: 30
     },
 
     sheetGestureRecognizer: {
