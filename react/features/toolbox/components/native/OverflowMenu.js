@@ -130,7 +130,7 @@ class OverflowMenu extends PureComponent<Props, State> {
                 onSwipe = { this._onSwipe }
                 renderHeader = { this._renderMenuExpandToggle }>
                 {/* <AudioRouteButton { ...buttonProps } /> */}
-                <InviteButton { ...buttonProps } />
+                {/* <InviteButton { ...buttonProps } /> */}
                 {/* <AudioOnlyButton { ...buttonProps } /> */}
                 <KickUserButton { ...buttonProps } />
                 <SwitchModButton { ...buttonProps }/>
