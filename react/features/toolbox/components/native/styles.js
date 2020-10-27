@@ -124,12 +124,12 @@ ColorSchemeRegistry.register('Toolbox', {
             flexDirection: 'row',
             height: BUTTON_SIZE/1.5,
             justifyContent: 'center',
-        
+
             // XXX We probably tested BoxModel.margin and discovered it to be too small
             // for our taste.
             marginHorizontal: 7,
             width: BUTTON_SIZE/1.5
-        }, 
+        },
         underlayColor: 'rgba(255, 255, 255, 0.4)'
     },
 

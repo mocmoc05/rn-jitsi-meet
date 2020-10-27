@@ -1,6 +1,6 @@
 // @flow
 
-import { IconMicDisabled, IconMicOff, IconMicOn, IconMicrophone } from '../../icons';
+import { IconMicOff, IconMicOn } from '../../icons';
 
 import AbstractButton from './AbstractButton';
 import type { Props } from './AbstractButton';

@@ -8,21 +8,21 @@ import { Container } from '../../../base/react';
 import { connect } from '../../../base/redux';
 import { StyleType } from '../../../base/styles';
 import { ChatButton } from '../../../chat';
+import ChatAppCounter from '../../../chat/components/native/ChatAppCounter';
+import { getUnreadCount } from '../../../chat/functions';
 import { isToolboxVisible } from '../../functions';
 import AudioMuteButton from '../AudioMuteButton';
 import HangupButton from '../HangupButton';
 import VideoMuteButton from '../VideoMuteButton';
-
-import OverflowMenuButton from './OverflowMenuButton';
-import styles from './styles';
-import { getUnreadCount } from '../../../chat/functions';
-import ChatAppCounter from '../../../chat/components/native/ChatAppCounter';
 import VoteButton from './VoteButton';
 import { Dimensions } from 'react-native';
 import RaiseHandButton from './RaiseHandButton';
 import { RecordButton } from '../../../recording'
 import ShareScreenButton from './ShareScreenButton';
 import ReportStatButton from './ReportStatButton';
+import OverflowMenuButton from './OverflowMenuButton';
+import styles from './styles';
+
 /**
  * The type of {@link Toolbox}'s React {@code Component} props.
  */
@@ -109,22 +109,22 @@ class Toolbox extends PureComponent<Props> {
         return (
             <>
                 <View accessibilityRole = 'toolbar'
-                    pointerEvents = 'box-none'
-                    style = { [styles.toolbar, { marginBottom: 10 } ] }>
-                        <RaiseHandButton
-                            styles = { smallButtonStyles }
-                        />
-                        <VoteButton 
-                            styles = { smallButtonStyles }
-                        />
-                        <ShareScreenButton
-                            styles = { smallButtonStyles }
-                        />
-                        <RecordButton
-                            styles = { smallButtonStyles }/>
-                        <ReportStatButton
-                            styles = { smallButtonStyles }
-                        />
+                      pointerEvents = 'box-none'
+                      style = { [styles.toolbar, { marginBottom: 10 } ] }>
+                    <RaiseHandButton
+                        styles = { smallButtonStyles }
+                    />
+                    <VoteButton
+                        styles = { smallButtonStyles }
+                    />
+                    <ShareScreenButton
+                        styles = { smallButtonStyles }
+                    />
+                    <RecordButton
+                        styles = { smallButtonStyles }/>
+                    <ReportStatButton
+                        styles = { smallButtonStyles }
+                    />
                 </View>
                 <View
                     accessibilityRole = 'toolbar'
@@ -135,15 +135,15 @@ class Toolbox extends PureComponent<Props> {
                         toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) }>
                         <ChatAppCounter _count = { _unreadMessageCount } />
                     </ChatButton> */}
-                        <AudioMuteButton
-                            styles = { buttonStyles }
-                            toggledStyles = { toggledButtonStyles } />
-                        <VideoMuteButton
-                            styles = { buttonStyles }
-                            toggledStyles = { toggledButtonStyles } />
-                        <HangupButton
-                            styles = { hangupButtonStyles } />
-                        {/* <VoteButton 
+                    <AudioMuteButton
+                        styles = { buttonStyles }
+                        toggledStyles = { toggledButtonStyles } />
+                    <VideoMuteButton
+                        styles = { buttonStyles }
+                        toggledStyles = { toggledButtonStyles } />
+                    <HangupButton
+                        styles = { hangupButtonStyles } />
+                    {/* <VoteButton
                             styles = { buttonStyles }
                             toggledStyles = { toggledButtonStyles } /> */}
                     <View style={{position: 'absolute', right: 0}}>

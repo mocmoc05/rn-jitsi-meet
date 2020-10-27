@@ -2,15 +2,13 @@
 
 import { NativeModules, Platform } from 'react-native';
 
+import { appNavigate } from '../../../app/actions';
 import { PIP_ENABLED, getFeatureFlag } from '../../../base/flags';
 import { translate } from '../../../base/i18n';
 import { IconMenuDown } from '../../../base/icons';
 import { connect } from '../../../base/redux';
-import { AbstractButton } from '../../../base/toolbox';
-import type { AbstractButtonProps } from '../../../base/toolbox';
+import { AbstractButton, type AbstractButtonProps } from '../../../base/toolbox/components';
 import { enterPictureInPicture } from '../actions';
-import { appNavigate } from '../../../app/actions';
-
 type Props = AbstractButtonProps & {
 
     /**

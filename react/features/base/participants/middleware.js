@@ -289,7 +289,6 @@ function _localParticipantJoined({ getState, dispatch }, next, action) {
     const settings = getState()['features/base/settings'];
 
     dispatch(localParticipantJoined({
-        avatarID: settings.avatarID,
         avatarURL: settings.avatarURL,
         email: settings.email,
         name: settings.displayName
@@ -386,10 +385,10 @@ function _participantJoinedOrUpdated({ dispatch, getState }, next, action) {
             const { conference } = getState()['features/base/conference'];
 
             conference
-                && conference.setLocalParticipantProperty(
-                    'voted',
-                    voted
-                );
+            && conference.setLocalParticipantProperty(
+                'voted',
+                voted
+            );
         }
     }
 

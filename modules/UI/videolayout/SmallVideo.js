@@ -84,10 +84,12 @@ export default class SmallVideo {
     constructor(VideoLayout) {
         this.isAudioMuted = false;
         this.isVideoMuted = false;
+        this.isScreenSharing = false;
         this.videoStream = null;
         this.audioStream = null;
         this.VideoLayout = VideoLayout;
         this.videoIsHovered = false;
+        this.videoType = undefined;
 
         /**
          * The current state of the user's bridge connection. The value should be
@@ -98,15 +100,6 @@ export default class SmallVideo {
          * @type {string|null}
          */
         this._connectionStatus = null;
-
-        /**
-         * Whether or not the ConnectionIndicator's popover is hovered. Modifies
-         * how the video overlays display based on hover state.
-         *
-         * @private
-         * @type {boolean}
-         */
-        this._popoverIsHovered = false;
 
         /**
          * Whether or not the connection indicator should be displayed.
@@ -141,7 +134,6 @@ export default class SmallVideo {
         this._showVoted = false;
 
         // Bind event handlers so they are only bound once for every instance.
-        this._onPopoverHover = this._onPopoverHover.bind(this);
         this.updateView = this.updateView.bind(this);
 
         this._onContainerClick = this._onContainerClick.bind(this);
@@ -244,6 +236,22 @@ export default class SmallVideo {
     }
 
     /**
+     * Shows / hides the screen-share indicator over small videos.
+     *
+     * @param {boolean} isScreenSharing indicates if the screen-share element should be shown
+     * or hidden
+     */
+    setScreenSharing(isScreenSharing) {
+        if (isScreenSharing === this.isScreenSharing) {
+            return;
+        }
+
+        this.isScreenSharing = isScreenSharing;
+        this.updateView();
+        this.updateStatusBar();
+    }
+
+    /**
      * Shows video muted indicator over small videos and disables/enables avatar
      * if video muted.
      *
@@ -274,6 +282,7 @@ export default class SmallVideo {
                 <I18nextProvider i18n = { i18next }>
                     <StatusIndicators
                         showAudioMutedIndicator = { this.isAudioMuted }
+                        showScreenShareIndicator = { this.isScreenSharing }
                         showVideoMutedIndicator = { this.isVideoMuted }
                         participantID = { this.id } />
                 </I18nextProvider>
@@ -459,8 +468,10 @@ export default class SmallVideo {
      * or <tt>DISPLAY_BLACKNESS_WITH_NAME</tt>.
      */
     selectDisplayMode(input) {
-        // Display name is always and only displayed when user is on the stage
-        if (input.isCurrentlyOnLargeVideo && !input.tileViewActive) {
+        if (!input.tileViewActive && input.isScreenSharing) {
+            return input.isHovered ? DISPLAY_AVATAR_WITH_NAME : DISPLAY_AVATAR;
+        } else if (input.isCurrentlyOnLargeVideo && !input.tileViewActive) {
+            // Display name is always and only displayed when user is on the stage
             return input.isVideoPlayable && !input.isAudioOnly ? DISPLAY_BLACKNESS_WITH_NAME : DISPLAY_AVATAR_WITH_NAME;
         } else if (input.isVideoPlayable && input.hasVideo && !input.isAudioOnly) {
             // check hovering and change state to video with name
@@ -489,6 +500,7 @@ export default class SmallVideo {
             canPlayEventReceived: this._canPlayEventReceived,
             videoStream: Boolean(this.videoStream),
             isVideoMuted: this.isVideoMuted,
+            isScreenSharing: this.isScreenSharing,
             videoStreamMuted: this.videoStream ? this.videoStream.isMuted() : 'no stream'
         };
     }
@@ -500,7 +512,7 @@ export default class SmallVideo {
      * @private
      */
     _isHovered() {
-        return this.videoIsHovered || this._popoverIsHovered;
+        return this.videoIsHovered;
     }
 
     /**
@@ -841,19 +853,6 @@ export default class SmallVideo {
         if (indicatorToolbar) {
             ReactDOM.unmountComponentAtNode(indicatorToolbar);
         }
-    }
-
-    /**
-     * Updates the current state of the connection indicator popover being hovered.
-     * If hovered, display the small video as if it is hovered.
-     *
-     * @param {boolean} popoverIsHovered - Whether or not the mouse cursor is
-     * currently over the connection indicator popover.
-     * @returns {void}
-     */
-    _onPopoverHover(popoverIsHovered) {
-        this._popoverIsHovered = popoverIsHovered;
-        this.updateView();
     }
 
     /**

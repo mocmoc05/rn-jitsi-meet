@@ -54,7 +54,6 @@ export class AbstractConference<P: AbstractProps, S>
      * @returns {React$Element}
      */
     renderNotificationsContainer(props: ?Object) {
-        // console.info({ propsRenderNotificationsContainer: this.props });
         if (this.props._notificationsVisible) {
             return (
                 React.createElement(NotificationsContainer, props)

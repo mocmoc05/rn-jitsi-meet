@@ -17,7 +17,7 @@ import { LiveStreamButton, RecordButton } from '../../../recording';
 import { RoomLockButton } from '../../../room-lock';
 import { ClosedCaptionButton } from '../../../subtitles';
 import { TileViewButton } from '../../../video-layout';
-import { VideoShareButton } from '../../../youtube-player';
+import { VideoShareButton } from '../../../youtube-player/components';
 import HelpButton from '../HelpButton';
 
 import AudioOnlyButton from './AudioOnlyButton';
@@ -130,21 +130,21 @@ class OverflowMenu extends PureComponent<Props, State> {
                 onSwipe = { this._onSwipe }
                 renderHeader = { this._renderMenuExpandToggle }>
                 {/* <AudioRouteButton { ...buttonProps } /> */}
-                {/* <InviteButton { ...buttonProps } /> */}
+                {/*<InviteButton { ...buttonProps } />*/}
                 {/* <AudioOnlyButton { ...buttonProps } /> */}
                 <KickUserButton { ...buttonProps } />
                 <SwitchModButton { ...buttonProps }/>
-                {/* <LobbyModeButton { ...buttonProps } /> */}
+                {/* <LobbyModeButton { ...butctonProps } /> */}
                 {/* <MoreOptionsButton { ...moreOptionsButtonProps } /> */}
                 <Collapsible collapsed = { !showMore }>
                     <ToggleCameraButton { ...buttonProps } />
                     <TileViewButton { ...buttonProps } />
                     <RecordButton { ...buttonProps } />
-                    {/* <LiveStreamButton { ...buttonProps } /> */}
-                    {/* <VideoShareButton { ...buttonProps } /> */}
-                    {/* <RoomLockButton { ...buttonProps } /> */}
+                    {/*<LiveStreamButton { ...buttonProps } />*/}
+                    {/*<VideoShareButton { ...buttonProps } />*/}
+                    {/*<RoomLockButton { ...buttonProps } />*/}
                     <ClosedCaptionButton { ...buttonProps } />
-                    {/* <SharedDocumentButton { ...buttonProps } /> */}
+                    {/*<SharedDocumentButton { ...buttonProps } />*/}
                     <HelpButton { ...buttonProps } />
                 </Collapsible>
             </BottomSheet>
@@ -165,7 +165,7 @@ class OverflowMenu extends PureComponent<Props, State> {
                     this.props._bottomSheetStyles.sheet,
                     styles.expandMenuContainer
                 ] }>
-                <TouchableOpacity onPress = { this._onToggleMenu } >
+                <TouchableOpacity onPress = { this._onToggleMenu }>
                     { /* $FlowFixMeProps */ }
                     <IconDragHandle style = { this.props._bottomSheetStyles.expandIcon } />
                 </TouchableOpacity>

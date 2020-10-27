@@ -42,7 +42,7 @@ class DisplayNameLabel extends Component<Props> {
      */
     render() {
         // if (!this.props._render) {
-        //     return 'null';
+        //     return null;
         // }
 
         return (

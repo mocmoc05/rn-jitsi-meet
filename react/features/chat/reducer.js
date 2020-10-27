@@ -23,7 +23,7 @@ const DEFAULT_STATE = {
 
 ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
     switch (action.type) {
-        case 'JOINED':
+    case 'JOINED':
         return {...state, idx: -1, joined: true, ts_joined: Date.now()};
     case ADD_MESSAGE: {
         const newMessage = {
@@ -85,8 +85,6 @@ ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
             isOpen: Boolean(action.participant) || state.isOpen,
             privateMessageRecipient: action.participant
         };
-
-
     case 'HANGUP':
         return {
             ...state,
@@ -95,7 +93,6 @@ ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
             lastReadMessage: undefined,
             joined: false
         };
-
     case TOGGLE_CHAT:
         return updateChatState(state);
     }

@@ -1,6 +1,6 @@
 // @flow
 
-import { IconVideo, IconCameraDisabled, IconVideoOff } from '../../icons';
+import { IconVideo, IconVideoOff } from '../../icons';
 
 import AbstractButton from './AbstractButton';
 import type { Props } from './AbstractButton';

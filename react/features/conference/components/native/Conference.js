@@ -25,7 +25,9 @@ import { LargeVideo } from '../../../large-video';
 import { KnockingParticipantList } from '../../../lobby';
 import { BackButtonRegistry } from '../../../mobile/back-button';
 import { Captions } from '../../../subtitles';
-import { isToolboxVisible, setToolboxVisible, Toolbox } from '../../../toolbox';
+import { setToolboxVisible } from '../../../toolbox/actions';
+import { Toolbox } from '../../../toolbox/components/native';
+import { isToolboxVisible } from '../../../toolbox/functions';
 import {
     AbstractConference,
     abstractMapStateToProps
@@ -36,6 +38,7 @@ import Labels from './Labels';
 import LonelyMeetingExperience from './LonelyMeetingExperience';
 import NavigationBar from './NavigationBar';
 import styles, { NAVBAR_GRADIENT_COLORS } from './styles';
+
 
 /**
  * The type of the React {@code Component} props of {@link Conference}.
@@ -330,11 +333,7 @@ class Conference extends AbstractConference<Props, *> {
 
                 { this._renderConferenceNotification() }
 
-                {
-
-                    /* modal chat in conference*/
-                    this._renderConferenceModals()
-                }
+                { this._renderConferenceModals() }
             </>
         );
     }
@@ -418,7 +417,7 @@ class Conference extends AbstractConference<Props, *> {
  * @returns {Props}
  */
 function _mapStateToProps(state) {
-    const { connecting, connection, locationURL } = state['features/base/connection'];
+    const { connecting, connection } = state['features/base/connection'];
     const {
         conference,
         joining,
@@ -439,7 +438,6 @@ function _mapStateToProps(state) {
     const connecting_
         = connecting || (connection && (!membersOnly && (joining || (!conference && !leaving))));
 
-    // console.info({ locationURL: locationURL._url });
     return {
         ...abstractMapStateToProps(state),
         _aspectRatio: aspectRatio,
