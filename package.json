@@ -150,6 +150,7 @@
     "postinstall": "jetify",
     "validate": "npm ls",
     "ios": "react-native run-ios",
+      "start": "react-native start",
     "android": "react-native run-android"
   },
   "browser": {
