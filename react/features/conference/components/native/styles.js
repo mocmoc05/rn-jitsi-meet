@@ -151,6 +151,7 @@ export default {
         left: 0,
         paddingHorizontal: 48,
         position: 'absolute',
+        width: 300
         // right: 0
     },
 

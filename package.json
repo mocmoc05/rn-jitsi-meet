@@ -149,7 +149,8 @@
     "lint": "eslint . && flow",
     "postinstall": "jetify",
     "validate": "npm ls",
-    "ios": "react-native run-ios"
+    "ios": "react-native run-ios",
+    "android": "react-native run-android"
   },
   "browser": {
     "jQuery-Impromptu": "jQuery-Impromptu/src/jquery-impromptu.js"
