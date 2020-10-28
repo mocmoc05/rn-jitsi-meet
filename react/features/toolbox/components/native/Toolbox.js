@@ -107,52 +107,52 @@ class Toolbox extends PureComponent<Props> {
         const { buttonStyles, buttonStylesBorderless, hangupButtonStyles, toggledButtonStyles, smallButtonStyles } = _styles;
 
         return (
-            <>
-                <View accessibilityRole = 'toolbar'
-                      pointerEvents = 'box-none'
-                      style = { [styles.toolbar, { marginBottom: 10 } ] }>
-                    <RaiseHandButton
-                        styles = { smallButtonStyles }
-                    />
-                    <VoteButton
-                        styles = { smallButtonStyles }
-                    />
-                    <ShareScreenButton
-                        styles = { smallButtonStyles }
-                    />
-                    <RecordButton
-                        styles = { smallButtonStyles }/>
-                    <ReportStatButton
-                        styles = { smallButtonStyles }
-                    />
-                </View>
+            // <>
+            //     <View accessibilityRole = 'toolbar'
+            //           pointerEvents = 'box-none'
+            //           style = { [styles.toolbar, { marginBottom: 10 } ] }>
+            //         <RaiseHandButton
+            //             styles = { smallButtonStyles }
+            //         />
+            //         <VoteButton
+            //             styles = { smallButtonStyles }
+            //         />
+            //         <ShareScreenButton
+            //             styles = { smallButtonStyles }
+            //         />
+            //         <RecordButton
+            //             styles = { smallButtonStyles }/>
+            //         <ReportStatButton
+            //             styles = { smallButtonStyles }
+            //         />
+            //     </View>
                 <View
                     accessibilityRole = 'toolbar'
                     pointerEvents = 'box-none'
                     style = { styles.toolbar }>
-                    {/* <ChatButton
+                    <ChatButton
                         styles = { buttonStylesBorderless }
                         toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) }>
                         <ChatAppCounter _count = { _unreadMessageCount } />
-                    </ChatButton> */}
+                    </ChatButton>
                     <AudioMuteButton
-                        styles = { buttonStyles }
-                        toggledStyles = { toggledButtonStyles } />
-                    <VideoMuteButton
                         styles = { buttonStyles }
                         toggledStyles = { toggledButtonStyles } />
                     <HangupButton
                         styles = { hangupButtonStyles } />
+                    <VideoMuteButton
+                        styles = { buttonStyles }
+                        toggledStyles = { toggledButtonStyles } />
                     {/* <VoteButton
                             styles = { buttonStyles }
                             toggledStyles = { toggledButtonStyles } /> */}
-                    <View style={{position: 'absolute', right: 0}}>
+                    {/*<View style={{position: 'absolute', right: 0}}>*/}
                         <OverflowMenuButton
                             styles = { buttonStylesBorderless }
                             toggledStyles = { toggledButtonStyles } />
-                    </View>
+                    {/*</View>*/}
                 </View>
-            </>
+            // </>
         );
     }
 }

@@ -2,7 +2,7 @@
 
 import { openDialog } from '../../../base/dialog';
 import { translate } from '../../../base/i18n';
-import { IconMenuHonrizontal } from '../../../base/icons';
+import { IconMenuHonrizontal, IconMenuThumb } from '../../../base/icons';
 import { connect } from '../../../base/redux';
 import { AbstractButton, type AbstractButtonProps } from '../../../base/toolbox/components';
 
@@ -24,7 +24,7 @@ type Props = AbstractButtonProps & {
  */
 class OverflowMenuButton extends AbstractButton<Props, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.moreActions';
-    icon = IconMenuHonrizontal;
+    icon = IconMenuThumb;
     label = 'toolbar.moreActions';
 
     /**

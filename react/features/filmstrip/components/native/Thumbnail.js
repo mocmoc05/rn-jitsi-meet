@@ -174,7 +174,7 @@ function Thumbnail(props: Props) {
                     styles.thumbnailTopLeftIndicatorContainer
                 ] }>
                 <RaisedHandIndicator participantId = { participant.id } />
-                <VotedIndicator participantId = { participant.id } />
+                {/*<VotedIndicator participantId = { participant.id } />*/}
                 { renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }
             </View> }
 

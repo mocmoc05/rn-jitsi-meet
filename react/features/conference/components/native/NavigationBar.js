@@ -68,30 +68,30 @@ class NavigationBar extends Component<Props> {
                 key = { 2 }
                 pointerEvents = 'box-none'
                 style = { styles.navBarWrapper }>
-                <PictureInPictureButton
-                    styles = { styles.navBarButton }
-                    { ...this.props } />
-                <View
-                    style = {{ alignSelf: 'flex-start',
-                        paddingTop: 3 }}>
-                    <ChatButton
-                        styles = {{ iconStyle: { color: 'transparent',
-                            fontSize: 24 } }}>
+                {/*<View*/}
+                {/*    style = {{ alignSelf: 'flex-start',*/}
+                {/*        paddingTop: 3 }}>*/}
+                {/*    <ChatButton*/}
+                {/*        styles = {{ iconStyle: { color: 'transparent',*/}
+                {/*            fontSize: 24 } }}>*/}
                         {/* <ChatAppCounter _count = { _unreadMessageCount } /> */}
-                    </ChatButton>
-                </View>
-                <View
-                    style = {{ display: 'flex',
-                        flexDirection: 'row',
-                        paddingHorizontal: 10 }}>
-                    <VolumeNew
-                        styles
-                            = {{ iconStyle: { color: 'transparent',
-                                fontSize: 24,
-                                marginRight: 5 } }} />
-                    <FlipButton
-                        styles = {{ iconStyle: { fontSize: 24 } }} />
-                </View>
+                    {/*</ChatButton>*/}
+                    <PictureInPictureButton
+                        styles = { styles.navBarButton }
+                        { ...this.props } />
+                {/*</View>*/}
+                {/*<View*/}
+                {/*    style = {{ display: 'flex',*/}
+                {/*        flexDirection: 'row',*/}
+                {/*        paddingHorizontal: 10 }}>*/}
+                {/*    <VolumeNew*/}
+                {/*        styles*/}
+                {/*            = {{ iconStyle: { color: 'transparent',*/}
+                {/*                fontSize: 24,*/}
+                {/*                marginRight: 5 } }} />*/}
+                {/*    <FlipButton*/}
+                {/*        styles = {{ iconStyle: { fontSize: 24 } }} />*/}
+                {/*</View>*/}
                 <View
                     pointerEvents = 'box-none'
                     style = { styles.roomNameWrapper }>

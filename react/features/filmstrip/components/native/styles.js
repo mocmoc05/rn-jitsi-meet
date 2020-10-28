@@ -33,10 +33,10 @@ export default {
         flexDirection: 'row',
         flexGrow: 0,
         justifyContent: 'flex-end',
-        height: FILMSTRIP_SIZE,
-        position: 'absolute',
-        top: 70,
-        right: 20
+        height: FILMSTRIP_SIZE
+        // position: 'absolute',
+        // top: 70,
+        // right: 20
     },
 
     /**
@@ -59,15 +59,15 @@ export default {
      * Container of the {@link LocalThumbnail}.
      */
     localThumbnail: {
-        // alignContent: 'stretch',
-        // alignSelf: 'stretch',
-        // aspectRatio: 1,
-        // flexShrink: 0,
+        alignContent: 'stretch',
+        alignSelf: 'stretch',
+        aspectRatio: 1,
+        flexShrink: 0,
         flexDirection: 'row',
-        width: 100,
-        position: 'absolute',
-        height: 300,
-        top: 0
+        // width: 100,
+        // position: 'absolute',
+        // height: 300,
+        // top: 0
     },
 
     moderatorIndicatorContainer: {
@@ -95,12 +95,14 @@ export default {
         borderStyle: 'solid',
         borderWidth: 1,
         flex: 1,
-        height: 180,
+        height: 80,
+        // height: 180,
         justifyContent: 'center',
         margin: 2,
         overflow: 'hidden',
         position: 'relative',
-        width: 105
+        width: 80
+        // width: 105
     },
 
     /**
