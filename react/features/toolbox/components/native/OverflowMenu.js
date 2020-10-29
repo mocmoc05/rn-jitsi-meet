@@ -132,7 +132,7 @@ class OverflowMenu extends PureComponent<Props, State> {
                  <AudioRouteButton { ...buttonProps } />
                 {/*<InviteButton { ...buttonProps } />*/}
                  <AudioOnlyButton { ...buttonProps } />
-                 <RaiseHandButton { ...buttonProps } />
+                 {/*<RaiseHandButton { ...buttonProps } />*/}
                 {/*<KickUserButton { ...buttonProps } />*/}
                 {/*<SwitchModButton { ...buttonProps }/>*/}
                  <LobbyModeButton { ...buttonProps } />
@@ -144,7 +144,7 @@ class OverflowMenu extends PureComponent<Props, State> {
                     {/*<LiveStreamButton { ...buttonProps } />*/}
                     {/*<VideoShareButton { ...buttonProps } />*/}
                     {/*<RoomLockButton { ...buttonProps } />*/}
-                    <ClosedCaptionButton { ...buttonProps } />
+                    {/*<ClosedCaptionButton { ...buttonProps } />*/}
                     {/*<SharedDocumentButton { ...buttonProps } />*/}
                     <HelpButton { ...buttonProps } />
                 </Collapsible>
