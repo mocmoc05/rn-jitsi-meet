@@ -6,7 +6,7 @@ import { ColorSchemeRegistry, schemeColor } from '../../../color-scheme';
 import { BoxModel, ColorPalette } from '../../../styles';
 import { PREFERRED_DIALOG_SIZE } from '../../constants';
 
-const BORDER_RADIUS = 5;
+const BORDER_RADIUS = 16;
 
 export const FIELD_UNDERLINE = ColorPalette.transparent;
 
@@ -18,6 +18,7 @@ export const FIELD_UNDERLINE = ColorPalette.transparent;
 export const MD_FONT_SIZE = 16;
 export const MD_ITEM_HEIGHT = 48;
 export const MD_ITEM_MARGIN_PADDING = 16;
+export const SM_FONT_SIZE = 14;
 
 export const PLACEHOLDER_COLOR = ColorPalette.lightGrey;
 
@@ -141,8 +142,8 @@ ColorSchemeRegistry.register('BottomSheet', {
          * Style for the {@code Icon} element in a generic item of the menu.
          */
         iconStyle: {
-            color: schemeColor('icon'),
-            // color: 'transparent',
+            // color: schemeColor('icon'),
+            color: 'transparent',
             fontSize: 24
         },
 
@@ -172,6 +173,39 @@ ColorSchemeRegistry.register('BottomSheet', {
         underlayColor: ColorPalette.overflowMenuItemUnderlay
     },
 
+    buttonsLeft: {
+        iconStyle: {
+            // color: schemeColor('icon'),
+            color: 'transparent',
+            fontSize: 22
+        },
+
+        /**
+         * Style for the label in a generic item rendered in the menu.
+         */
+        labelStyle: {
+            color: '#fff',
+            flexShrink: 1,
+            fontSize: SM_FONT_SIZE,
+            marginLeft: 16,
+            opacity: 0.90
+        },
+
+        /**
+         * Container style for a generic item rendered in the menu.
+         */
+        style: {
+            paddingHorizontal: 10,
+            alignItems: 'center',
+            flexDirection: 'row',
+            height: MD_ITEM_HEIGHT
+        },
+
+        /**
+         * Additional style that is not directly used as a style object.
+         */
+        underlayColor: ColorPalette.overflowMenuItemUnderlay
+    },
     expandIcon: {
         color: schemeColor('icon'),
         fontSize: 48,
@@ -197,6 +231,13 @@ ColorSchemeRegistry.register('Dialog', {
         padding: BoxModel.padding * 1.5
     },
 
+    buttonCustom: {
+        backgroundColor: '#fff',
+        flex: 1,
+        padding: BoxModel.padding,
+        paddingBottom: 25
+    },
+
     /**
      * Separator line for the buttons in a dialog.
      */
@@ -211,6 +252,19 @@ ColorSchemeRegistry.register('Dialog', {
         textAlign: 'center'
     },
 
+    buttonLabelCustomRight: {
+        color: '#2D84AC',
+        fontSize: SM_FONT_SIZE,
+        textAlign: 'center',
+        fontWeight: '700'
+    },
+
+    buttonLabelCustomLeft: {
+        color: '#2D84AC',
+        fontSize: SM_FONT_SIZE,
+        textAlign: 'left',
+        fontWeight: '700'
+    },
     /**
      * Style of the close icon on a dialog.
      */
@@ -254,7 +308,7 @@ ColorSchemeRegistry.register('Dialog', {
     },
 
     text: {
-        ...brandedDialogText
+        ...brandedDialogText,
     },
 
     topBorderContainer: {

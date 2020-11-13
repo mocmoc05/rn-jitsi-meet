@@ -58,6 +58,15 @@ class LonelyMeetingExperience extends PureComponent<Props> {
         super(props);
 
         this._onPress = this._onPress.bind(this);
+        this.state = {
+            display: false
+        };
+    }
+    // eslint-disable-next-line require-jsdoc
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({ display: true });
+        }, 4500);
     }
 
     /**
@@ -68,7 +77,7 @@ class LonelyMeetingExperience extends PureComponent<Props> {
     render() {
         const { _isInviteFunctionsDiabled, _isLonelyMeeting, _styles, t } = this.props;
 
-        if (!_isLonelyMeeting) {
+        if (!_isLonelyMeeting || !this.state.display) {
             return null;
         }
 
@@ -82,25 +91,25 @@ class LonelyMeetingExperience extends PureComponent<Props> {
                     { t('lonelyMeetingExperience.youAreAlone') }
                 </Text>
                 {/* { !_isInviteFunctionsDiabled && (
-                    <TouchableOpacity
-                        onPress = { this._onPress }
+                <TouchableOpacity
+                    onPress = { this._onPress }
+                    style = { [
+                        styles.lonelyButton,
+                        _styles.lonelyButton
+                    ] }>
+                    <Icon
+                        size = { 24 }
+                        src = { IconAddPeople }
+                        style = { styles.lonelyButtonComponents } />
+                    <Text
                         style = { [
-                            styles.lonelyButton,
-                            _styles.lonelyButton
+                            styles.lonelyButtonComponents,
+                            _styles.lonelyMessage
                         ] }>
-                        <Icon
-                            size = { 24 }
-                            src = { IconAddPeople }
-                            style = { styles.lonelyButtonComponents } />
-                        <Text
-                            style = { [
-                                styles.lonelyButtonComponents,
-                                _styles.lonelyMessage
-                            ] }>
-                            { t('lonelyMeetingExperience.button') }
-                        </Text>
-                    </TouchableOpacity>
-                ) } */}
+                        { t('lonelyMeetingExperience.button') }
+                    </Text>
+                </TouchableOpacity>
+            ) } */}
             </View>
         );
     }

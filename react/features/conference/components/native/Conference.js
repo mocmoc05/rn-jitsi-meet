@@ -1,7 +1,13 @@
 // @flow
 
 import React from 'react';
-import { NativeModules, SafeAreaView, StatusBar } from 'react-native';
+import {
+    NativeModules,
+    SafeAreaView,
+    StatusBar,
+    Text,
+    View
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import { appNavigate } from '../../../app/actions';
@@ -278,21 +284,21 @@ class Conference extends AbstractConference<Props, *> {
                     pointerEvents = 'box-none'
                     style = { styles.toolboxAndFilmstripContainer }>
 
-                    { showGradient && <LinearGradient
-                        colors = { NAVBAR_GRADIENT_COLORS }
-                        end = {{
-                            x: 0.0,
-                            y: 0.0
-                        }}
-                        pointerEvents = 'none'
-                        start = {{
-                            x: 0.0,
-                            y: 1.0
-                        }}
-                        style = { [
-                            styles.bottomGradient,
-                            applyGradientStretching ? styles.gradientStretchBottom : undefined
-                        ] } />}
+                    {/*{ showGradient && <LinearGradient*/}
+                    {/*    colors = { NAVBAR_GRADIENT_COLORS }*/}
+                    {/*    end = {{*/}
+                    {/*        x: 0.0,*/}
+                    {/*        y: 0.0*/}
+                    {/*    }}*/}
+                    {/*    pointerEvents = 'none'*/}
+                    {/*    start = {{*/}
+                    {/*        x: 0.0,*/}
+                    {/*        y: 1.0*/}
+                    {/*    }}*/}
+                    {/*    style = { [*/}
+                    {/*        styles.bottomGradient,*/}
+                    {/*        applyGradientStretching ? styles.gradientStretchBottom : undefined*/}
+                    {/*    ] } />}*/}
 
                     {/* <Labels /> */}
 

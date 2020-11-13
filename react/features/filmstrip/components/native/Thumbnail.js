@@ -149,7 +149,6 @@ function Thumbnail(props: Props) {
                 props.styleOverrides || null
             ] }
             touchFeedback = { false }>
-
             <ParticipantView
                 avatarSize = { tileView ? AVATAR_SIZE * 1.5 : AVATAR_SIZE }
                 disableVideo = { isScreenShare || participant.isFakeParticipant }
@@ -174,7 +173,7 @@ function Thumbnail(props: Props) {
                     styles.thumbnailTopLeftIndicatorContainer
                 ] }>
                 <RaisedHandIndicator participantId = { participant.id } />
-                {/*<VotedIndicator participantId = { participant.id } />*/}
+                <VotedIndicator participantId = { participant.id } />
                 { renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }
             </View> }
 

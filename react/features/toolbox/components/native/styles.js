@@ -30,7 +30,7 @@ const toolbarButton = {
  */
 const toolbarButtonIcon = {
     alignSelf: 'center',
-    color: ColorPalette.darkGrey,
+    // color: ColorPalette.darkGrey,
     fontSize: 22
 };
 
@@ -39,7 +39,7 @@ const toolbarButtonIcon = {
  */
 const whiteToolbarButton = {
     ...toolbarButton,
-    backgroundColor: schemeColor('buttonToggled')
+    // backgroundColor: schemeColor('buttonToggled')
 };
 
 /**
@@ -64,8 +64,8 @@ const styles = {
         borderTopLeftRadius: 16,
         borderTopRightRadius: 16,
         flexDirection: 'column',
-        // paddingTop: 10,
-        // height: 30
+        paddingTop: 10,
+        height: 30
     },
 
     sheetGestureRecognizer: {
@@ -91,6 +91,12 @@ const styles = {
     toolbox: {
         flexDirection: 'column',
         flexGrow: 0
+    },
+    leftMenuItem: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 5
     }
 };
 
@@ -106,32 +112,33 @@ ColorSchemeRegistry.register('Toolbox', {
     buttonStyles: {
         iconStyle: toolbarButtonIcon,
         style: toolbarButton,
-        // underlayColor: 'white'
+        underlayColor: 'white'
     },
 
-    // smallButtonStyles: {
-    //     iconStyle: {
-    //         alignSelf: 'center',
-    //         // color: ColorPalette.darkGrey,
-    //         fontSize: 22
-    //     },
-    //     style: {
-    //         backgroundColor: 'rgba(255, 255, 255, 0.4)',
-    //         opacity: 40,
-    //         borderRadius: BUTTON_SIZE / 2,
-    //         borderWidth: 0,
-    //         flex: 0,
-    //         flexDirection: 'row',
-    //         height: BUTTON_SIZE/1.5,
-    //         justifyContent: 'center',
+    smallButtonStyles: {
+        iconStyle: {
+            alignSelf: 'center',
+            // color: ColorPalette.darkGrey,
+            color: 'transparent',
+            fontSize: 22
+        },
+        style: {
+            backgroundColor: 'transparent',
+            opacity: 40,
+            borderRadius: BUTTON_SIZE / 2,
+            borderWidth: 0,
+            flex: 0,
+            flexDirection: 'row',
+            height: BUTTON_SIZE/1.5,
+            justifyContent: 'center',
     //
     //         // XXX We probably tested BoxModel.margin and discovered it to be too small
     //         // for our taste.
-    //         marginHorizontal: 7,
-    //         width: BUTTON_SIZE/1.5
-    //     },
-    //     underlayColor: 'rgba(255, 255, 255, 0.4)'
-    // },
+            marginHorizontal: 7,
+            width: BUTTON_SIZE/1.5
+        },
+        underlayColor: 'rgba(255, 255, 255, 0.4)'
+    },
 
     buttonStylesBorderless: {
         iconStyle: whiteToolbarButtonIcon,
@@ -152,8 +159,8 @@ ColorSchemeRegistry.register('Toolbox', {
     },
 
     hangupButtonStyles: {
-        // iconStyle: whiteHangUpToolbarButtonIcon,
-        iconStyle: whiteToolbarButtonIcon,
+        iconStyle: whiteHangUpToolbarButtonIcon,
+        // iconStyle: whiteToolbarButtonIcon,
         style: {
             ...toolbarButton,
             backgroundColor: schemeColor('hangup')
@@ -171,6 +178,13 @@ ColorSchemeRegistry.register('Toolbox', {
             borderColor: schemeColor('buttonToggledBorder'),
             borderWidth: 1
         },
-        // underlayColor: 'white'
+        underlayColor: 'white'
+    },
+    toogleMenuButtonStyles: {
+        iconStyle: whiteToolbarButtonIcon,
+        style: {
+            ...toolbarButton,
+            backgroundColor: 'transparent'
+        }
     }
 });

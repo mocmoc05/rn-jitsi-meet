@@ -7,8 +7,12 @@ import { StyleType } from '../../../styles';
 
 import BaseDialog, { type Props as BaseProps } from './BaseDialog';
 import {
+    brandedDialog as styles,
     brandedDialog
 } from './styles';
+import { Icon } from '../../../icons/components';
+import { IconClose } from '../../../icons/svg';
+import { CustomSubmitDialog } from './index';
 
 type Props = BaseProps & {
 
@@ -63,16 +67,29 @@ class BaseSubmitDialog<P: Props, S: *> extends BaseDialog<P, S> {
                 <View style = { brandedDialog.buttonWrapper }>
                     { additionalButtons }
                     <TouchableOpacity
+                        onPress = { this._onCancel }
+                        style = { [
+                            _dialogStyles.buttonCustom,
+                            brandedDialog.buttonFarLeft
+                        ] }
+                    >
+                        <Text style = { _dialogStyles.buttonLabelCustomRight }>
+                            Cancel
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
                         disabled = { this.props.okDisabled }
                         onPress = { this._onSubmit }
                         style = { [
-                            _dialogStyles.button,
+                            _dialogStyles.buttonCustom,
                             additionalButtons
                                 ? null : brandedDialog.buttonFarLeft,
                             brandedDialog.buttonFarRight
                         ] }>
-                        <Text style = { _dialogStyles.buttonLabel }>
-                            { t(this._getSubmitButtonKey()) }
+
+                        <Text style = { _dialogStyles.buttonLabelCustomLeft }>
+                            {/*{ t(this._getSubmitButtonKey()) }*/}
+                            Start recording
                         </Text>
                     </TouchableOpacity>
                 </View>

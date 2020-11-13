@@ -44,8 +44,8 @@ type Props = AbstractButtonProps & {
 class VoteButton extends AbstractButton<Props, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.raiseHand';
     icon = IconShareScreen;
-    label = 'toolbar.raiseYourHand';
-    toggledLabel = 'toolbar.lowerYourHand';
+    label = 'toolbar.shareScreen';
+    toggledLabel = 'toolbar.sharedvideo';
 
     /**
      * Handles clicking / pressing the button.

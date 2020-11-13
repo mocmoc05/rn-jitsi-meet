@@ -24,7 +24,7 @@ type Props = AbstractButtonProps & {
  */
 class OverflowMenuButton extends AbstractButton<Props, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.moreActions';
-    icon = IconMenuThumb;
+    icon = IconMenuHonrizontal;
     label = 'toolbar.moreActions';
 
     /**

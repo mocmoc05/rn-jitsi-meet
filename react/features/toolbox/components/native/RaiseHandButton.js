@@ -15,6 +15,7 @@ import {
 } from '../../../base/participants';
 import { connect } from '../../../base/redux';
 import { AbstractButton, type AbstractButtonProps } from '../../../base/toolbox/components';
+import { Text, View } from 'react-native';
 
 /**
  * The type of the React {@code Component} props of {@link RaiseHandButton}.

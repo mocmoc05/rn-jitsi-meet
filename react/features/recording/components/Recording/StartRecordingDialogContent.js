@@ -27,6 +27,7 @@ import { RECORDING_TYPES } from '../../constants';
 import { getRecordingDurationEstimation } from '../../functions';
 
 import { DROPBOX_LOGO, ICON_SHARE, JITSI_LOGO } from './styles';
+import { View } from 'react-native';
 
 
 type Props = {
@@ -253,17 +254,18 @@ class StartRecordingDialogContent extends Component<Props> {
                 className = 'recording-header'
                 key = 'noIntegrationSetting'
                 style = { styles.header }>
-                <Container className = 'recording-icon-container'>
-                    <Image
-                        className = 'recording-icon'
-                        src = { icon }
-                        style = { styles.recordingIcon } />
-                </Container>
+                {/*<Container className = 'recording-icon-container'>*/}
+                {/*    <Image*/}
+                {/*        className = 'recording-icon'*/}
+                {/*        src = { icon }*/}
+                {/*        style = { styles.recordingIcon } />*/}
+                {/*</Container>*/}
                 <Text
                     className = 'recording-title'
                     style = {{
                         ..._dialogStyles.text,
-                        ...styles.title
+                        ...styles.title,
+                        fontWeight: '400'
                     }}>
                     { t('recording.serviceDescription') }
                 </Text>

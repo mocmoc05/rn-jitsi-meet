@@ -1,7 +1,8 @@
 // @flow
-
+import { Dimensions } from 'react-native';
 import { BoxModel, ColorPalette } from '../../../base/styles';
 
+const windowWidth = Dimensions.get('window').width;
 /**
  * The styles of the React {@code Components} of the feature notifications.
  */
@@ -38,7 +39,14 @@ export default {
      * Outermost view of a single notification.
      */
     notification: {
-        backgroundColor: '#768898',
+        // backgroundColor: '#768898',
+        width: windowWidth - 70,
+        position: 'absolute',
+        top: 30,
+        borderRadius: 8,
+        alignSelf: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(45, 132, 172, 0.6)',
         flexDirection: 'row',
         minHeight: 48,
         marginTop: 0.5 * BoxModel.margin

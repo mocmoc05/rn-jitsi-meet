@@ -1,7 +1,8 @@
+import { Dimensions } from 'react-native';
+
 import { ColorSchemeRegistry, schemeColor } from '../../../base/color-scheme';
 import { BoxModel, ColorPalette, fixAndroidViewClipping } from '../../../base/styles';
 import { FILMSTRIP_SIZE } from '../../../filmstrip';
-
 export const NAVBAR_GRADIENT_COLORS = [ '#000000FF', '#00000000' ];
 export const INSECURE_ROOM_NAME_LABEL_COLOR = ColorPalette.warning;
 
@@ -9,6 +10,8 @@ export const INSECURE_ROOM_NAME_LABEL_COLOR = ColorPalette.warning;
 const BOTTOM_GRADIENT_HEIGHT = 290;
 const DEFAULT_GRADIENT_SIZE = 140;
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 /**
  * The styles of the feature conference.
  */
@@ -91,13 +94,19 @@ export default {
     },
 
     lonelyMeetingContainer: {
-        alignSelf: 'stretch',
+        width: windowWidth - 70,
+        height: 60,
+        position: 'absolute',
+        top: 100,
+        borderRadius: 8,
+        backgroundColor: 'rgba(45, 132, 172, 0.6)',
+        alignSelf: 'center',
         alignItems: 'center',
         padding: BoxModel.padding * 2
     },
 
     lonelyMessage: {
-        paddingVertical: 12
+        // paddingVertical: 12
     },
 
     navBarButton: {
@@ -147,12 +156,12 @@ export default {
 
     roomNameWrapper: {
         flexDirection: 'column',
-        alignItems: 'center',
+        // alignItems: 'center',
         left: 0,
         paddingHorizontal: 48,
         position: 'absolute',
-        // width: 300,
-        right: 0
+        width: 300,
+        // right: 0
     },
 
     /**

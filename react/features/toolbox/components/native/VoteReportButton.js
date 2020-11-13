@@ -8,7 +8,7 @@ import {
 } from '../../../analytics';
 import { VOTE_BUTTON_ENABLED , getFeatureFlag } from '../../../base/flags';
 import { translate } from '../../../base/i18n';
-import { IconVote, IconVoteOff } from '../../../base/icons';
+import { IconReportStat, IconReportVote } from '../../../base/icons';
 import {
     getLocalParticipant,
     participantUpdated
@@ -43,10 +43,9 @@ type Props = AbstractButtonProps & {
  */
 class VoteButton extends AbstractButton<Props, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.raiseHand';
-    icon = IconVote;
-    toggledIcon = IconVoteOff;
-    label = 'toolbar.vote';
-    toggledLabel = 'toolbar.vote';
+    icon = IconReportVote;
+    label = 'toolbar.voteReport';
+    toggledLabel = 'toolbar.voteReport';
 
     /**
      * Handles clicking / pressing the button.

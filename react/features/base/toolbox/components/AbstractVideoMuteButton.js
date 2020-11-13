@@ -16,8 +16,8 @@ import type { Props } from './AbstractButton';
 export default class AbstractVideoMuteButton<P : Props, S : *>
     extends AbstractButton<P, S> {
 
-    icon = IconCamera;
-    toggledIcon = IconCameraDisabled;
+    icon = IconVideo;
+    toggledIcon = IconVideoOff;
 
     /**
      * Handles clicking / pressing the button, and toggles the video mute state

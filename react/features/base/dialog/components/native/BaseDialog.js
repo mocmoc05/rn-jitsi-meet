@@ -65,15 +65,16 @@ class BaseDialog<P: Props, S: State> extends AbstractDialog<P, S> {
                         style = { [
                             _dialogStyles.dialog,
                             style,
-                            { marginBottom: Platform.OS === 'android' ? 100 : 0 }
+                            { marginBottom: Platform.OS === 'android' ? 100 : 0,
+                                borderRadius: 16 }
                         ] }>
-                        <TouchableOpacity
-                            onPress = { this._onCancel }
-                            style = { styles.closeWrapper }>
-                            <Icon
-                                src = { IconClose }
-                                style = { _dialogStyles.closeStyle } />
-                        </TouchableOpacity>
+                        {/*<TouchableOpacity*/}
+                        {/*    onPress = { this._onCancel }*/}
+                        {/*    style = { styles.closeWrapper }>*/}
+                        {/*    <Icon*/}
+                        {/*        src = { IconClose }*/}
+                        {/*        style = { _dialogStyles.closeStyle } />*/}
+                        {/*</TouchableOpacity>*/}
                         { this._renderContent() }
                     </View>
                 </KeyboardAvoidingView>

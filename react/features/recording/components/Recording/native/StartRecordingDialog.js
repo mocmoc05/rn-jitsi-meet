@@ -9,6 +9,7 @@ import AbstractStartRecordingDialog, {
     mapStateToProps
 } from '../AbstractStartRecordingDialog';
 import StartRecordingDialogContent from '../StartRecordingDialogContent';
+import { Text } from 'react-native';
 
 /**
  * React Component for getting confirmation to start a file recording session in
@@ -49,6 +50,7 @@ class StartRecordingDialog extends AbstractStartRecordingDialog {
             <CustomSubmitDialog
                 okDisabled = { isOkDisabled }
                 onSubmit = { this._onSubmit } >
+                <Text style={{ fontWeight: '700', marginLeft: 10, marginTop: 10 }}>Start recording</Text>
                 <StartRecordingDialogContent
                     fileRecordingsServiceEnabled = { _fileRecordingsServiceEnabled }
                     fileRecordingsServiceSharingEnabled = { _fileRecordingsServiceSharingEnabled }

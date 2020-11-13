@@ -22,6 +22,7 @@ import ShareScreenButton from './ShareScreenButton';
 import ReportStatButton from './ReportStatButton';
 import OverflowMenuButton from './OverflowMenuButton';
 import styles from './styles';
+import LeftMenuButton from './LeftMenuButton';
 
 /**
  * The type of {@link Toolbox}'s React {@code Component} props.
@@ -104,55 +105,60 @@ class Toolbox extends PureComponent<Props> {
      */
     _renderToolbar() {
         const { _styles, _unreadMessageCount } = this.props;
-        const { buttonStyles, buttonStylesBorderless, hangupButtonStyles, toggledButtonStyles, smallButtonStyles } = _styles;
+        const { buttonStyles, buttonStylesBorderless, hangupButtonStyles, toggledButtonStyles, toggledMenuButtonStyles } = _styles;
 
         return (
-            // <>
-            //     <View accessibilityRole = 'toolbar'
-            //           pointerEvents = 'box-none'
-            //           style = { [styles.toolbar, { marginBottom: 10 } ] }>
-            //         <RaiseHandButton
-            //             styles = { smallButtonStyles }
-            //         />
-            //         <VoteButton
-            //             styles = { smallButtonStyles }
-            //         />
-            //         <ShareScreenButton
-            //             styles = { smallButtonStyles }
-            //         />
-            //         <RecordButton
-            //             styles = { smallButtonStyles }/>
-            //         <ReportStatButton
-            //             styles = { smallButtonStyles }
-            //         />
-            //     </View>
+            <>
+                {/*<View accessibilityRole = 'toolbar'*/}
+                {/*      pointerEvents = 'box-none'*/}
+                {/*      style = { [styles.toolbar, { marginBottom: 10 } ] }>*/}
+                {/*    <RaiseHandButton*/}
+                {/*        styles = { smallButtonStyles }*/}
+                {/*    />*/}
+                {/*    <VoteButton*/}
+                {/*        styles = { smallButtonStyles }*/}
+                {/*    />*/}
+                {/*    <ShareScreenButton*/}
+                {/*        styles = { smallButtonStyles }*/}
+                {/*    />*/}
+                {/*    <RecordButton*/}
+                {/*        styles = { smallButtonStyles }/>*/}
+                {/*    <ReportStatButton*/}
+                {/*        styles = { smallButtonStyles }*/}
+                {/*    />*/}
+                {/*</View>*/}
                 <View
                     accessibilityRole = 'toolbar'
                     pointerEvents = 'box-none'
                     style = { styles.toolbar }>
-                    <ChatButton
-                        styles = { buttonStylesBorderless }
-                        toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) }>
-                        <ChatAppCounter _count = { _unreadMessageCount } />
-                    </ChatButton>
+                    <View style = {{ position: 'absolute', left: 0 }}>
+                        <LeftMenuButton
+                            styles = { buttonStylesBorderless }
+                            toggledStyles = { toggledMenuButtonStyles } />
+                    </View>
+                    {/*<ChatButton*/}
+                    {/*    styles = { buttonStylesBorderless }*/}
+                    {/*    toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) }>*/}
+                    {/*    <ChatAppCounter _count = { _unreadMessageCount } />*/}
+                    {/*</ChatButton>*/}
                     <AudioMuteButton
+                        styles = { buttonStyles }
+                        toggledStyles = { toggledButtonStyles } />
+                    <VideoMuteButton
                         styles = { buttonStyles }
                         toggledStyles = { toggledButtonStyles } />
                     <HangupButton
                         styles = { hangupButtonStyles } />
-                    <VideoMuteButton
-                        styles = { buttonStyles }
-                        toggledStyles = { toggledButtonStyles } />
                     {/* <VoteButton
                             styles = { buttonStyles }
                             toggledStyles = { toggledButtonStyles } /> */}
-                    {/*<View style={{position: 'absolute', right: 0}}>*/}
+                    <View style={{position: 'absolute', right: 0}}>
                         <OverflowMenuButton
                             styles = { buttonStylesBorderless }
                             toggledStyles = { toggledButtonStyles } />
-                    {/*</View>*/}
+                    </View>
                 </View>
-            // </>
+            </>
         );
     }
 }

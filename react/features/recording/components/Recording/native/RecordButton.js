@@ -23,8 +23,8 @@ export function mapStateToProps(state: Object, ownProps: Object) {
 
     return {
         ...abstractProps,
-        visible: enabled && iosEnabled && abstractProps.visible
-        // visible: true
+        // visible: enabled && iosEnabled && abstractProps.visible
+        visible: true
     };
 }
 

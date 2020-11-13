@@ -4,7 +4,7 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import { translate } from '../../../base/i18n';
-import { Icon, IconClose } from '../../../base/icons';
+import { Icon, IconClose, IconWarningNoti } from '../../../base/icons';
 import AbstractNotification, {
     type Props
 } from '../AbstractNotification';
@@ -37,6 +37,14 @@ class Notification extends AbstractNotification<Props> {
             <View
                 pointerEvents = 'box-none'
                 style = { styles.notification }>
+                {
+                    isDismissAllowed
+                    && <TouchableOpacity onPress = { this._onDismissed }>
+                        <Icon
+                            src = { IconWarningNoti }
+                            style = { styles.dismissIcon } />
+                    </TouchableOpacity>
+                }
                 <View style = { styles.contentColumn }>
                     <View
                         pointerEvents = 'box-none'
@@ -46,14 +54,6 @@ class Notification extends AbstractNotification<Props> {
                         }
                     </View>
                 </View>
-                {
-                    isDismissAllowed
-                    && <TouchableOpacity onPress = { this._onDismissed }>
-                        <Icon
-                            src = { IconClose }
-                            style = { styles.dismissIcon } />
-                    </TouchableOpacity>
-                }
             </View>
         );
     }
