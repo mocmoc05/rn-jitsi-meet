@@ -1,12 +1,15 @@
 // @flow
 
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 import { ColorSchemeRegistry, schemeColor } from '../../../color-scheme';
 import { BoxModel, ColorPalette } from '../../../styles';
 import { PREFERRED_DIALOG_SIZE } from '../../constants';
 
 const BORDER_RADIUS = 16;
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export const FIELD_UNDERLINE = ColorPalette.transparent;
 
@@ -45,6 +48,20 @@ export const bottomSheetStyles = {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-end'
+    },
+
+    audioRouteContainer: {
+        backgroundColor: '#fff',
+        position: 'absolute',
+        top: windowHeight / 4 * 1.5,
+        left: windowWidth / 6,
+        width: windowWidth / 3 * 2,
+        height: windowHeight / 4,
+        borderRadius: 16,
+        shadowOffset: { width: 5,
+            height: 5 },
+        shadowColor: 'black',
+        shadowOpacity: 0.1
     },
 
     sheetItemContainer: {
@@ -210,6 +227,7 @@ ColorSchemeRegistry.register('BottomSheet', {
         color: schemeColor('icon'),
         fontSize: 48,
         opacity: 0.8
+
         // opacity: 1
     },
 
@@ -265,6 +283,7 @@ ColorSchemeRegistry.register('Dialog', {
         textAlign: 'left',
         fontWeight: '700'
     },
+
     /**
      * Style of the close icon on a dialog.
      */
@@ -308,7 +327,7 @@ ColorSchemeRegistry.register('Dialog', {
     },
 
     text: {
-        ...brandedDialogText,
+        ...brandedDialogText
     },
 
     topBorderContainer: {

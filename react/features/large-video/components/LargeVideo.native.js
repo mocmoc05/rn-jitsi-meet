@@ -3,7 +3,7 @@
 import React, { PureComponent } from 'react';
 
 import { ColorSchemeRegistry } from '../../base/color-scheme';
-import { ParticipantView } from '../../base/participants';
+import { getLocalParticipant, ParticipantView } from '../../base/participants';
 import { connect } from '../../base/redux';
 import { StyleType } from '../../base/styles';
 
@@ -122,6 +122,7 @@ class LargeVideo extends PureComponent<Props, State> {
                 avatarSize = { avatarSize }
                 onPress = { onClick }
                 participantId = { _participantId }
+                // participantId = { this.props.localParticipant.id }
                 style = { _styles.largeVideo }
                 testHintId = 'org.jitsi.meet.LargeVideo'
                 useConnectivityInfoLabel = { useConnectivityInfoLabel }
@@ -140,12 +141,14 @@ class LargeVideo extends PureComponent<Props, State> {
  */
 function _mapStateToProps(state) {
     const { clientHeight: height, clientWidth: width } = state['features/base/responsive-ui'];
-
+    const localParticipant = getLocalParticipant(state);
+    const localParticipantId = state['features/large-video'].participantId
     return {
         _height: height,
         _participantId: state['features/large-video'].participantId,
         _styles: ColorSchemeRegistry.get(state, 'LargeVideo'),
-        _width: width
+        _width: width,
+        localParticipant
     };
 }
 

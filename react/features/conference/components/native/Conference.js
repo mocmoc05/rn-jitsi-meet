@@ -44,6 +44,7 @@ import Labels from './Labels';
 import LonelyMeetingExperience from './LonelyMeetingExperience';
 import NavigationBar from './NavigationBar';
 import styles, { NAVBAR_GRADIENT_COLORS } from './styles';
+import { getLocalParticipant } from '../../../base/participants';
 
 
 /**
@@ -261,7 +262,7 @@ class Conference extends AbstractConference<Props, *> {
                   */
                     _shouldDisplayTileView
                         ? <TileView onClick = { this._onClick } />
-                        : <LargeVideo onClick = { this._onClick } />
+                        : <LargeVideo onClick = { this._onClick } _participantId = { this.props._localParticipantId } />
                 }
 
                 {/*
@@ -302,10 +303,11 @@ class Conference extends AbstractConference<Props, *> {
 
                     {/* <Labels /> */}
 
-                    <Captions onPress = { this._onClick } />
+                    {/*<Captions onPress = { this._onClick } />*/}
 
                     { _shouldDisplayTileView || <Container style = { styles.displayNameContainer }>
                         <DisplayNameLabel participantId = { _largeVideoParticipantId } />
+                        {/*<DisplayNameLabel participantId = { this.props._localParticipantId } />*/}
                     </Container> }
 
                     <LonelyMeetingExperience />
@@ -313,8 +315,6 @@ class Conference extends AbstractConference<Props, *> {
                     {/*
                       * The Toolbox is in a stacking layer below the Filmstrip.
                       */}
-                    <Toolbox />
-
                     {/*
                       * The Filmstrip is in a stacking layer above the
                       * LargeVideo. The LargeVideo and the Filmstrip form what
@@ -325,6 +325,8 @@ class Conference extends AbstractConference<Props, *> {
                       */
                         _shouldDisplayTileView ? undefined : <Filmstrip />
                     }
+                    <Toolbox />
+
                 </SafeAreaView>
 
                 <SafeAreaView
@@ -443,7 +445,7 @@ function _mapStateToProps(state) {
     //   are leaving one.
     const connecting_
         = connecting || (connection && (!membersOnly && (joining || (!conference && !leaving))));
-
+    const localParticipant = getLocalParticipant(state);
     return {
         ...abstractMapStateToProps(state),
         _aspectRatio: aspectRatio,
@@ -453,7 +455,8 @@ function _mapStateToProps(state) {
         _largeVideoParticipantId: state['features/large-video'].participantId,
         _pictureInPictureEnabled: getFeatureFlag(state, PIP_ENABLED),
         _reducedUI: reducedUI,
-        _toolboxVisible: isToolboxVisible(state)
+        _toolboxVisible: isToolboxVisible(state),
+        _localParticipantId: localParticipant.id
     };
 }
 

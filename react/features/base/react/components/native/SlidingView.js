@@ -216,6 +216,14 @@ export default class SlidingView extends PureComponent<Props, State> {
                 transform: [ { translateX: this.state.sliderAnimation } ]
             });
             break;
+        case 'center':
+            Object.assign(style, {
+                bottom: 0,
+                top: 0,
+                left: 0,
+                right: 0
+            });
+            break;
         }
 
         return style;

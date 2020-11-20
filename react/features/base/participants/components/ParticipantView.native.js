@@ -194,7 +194,8 @@ class ParticipantView extends Component<Props> {
             _videoTrack: videoTrack,
             disableVideo,
             onPress,
-            tintStyle
+            tintStyle,
+            moreUsers
         } = this.props;
 
         // If the connection has problems, we will "tint" the video / avatar.
@@ -234,13 +235,18 @@ class ParticipantView extends Component<Props> {
                         zOrder = { this.props.zOrder }
                         zoomEnabled = { this.props.zoomEnabled } /> }
 
-                { !renderYoutubeLargeVideo && !renderVideo
+                { !renderYoutubeLargeVideo && !renderVideo && !moreUsers
                     && <View style = { styles.avatarContainer }>
                         <Avatar
                             participantId = { this.props.participantId }
                             size = { this.props.avatarSize } />
                     </View> }
-
+                { !renderYoutubeLargeVideo && !renderVideo && moreUsers
+                && <View style = { styles.moreUsersAvatarContainer }>
+                    <Avatar
+                        participantId = { this.props.participantId }
+                        size = { this.props.avatarSize } />
+                </View> }
                 { useTint
 
                     // If the connection has problems, tint the video / avatar.

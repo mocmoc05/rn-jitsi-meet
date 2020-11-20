@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 import {
     ScrollView,
     TouchableWithoutFeedback,
-    View
+    View,
+    Dimensions
 } from 'react-native';
 import type { Dispatch } from 'redux';
 
@@ -74,6 +75,8 @@ const TILE_ASPECT_RATIO = 1;
  *
  * @extends Component
  */
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 class TileView extends Component<Props> {
     /**
      * Implements React's {@link Component#componentDidMount}.
@@ -243,16 +246,34 @@ class TileView extends Component<Props> {
             height: this._getTileDimensions().height,
             width: null
         };
+        const style4Users = {
+            height: windowHeight/2,
+            width: windowWidth/2,
+            margin: 0
+        };
+
+        if (this.props._participants.length === 4) {
+            return this._getSortedParticipants()
+                .map(participant => (
+                    <Thumbnail
+                        disableTint = { true }
+                        key = { participant.id }
+                        participant = { participant }
+                        renderDisplayName = { true }
+                        styleOverrides = { style4Users }
+                        tileView = { true } />));
+        }
 
         return this._getSortedParticipants()
-            .map(participant => (
-                <Thumbnail
-                    disableTint = { true }
-                    key = { participant.id }
-                    participant = { participant }
-                    renderDisplayName = { true }
-                    styleOverrides = { styleOverrides }
-                    tileView = { true } />));
+                .map(participant => (
+                    <Thumbnail
+                        disableTint = { true }
+                        key = { participant.id }
+                        participant = { participant }
+                        renderDisplayName = { true }
+                        styleOverrides = { styleOverrides }
+                        tileView = { true } />));
+
     }
 
     /**

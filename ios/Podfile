@@ -67,6 +67,7 @@ target 'JitsiMeet' do
   pod 'RNWatch', :path => '../node_modules/react-native-watch-connectivity'
   pod 'RNDefaultPreference', :path => '../node_modules/react-native-default-preference'
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+  pod 'react-native-slider', :path => '../node_modules/@react-native-community/slider/react-native-slider.podspec'
 
   # Native pod dependencies
   #

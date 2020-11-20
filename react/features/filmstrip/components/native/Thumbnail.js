@@ -29,8 +29,8 @@ import ModeratorIndicator from './ModeratorIndicator';
 import RaisedHandIndicator from './RaisedHandIndicator';
 import ScreenShareIndicator from './ScreenShareIndicator';
 import VideoMutedIndicator from './VideoMutedIndicator';
-import styles, { AVATAR_SIZE } from './styles';
 import VotedIndicator from './VotedIndicator';
+import styles, { AVATAR_SIZE } from './styles';
 
 /**
  * Thumbnail component's property types.
@@ -107,7 +107,9 @@ type Props = {
     /**
      * If true, it tells the thumbnail that it needs to behave differently. E.g. react differently to a single tap.
      */
-    tileView?: boolean
+    tileView?: boolean,
+
+    moreUsers?: boolean
 };
 
 /**
@@ -129,7 +131,8 @@ function Thumbnail(props: Props) {
         disableTint,
         participant,
         renderDisplayName,
-        tileView
+        tileView,
+        moreUsers
     } = props;
 
     const participantId = participant.id;
@@ -139,61 +142,69 @@ function Thumbnail(props: Props) {
     const isScreenShare = videoTrack && videoTrack.videoType === VIDEO_TYPE.DESKTOP;
 
     return (
-        <Container
-            onClick = { _onClick }
-            onLongPress = { participant.local ? undefined : _onShowRemoteVideoMenu }
-            style = { [
-                styles.thumbnail,
-                participant.pinned && !tileView
-                    ? _styles.thumbnailPinned : null,
-                props.styleOverrides || null
-            ] }
-            touchFeedback = { false }>
-            <ParticipantView
-                avatarSize = { tileView ? AVATAR_SIZE * 1.5 : AVATAR_SIZE }
-                disableVideo = { isScreenShare || participant.isFakeParticipant }
-                participantId = { participantId }
-                style = { _styles.participantViewStyle }
-                tintEnabled = { participantInLargeVideo && !disableTint }
-                tintStyle = { _styles.activeThumbnailTint }
-                zOrder = { 1 } />
+        <Container>
+            <Container
+                onClick = { _onClick }
+                onLongPress = { participant.local ? undefined : _onShowRemoteVideoMenu }
+                style = { [
+                    styles.thumbnail,
+                    participant.pinned && !tileView
+                        ? _styles.thumbnailPinned : null,
+                    props.styleOverrides || null
+                ] }
+                touchFeedback = { false }>
+                <ParticipantView
+                    avatarSize = { tileView ? AVATAR_SIZE * 1.5 : 60 }
+                    disableVideo = { isScreenShare || participant.isFakeParticipant }
+                    participantId = { participantId }
+                    style = { _styles.participantViewStyle }
+                    tintEnabled = { participantInLargeVideo && !disableTint }
+                    tintStyle = { _styles.activeThumbnailTint }
+                    zOrder = { 1 }
+                    moreUsers = { moreUsers } />
 
-            { renderDisplayName && <Container style = { styles.displayNameContainer }>
-                <DisplayNameLabel participantId = { participantId } />
-            </Container> }
+                { renderDisplayName && <Container style = { styles.displayNameContainer }>
+                    <DisplayNameLabel participantId = { participantId } />
+                </Container> }
 
-            { renderModeratorIndicator
-                && <View style = { styles.moderatorIndicatorContainer }>
-                    <ModeratorIndicator />
+                {/*{ renderModeratorIndicator*/}
+                {/*&& <View style = { styles.moderatorIndicatorContainer }>*/}
+                {/*    <ModeratorIndicator />*/}
+                {/*</View>}*/}
+
+                { !participant.isFakeParticipant && <View
+                    style = { [
+                        styles.thumbnailTopIndicatorContainer,
+                        styles.thumbnailTopLeftIndicatorContainer
+                    ] }>
+                    <RaisedHandIndicator participantId = { participant.id } />
+                    <VotedIndicator participantId = { participant.id } />
+                    { renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }
+                </View> }
+
+                { !participant.isFakeParticipant && <View
+                    style = { [
+                        styles.thumbnailTopIndicatorContainer,
+                        styles.thumbnailTopRightIndicatorContainer
+                    ] }>
+                    <ConnectionIndicator participantId = { participant.id } />
+                </View> }
+
+                { !participant.isFakeParticipant && <Container style = { styles.thumbnailIndicatorContainer }>
+                    {/* { audioMuted*/}
+                    {/* && <AudioMutedIndicator /> }*/}
+                    {/* { videoMuted*/}
+                    {/* && <VideoMutedIndicator /> }*/}
+                    {/* { isScreenShare*/}
+                    {/* && <ScreenShareIndicator /> }*/}
+                </Container> }
+            </Container>
+            { audioMuted
+                ? <View style = { styles.audioIndicator }>
+                    <AudioMutedIndicator mute = { audioMuted } />
+                </View> : <View style = { styles.audioIndicator }>
+                    <AudioMutedIndicator mute = { audioMuted } />
                 </View>}
-
-            { !participant.isFakeParticipant && <View
-                style = { [
-                    styles.thumbnailTopIndicatorContainer,
-                    styles.thumbnailTopLeftIndicatorContainer
-                ] }>
-                <RaisedHandIndicator participantId = { participant.id } />
-                <VotedIndicator participantId = { participant.id } />
-                { renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }
-            </View> }
-
-            { !participant.isFakeParticipant && <View
-                style = { [
-                    styles.thumbnailTopIndicatorContainer,
-                    styles.thumbnailTopRightIndicatorContainer
-                ] }>
-                <ConnectionIndicator participantId = { participant.id } />
-            </View> }
-
-            { !participant.isFakeParticipant && <Container style = { styles.thumbnailIndicatorContainer }>
-                { audioMuted
-                    && <AudioMutedIndicator /> }
-                { videoMuted
-                    && <VideoMutedIndicator /> }
-                { isScreenShare
-                    && <ScreenShareIndicator /> }
-            </Container> }
-
         </Container>
     );
 }

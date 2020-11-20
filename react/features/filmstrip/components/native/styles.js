@@ -66,7 +66,7 @@ export default {
         flexDirection: 'row',
         width: 100,
         position: 'absolute',
-        height: 300,
+        height: 180,
         top: -50
     },
     flipCam: {
@@ -107,7 +107,17 @@ export default {
         // width: 80
         width: 105
     },
-
+    audioIndicator: {
+        borderRadius: 100,
+        width: 15,
+        height: 15,
+        backgroundColor: '#fff',
+        position: 'absolute',
+        right: 10,
+        bottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     /**
      * The thumbnails indicator container.
      */

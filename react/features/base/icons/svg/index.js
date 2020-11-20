@@ -129,3 +129,6 @@ export { default as IconReportVote } from './vote-report.svg';
 export { default as IconCloseMenu } from './cancel-menu.svg';
 export { default as IconWarningNoti } from './warning-noti.svg';
 export { default as IconVoteOff } from './unvote.svg';
+export { default as IconVolumeMin } from './volume-min.svg';
+export { default as IconVolumeMax } from './volume-max.svg';
+export { default as IconChecked } from './checked.svg';

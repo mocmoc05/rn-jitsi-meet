@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, TouchableOpacity, Text } from 'react-native';
 
 import { Container, Platform } from '../../../base/react';
 import { connect } from '../../../base/redux';
@@ -77,8 +77,12 @@ class Filmstrip extends Component<Props> {
         // do not have much of a choice but to continue rendering LocalThumbnail
         // as any other remote Thumbnail on Android.
         this._separateLocalThumbnail = Platform.OS !== 'android';
+        this.state = { isShowMore: false };
     }
 
+    showMore() {
+        this.setState({ isShowMore: !this.state.isShowMore });
+    }
     /**
      * Implements React's {@link Component#render()}.
      *
@@ -86,10 +90,78 @@ class Filmstrip extends Component<Props> {
      * @returns {ReactElement}
      */
     render() {
-        const { _aspectRatio, _enabled, _participants, _visible } = this.props;
+        const { _aspectRatio, _enabled, _participants, _participantsIncludeLocal, _visible } = this.props;
 
+        const style6OrMoreUsers = {
+            borderRadius: 100,
+            width: 60,
+            height: 60,
+            marginBottom: 10
+        };
+        const filmstripMoreUsers = {
+            position: 'absolute',
+            top: 60,
+            right: 20
+        };
+        const extraUsers = this._sort(_participantsIncludeLocal, isNarrowAspectRatio).slice(4).length;
         if (!_enabled) {
             return null;
+        }
+        else if (this.props._participants.length >= 4) {
+            return (
+                <Container
+                    style = { filmstripMoreUsers }
+                    visible = { _visible }>
+                    {
+                        // this._separateLocalThumbnail
+                        // && !isNarrowAspectRatio
+                        // && <LocalThumbnail />
+                    }
+                    <ScrollView
+                        horizontal = { isNarrowAspectRatio }
+                        showsHorizontalScrollIndicator = { false }
+                        showsVerticalScrollIndicator = { false }
+                        style = { styles.scrollView } >
+                        {
+                            !this._separateLocalThumbnail && !isNarrowAspectRatio
+                            && <LocalThumbnail />
+                        }
+                        {
+                            this._sort(_participantsIncludeLocal, isNarrowAspectRatio)
+                                .slice(0, 3)
+                                .map(p => (
+                                    <Thumbnail
+                                        styleOverrides={ style6OrMoreUsers }
+                                        key = { p.id }
+                                        participant = { p }
+                                        moreUsers = { true } />))
+                        }
+                        {
+                            this.state.isShowMore ?
+                            this._sort(_participantsIncludeLocal, isNarrowAspectRatio)
+                                .slice(4)
+                                .map(p => (
+                                    <Thumbnail
+                                        styleOverrides={ style6OrMoreUsers }
+                                        key = { p.id }
+                                        participant = { p } />)) : null
+                        }
+                        {
+                            !this._separateLocalThumbnail && isNarrowAspectRatio
+                            && <LocalThumbnail />
+                        }
+                    </ScrollView>
+                    <TouchableOpacity style={{ width: 60, height: 60, backgroundColor: '#7B8086', borderRadius: 100, justifyContent: 'center', alignItems: 'center', activeOpacity: 0.1 }}
+                        onPress = { () => this.showMore() }
+                    >
+                        <Text style={{ color: '#C4C4C4', fontSize: 14, fontWeight: '700' }}>+{extraUsers}</Text>
+                    </TouchableOpacity>
+                    {
+                        this._separateLocalThumbnail && isNarrowAspectRatio
+                        && <LocalThumbnail />
+                    }
+                </Container>
+            )
         }
 
         const isNarrowAspectRatio = _aspectRatio === ASPECT_RATIO_NARROW;
@@ -113,15 +185,13 @@ class Filmstrip extends Component<Props> {
                         !this._separateLocalThumbnail && !isNarrowAspectRatio
                             && <LocalThumbnail />
                     }
-                    {/*
-
-                        this._sort(_participants, isNarrowAspectRatio)
-                            .map(p => (
-                                <Thumbnail
-                                    key = { p.id }
-                                    participant = { p } />))
-
-                    */}
+                    {
+                        // this._sort(_participants, isNarrowAspectRatio)
+                        // .map(p => (
+                        // <Thumbnail
+                        // key = { p.id }
+                        // participant = { p } />))
+                    }
                     {
                         !this._separateLocalThumbnail && isNarrowAspectRatio
                             && <LocalThumbnail />
@@ -180,6 +250,7 @@ function _mapStateToProps(state) {
         _aspectRatio: state['features/base/responsive-ui'].aspectRatio,
         _enabled: enabled,
         _participants: participants.filter(p => !p.local),
+        _participantsIncludeLocal: participants,
         _visible: isFilmstripVisible(state)
     };
 }

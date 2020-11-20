@@ -1,14 +1,20 @@
 // @flow
 
 import React, { PureComponent, type Node } from 'react';
-import { PanResponder, SafeAreaView, ScrollView, View } from 'react-native';
-
+import { PanResponder, SafeAreaView, ScrollView, View, Text } from 'react-native';
+import Slider from '@react-native-community/slider';
 import { ColorSchemeRegistry } from '../../../color-scheme';
 import { SlidingView } from '../../../react';
 import { connect } from '../../../redux';
 import { StyleType } from '../../../styles';
 
-import { bottomSheetStyles as styles } from './styles';
+import { bottomSheetStyles as styles, SM_FONT_SIZE } from './styles';
+import Icon from '../../../icons/components/Icon';
+import {
+    IconAudioRoute,
+    IconVolumeMax,
+    IconVolumeMin
+} from '../../../icons/svg';
 
 /**
  * Minimal distance that needs to be moved by the finger to consider it a swipe.
@@ -80,39 +86,95 @@ class BottomSheet extends PureComponent<Props> {
      * @returns {ReactElement}
      */
     render() {
-        const { _styles, renderHeader } = this.props;
-
-        return (
-            <SlidingView
-                accessibilityRole = 'menu'
-                accessibilityViewIsModal = { true }
-                onHide = { this.props.onCancel }
-                position = 'bottom'
-                show = { true }>
-                <View
-                    pointerEvents = 'box-none'
-                    style = { styles.sheetContainer }>
-                    <View
-                        pointerEvents = 'box-none'
-                        style = { styles.sheetAreaCover } />
-                    { renderHeader && renderHeader() }
-                    <SafeAreaView
-                        style = { [
-                            styles.sheetItemContainer,
-                            _styles.sheet
-                        ] }
-                        { ...this.panResponder.panHandlers }>
+        const { _styles, renderHeader, audioRoute } = this.props;
+        if (audioRoute) {
+            return (
+                <SlidingView
+                    accessibilityRole = 'menu'
+                    accessibilityViewIsModal = { true }
+                    onHide = { this.props.onCancel }
+                    position = 'center'
+                    show = { true }>
+                    {/*<View*/}
+                    {/*    pointerEvents = 'box-none'*/}
+                    {/*    style = { styles.audioRouteContainer }>*/}
+                    {/*    <View*/}
+                    {/*        pointerEvents = 'box-none'*/}
+                    {/*        style = { styles.sheetAreaCover } />*/}
+                    {/*    { renderHeader && renderHeader() }*/}
+                    {/*    <SafeAreaView*/}
+                    {/*        style = { [*/}
+                    {/*            styles.sheetItemContainer,*/}
+                    {/*            _styles.sheet*/}
+                    {/*        ] }*/}
+                    {/*        { ...this.panResponder.panHandlers }>*/}
+                    {/*        <ScrollView*/}
+                    {/*            bounces = { false }*/}
+                    {/*            showsVerticalScrollIndicator = { false }*/}
+                    {/*            style = { styles.scrollView } >*/}
+                    {/*            { this.props.children }*/}
+                    {/*        </ScrollView>*/}
+                    {/*    </SafeAreaView>*/}
+                    {/*</View>*/}
+                    <View style = { styles.audioRouteContainer }>
+                        <View style = { { backgroundColor: '#f5f5f5', borderTopLeftRadius: 16, borderTopRightRadius: 16,  height: 60, justifyContent: 'center', paddingLeft: 25 }}>
+                            <Text style = { { fontWeight: '700', fontsize: SM_FONT_SIZE }}>Select sound device</Text>
+                        </View>
                         <ScrollView
                             bounces = { false }
                             showsVerticalScrollIndicator = { false }
                             style = { styles.scrollView } >
                             { this.props.children }
                         </ScrollView>
-                    </SafeAreaView>
-                </View>
-            </SlidingView>
-        );
-    }
+                        <View style = { { display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#f5f5f5', borderBottomLeftRadius: 16, borderBottomRightRadius: 16 } }>
+                            <Icon src = { IconVolumeMin } size = {20} />
+                            <Slider
+                                style={{width: 200, height: 40, transform: [{scaleX: 0.8}, {scaleY: 0.8}],}}
+                                minimumValue={0}
+                                maximumValue={1}
+                                minimumTrackTintColor="#000"
+                                maximumTrackTintColor="#000000"
+                                thumbTintColor='#000'
+                            />
+                            <Icon src = { IconVolumeMax } size = {22} />
+                        </View>
+
+                    </View>
+                </SlidingView>
+            )
+        }
+        else
+            return (
+                <SlidingView
+                    accessibilityRole = 'menu'
+                    accessibilityViewIsModal = { true }
+                    onHide = { this.props.onCancel }
+                    position = 'bottom'
+                    show = { true }>
+                    <View
+                        pointerEvents = 'box-none'
+                        style = { styles.sheetContainer }>
+                        <View
+                            pointerEvents = 'box-none'
+                            style = { styles.sheetAreaCover } />
+                        { renderHeader && renderHeader() }
+                        <SafeAreaView
+                            style = { [
+                                styles.sheetItemContainer,
+                                _styles.sheet
+                            ] }
+                            { ...this.panResponder.panHandlers }>
+                            <ScrollView
+                                bounces = { false }
+                                showsVerticalScrollIndicator = { false }
+                                style = { styles.scrollView } >
+                                { this.props.children }
+                            </ScrollView>
+                        </SafeAreaView>
+                    </View>
+                </SlidingView>
+            );
+        }
 
     /**
      * Callback to handle a gesture end event.

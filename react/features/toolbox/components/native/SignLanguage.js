@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 
 import { ColorSchemeRegistry } from '../../../base/color-scheme';
@@ -9,25 +9,13 @@ import { BottomSheet, hideDialog, isDialogOpen } from '../../../base/dialog';
 import { IconDragHandle } from '../../../base/icons';
 import { connect } from '../../../base/redux';
 import { StyleType } from '../../../base/styles';
-import { SharedDocumentButton } from '../../../etherpad';
-import { InviteButton } from '../../../invite';
-import { LobbyModeButton } from '../../../lobby/components/native';
-import { AudioRouteButton } from '../../../mobile/audio-mode';
-import { LiveStreamButton, RecordButton } from '../../../recording';
-import { RoomLockButton } from '../../../room-lock';
-import { ClosedCaptionButton } from '../../../subtitles';
-import { TileViewButton } from '../../../video-layout';
-import { VideoShareButton } from '../../../youtube-player/components';
-import HelpButton from '../HelpButton';
-
-import AudioOnlyButton from './AudioOnlyButton';
-import MoreOptionsButton from './MoreOptionsButton';
+import { RecordButton } from '../../../recording';
 import RaiseHandButton from './RaiseHandButton';
-import ToggleCameraButton from './ToggleCameraButton';
 import styles from './styles';
 import VoteButton from './VoteButton';
-import KickUserButton from './KickUserButton';
-import SwitchModButton from './SwitchModButton';
+import ShareScreenButton from './ShareScreenButton';
+import ReportStatButton from './ReportStatButton';
+import VoteReportButton from './VoteReportButton';
 
 /**
  * The type of the React {@code Component} props of {@link OverflowMenu}.
@@ -75,13 +63,13 @@ type State = {
  * XXX It does not break our coding style rule to not utilize globals for state,
  * because it is merely another name for {@code export}'s {@code default}.
  */
-let OverflowMenu_; // eslint-disable-line prefer-const
+let SignLanguage_; // eslint-disable-line prefer-const
 
 /**
  * Implements a React {@code Component} with some extra actions in addition to
  * those in the toolbar.
  */
-class OverflowMenu extends PureComponent<Props, State> {
+class SignLanguage extends PureComponent<Props, State> {
     /**
      * Initializes a new {@code OverflowMenu} instance.
      *
@@ -109,46 +97,29 @@ class OverflowMenu extends PureComponent<Props, State> {
      * @returns {ReactElement}
      */
     render() {
-        const { _bottomSheetStyles } = this.props;
+        const { _styles, _bottomSheetStyles } = this.props;
+        const { smallButtonStyles, buttonStylesBorderless } = _styles;
         const { showMore } = this.state;
 
         const buttonProps = {
-            afterClick: this._onCancel,
+            // afterClick: this._onCancel,
             showLabel: true,
-            styles: _bottomSheetStyles.buttons
+            styles: _bottomSheetStyles.buttonsLeft
         };
 
-        const moreOptionsButtonProps = {
-            ...buttonProps,
-            afterClick: this._onToggleMenu,
-            visible: !showMore
-        };
+        // const moreOptionsButtonProps = {
+        //     ...buttonProps,
+        //     afterClick: this._onToggleMenu,
+        //     visible: !showMore
+        // };
 
         return (
-            <BottomSheet
-                onCancel = { this._onCancel }
-                onSwipe = { this._onSwipe }
-                renderHeader = { this._renderMenuExpandToggle }>
-                <TileViewButton { ...buttonProps } />
-                <InviteButton { ...buttonProps } />
-                {/*<KickUserButton { ...buttonProps } />*/}
-                {/*<SwitchModButton { ...buttonProps } />*/}
-                <AudioOnlyButton { ...buttonProps } />
-                <AudioRouteButton { ...buttonProps } />
-                {/*<LobbyModeButton { ...buttonProps } />*/}
-                {/*<MoreOptionsButton { ...moreOptionsButtonProps } />*/}
-                <Collapsible collapsed = { !showMore }>
-                    <ToggleCameraButton { ...buttonProps } />
-                    {/*<TileViewButton { ...buttonProps } />*/}
-                    {/*<RecordButton { ...buttonProps } />*/}
-                    {/*<LiveStreamButton { ...buttonProps } />*/}
-                    {/*<VideoShareButton { ...buttonProps } />*/}
-                    {/*<RoomLockButton { ...buttonProps } />*/}
-                    {/*<ClosedCaptionButton { ...buttonProps } />*/}
-                    {/*<SharedDocumentButton { ...buttonProps } />*/}
-                    {/*<HelpButton { ...buttonProps } />*/}
-                </Collapsible>
-            </BottomSheet>
+            <View accessibilityRole = 'toolbar'
+                  pointerEvents = 'box-none'
+                  style = {{ position: 'absolute', bottom: 400, left: 70, padding: 10, backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
+                  {...buttonProps}>
+                <Text>Hello</Text>
+            </View>
         );
     }
 
@@ -162,6 +133,7 @@ class OverflowMenu extends PureComponent<Props, State> {
     _renderMenuExpandToggle() {
         return (
             <View
+                onCancel = { this._onCancel }
                 style = { [
                     this.props._bottomSheetStyles.sheet,
                     styles.expandMenuContainer
@@ -184,7 +156,7 @@ class OverflowMenu extends PureComponent<Props, State> {
      */
     _onCancel() {
         if (this.props._isOpen) {
-            this.props.dispatch(hideDialog(OverflowMenu_));
+            this.props.dispatch(hideDialog(SignLanguage_));
 
             return true;
         }
@@ -243,11 +215,12 @@ class OverflowMenu extends PureComponent<Props, State> {
  */
 function _mapStateToProps(state) {
     return {
+        _styles: ColorSchemeRegistry.get(state, 'Toolbox'),
         _bottomSheetStyles: ColorSchemeRegistry.get(state, 'BottomSheet'),
-        _isOpen: isDialogOpen(state, OverflowMenu_)
+        _isOpen: isDialogOpen(state, SignLanguage_)
     };
 }
 
-OverflowMenu_ = connect(_mapStateToProps)(OverflowMenu);
+SignLanguage_ = connect(_mapStateToProps)(SignLanguage);
 
-export default OverflowMenu_;
+export default SignLanguage_;

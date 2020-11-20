@@ -1,7 +1,7 @@
 // @flow
 
 import { type Dispatch } from 'redux';
-
+import React from 'react';
 import {
     createToolbarEvent,
     sendAnalytics
@@ -55,7 +55,8 @@ class RaiseHandButton extends AbstractButton<Props, *> {
      * @returns {void}
      */
     _handleClick() {
-        this._toggleRaisedHand();
+        // this._toggleRaisedHand();
+        this.renderListSignLanguage();
     }
 
     /**
@@ -69,6 +70,14 @@ class RaiseHandButton extends AbstractButton<Props, *> {
         return this.props._raisedHand;
     }
 
+    renderListSignLanguage() {
+        console.log('ok');
+        return (
+            <View style={{ position: 'absolute', top: 300, width: 300, height: 300, backgroundColor: '#000', zIndex: 999 }}>
+                <Text style={{ color: '#fff' }}>Helo</Text>
+            </View>
+        );
+    }
     /**
      * Toggles the rased hand status of the local participant.
      *
@@ -92,6 +101,8 @@ class RaiseHandButton extends AbstractButton<Props, *> {
         }));
     }
 }
+
+
 
 /**
  * Maps part of the Redux state to the props of this component.

@@ -15,6 +15,11 @@ export default {
         marginBottom: 200
     },
 
+    moreUsersAvatarContainer: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
     /**
      * Style for the text rendered when there is a connectivity problem.
      */

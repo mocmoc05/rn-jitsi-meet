@@ -40,6 +40,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+              storeFile file('ics_jitsi_meet.keystore')
+              storePassword 'tungcoi1234'
+              keyAlias 'jitsimeet'
+              keyPassword 'tungcoi1234'
+            }
     }
 
     buildTypes {

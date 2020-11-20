@@ -2,13 +2,13 @@
 
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { NativeModules, Text, TouchableHighlight, View } from 'react-native';
+import { NativeModules, Text, TouchableHighlight, View, TouchableOpacity, TouchableWithoutFeedback, Modal, ScrollView } from 'react-native';
 
 import { ColorSchemeRegistry } from '../../../base/color-scheme';
 import { hideDialog, BottomSheet } from '../../../base/dialog';
 import { translate } from '../../../base/i18n';
 import {
-    Icon,
+    Icon, IconCheck, IconChecked,
     IconDeviceBluetooth,
     IconDeviceEarpiece,
     IconDeviceHeadphone,
@@ -210,6 +210,9 @@ class AudioRoutePickerDialog extends Component<Props, State> {
 
         // Trigger an initial update.
         AudioMode.updateDeviceList && AudioMode.updateDeviceList();
+        this.state = {
+            modalVisible: false
+        }
     }
 
     /**
@@ -274,6 +277,7 @@ class AudioRoutePickerDialog extends Component<Props, State> {
                     <Text style = { [ styles.deviceText, _bottomSheetStyles.buttons.labelStyle, selectedStyle ] } >
                         { text }
                     </Text>
+                    { selected ? <Icon src={ IconChecked } size={18} style={{ position: 'absolute', right: 0 }} /> : null }
                 </View>
             </TouchableHighlight>
         );
@@ -300,6 +304,11 @@ class AudioRoutePickerDialog extends Component<Props, State> {
         );
     }
 
+    setModalVisible(visible) {
+        this.setState({
+            modalVisible: visible
+        });
+    }
     /**
      * Implements React's {@link Component#render()}.
      *
@@ -317,7 +326,7 @@ class AudioRoutePickerDialog extends Component<Props, State> {
         }
 
         return (
-            <BottomSheet onCancel = { this._onCancel }>
+            <BottomSheet onCancel = { this._onCancel } audioRoute = { true }>
                 { content }
             </BottomSheet>
         );

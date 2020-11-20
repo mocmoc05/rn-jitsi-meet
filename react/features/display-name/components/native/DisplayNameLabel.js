@@ -44,7 +44,16 @@ class DisplayNameLabel extends Component<Props> {
         // if (!this.props._render) {
         //     return null;
         // }
-
+        // eslint-disable-next-line react/prop-types
+        if (this.props.localParticipant.id === this.props.participantId) {
+            return (
+                <View style = { styles.displayNameBackdrop }>
+                    <Text style = { styles.displayNameText }>
+                        { this.props._participantName } (me)
+                    </Text>
+                </View>
+            );
+        }
         return (
             <View style = { styles.displayNameBackdrop }>
                 <Text style = { styles.displayNameText }>
@@ -80,7 +89,8 @@ function _mapStateToProps(state: Object, ownProps: Props) {
     return {
         _participantName:
             getParticipantDisplayName(state, participantId),
-        _render
+        _render,
+        localParticipant
     };
 }
 

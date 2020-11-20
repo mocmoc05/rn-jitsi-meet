@@ -16,6 +16,7 @@ import VoteButton from './VoteButton';
 import ShareScreenButton from './ShareScreenButton';
 import ReportStatButton from './ReportStatButton';
 import VoteReportButton from './VoteReportButton';
+import SignLanguageButton from './SignLanguageButton';
 
 /**
  * The type of the React {@code Component} props of {@link OverflowMenu}.
@@ -102,7 +103,7 @@ class LeftMenu extends PureComponent<Props, State> {
         const { showMore } = this.state;
 
         const buttonProps = {
-            afterClick: this._onCancel,
+            // afterClick: this._onCancel,
             showLabel: true,
             styles: _bottomSheetStyles.buttonsLeft
         };
@@ -116,8 +117,9 @@ class LeftMenu extends PureComponent<Props, State> {
         return (
             <View accessibilityRole = 'toolbar'
                   pointerEvents = 'box-none'
-                  style = {{ position: 'absolute', bottom: 90, left: 20, padding: 10, backgroundColor: 'rgba(0, 0, 0, 0.4)' }}>
-                <RaiseHandButton { ...buttonProps } />
+                  style = {{ position: 'absolute', bottom: 100, left: 20, padding: 10, backgroundColor: 'rgba(0, 0, 0, 0.4)', borderRadius: 8 }}>
+                {/*<RaiseHandButton { ...buttonProps } />*/}
+                <SignLanguageButton { ...buttonProps } />
                 <VoteButton { ...buttonProps } />
                 <ShareScreenButton { ...buttonProps } />
                 <RecordButton { ...buttonProps } />
