@@ -1,22 +1,30 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
+import { TouchableOpacity, View, Text, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import Collapsible from 'react-native-collapsible';
 
 import { ColorSchemeRegistry } from '../../../base/color-scheme';
 import { BottomSheet, hideDialog, isDialogOpen } from '../../../base/dialog';
-import { IconDragHandle } from '../../../base/icons';
+import {
+    IconClap,
+    IconConfuse, IconDislike,
+    IconDragHandle, IconLike, IconLove,
+    IconSignBackground,
+    IconSmile, IconWow
+} from '../../../base/icons';
+import Icon from '../../../base/icons/components/Icon';
 import { connect } from '../../../base/redux';
 import { StyleType } from '../../../base/styles';
 import { RecordButton } from '../../../recording';
+
 import RaiseHandButton from './RaiseHandButton';
-import styles from './styles';
-import VoteButton from './VoteButton';
-import ShareScreenButton from './ShareScreenButton';
 import ReportStatButton from './ReportStatButton';
-import VoteReportButton from './VoteReportButton';
+import ShareScreenButton from './ShareScreenButton';
 import SignLanguageButton from './SignLanguageButton';
+import VoteButton from './VoteButton';
+import VoteReportButton from './VoteReportButton';
+import styles from './styles';
 
 /**
  * The type of the React {@code Component} props of {@link OverflowMenu}.
@@ -54,7 +62,11 @@ type State = {
     /**
      * True if the 'more' button set needas to be rendered.
      */
-    showMore: boolean
+    showMore: boolean,
+
+    showSignLanguageList: boolean,
+
+    isPress: boolean
 }
 
 /**
@@ -81,7 +93,11 @@ class LeftMenu extends PureComponent<Props, State> {
 
         this.state = {
             scrolledToTop: true,
-            showMore: false
+            showMore: false,
+            showSignLanguageList: false,
+            isPress: false,
+            listIcon: [ IconSmile, IconConfuse, IconLike, IconDislike, IconLove, IconClap, IconWow ],
+            iconId: null
         };
 
         // Bind event handlers so they are only bound once per instance.
@@ -89,6 +105,8 @@ class LeftMenu extends PureComponent<Props, State> {
         this._onSwipe = this._onSwipe.bind(this);
         this._onToggleMenu = this._onToggleMenu.bind(this);
         this._renderMenuExpandToggle = this._renderMenuExpandToggle.bind(this);
+        this._onSignLanguageClick = this._onSignLanguageClick.bind(this);
+        this._onPressHandler = this._onPressHandler.bind(this);
     }
 
     /**
@@ -100,31 +118,95 @@ class LeftMenu extends PureComponent<Props, State> {
     render() {
         const { _styles, _bottomSheetStyles } = this.props;
         const { smallButtonStyles, buttonStylesBorderless } = _styles;
-        const { showMore } = this.state;
+        const { showMore, showSignLanguageList, isPress, listIcon, iconId } = this.state;
 
         const buttonProps = {
-            // afterClick: this._onCancel,
+            afterClick: this._onCancel,
             showLabel: true,
-            styles: _bottomSheetStyles.buttonsLeft
+            styles: _bottomSheetStyles.buttonsLeft,
+            onSignLanguageClick: this._onSignLanguageClick
+
+            // _onClick: this._onSignLanguageClick
         };
 
-        const moreOptionsButtonProps = {
-            ...buttonProps,
-            afterClick: this._onToggleMenu,
-            visible: !showMore
+        // const moreOptionsButtonProps = {
+        //     ...buttonProps,
+        //     afterClick: this._onToggleMenu,
+        //     visible: !showMore
+        // };
+
+        const touchProps = {
+            activeOpacity: 1,
+            onHideUnderlay: () => this.setState({ isPress: false }),
+            // onShowUnderlay: () => this.setState({ isPress: true }),
+            onPress: () => {
+                console.log('abc');
+            }
         };
+
+        const iconList = listIcon.map((icon, index) => (
+            <TouchableHighlight
+                { ...touchProps }
+                key = { index }
+                onShowUnderlay = { () => {
+                    this.setState({ isPress: true });
+                    this._onPressHandler(index);
+                } }>
+                <Icon
+                    src = { icon }
+                    size = { isPress && iconId === index ? 30 : 24 }
+                    style = { styles.signLanguageItem } />
+            </TouchableHighlight>
+        ));
 
         return (
-            <View accessibilityRole = 'toolbar'
-                  pointerEvents = 'box-none'
-                  style = {{ position: 'absolute', bottom: 100, left: 20, padding: 10, backgroundColor: 'rgba(0, 0, 0, 0.4)', borderRadius: 8 }}>
-                {/*<RaiseHandButton { ...buttonProps } />*/}
-                <SignLanguageButton { ...buttonProps } />
-                <VoteButton { ...buttonProps } />
-                <ShareScreenButton { ...buttonProps } />
-                <RecordButton { ...buttonProps } />
-                <ReportStatButton { ...buttonProps } />
-                <VoteReportButton { ...buttonProps } />
+            <View
+                pointerEvents = 'box-none'
+                style = {{ position: 'absolute',
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    zIndex: 9999 }}>
+                <TouchableWithoutFeedback onPress = { this._onCancel }>
+                    <View
+                        accessibilityRole = 'toolbar'
+                        pointerEvents = 'box-none'
+                        style = {{ position: 'absolute',
+                            bottom: 100,
+                            left: 20,
+                            padding: 10,
+                            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                            borderRadius: 8 }}>
+                        {/* <RaiseHandButton { ...buttonProps } />*/}
+                        <SignLanguageButton
+                            { ...buttonProps }>
+                            { showSignLanguageList
+                                ? <TouchableWithoutFeedback
+                                    style = {{ flex: 1 }}
+                                    onPress = { this._onSignLanguageClick }>
+                                    <View
+                                        style = {{ position: 'absolute',
+                                            top: -50,
+                                            left: -10 }}>
+                                        <View>
+                                            <IconSignBackground />
+                                            <View style = { styles.signLanguageContainer }>
+                                                { iconList }
+                                            </View>
+                                        </View>
+                                    </View>
+                                </TouchableWithoutFeedback>
+                                : null }
+
+                        </SignLanguageButton>
+                        <VoteButton { ...buttonProps } />
+                        <ShareScreenButton { ...buttonProps } />
+                        <RecordButton { ...buttonProps } />
+                        <ReportStatButton { ...buttonProps } />
+                        <VoteReportButton { ...buttonProps } />
+                    </View>
+                </TouchableWithoutFeedback>
             </View>
         );
     }
@@ -168,6 +250,19 @@ class LeftMenu extends PureComponent<Props, State> {
         }
 
         return false;
+    }
+
+    _onSignLanguageClick: () => void;
+
+    _onSignLanguageClick() {
+        const { showSignLanguageList } = this.state;
+
+        this.setState({ showSignLanguageList: !showSignLanguageList });
+    }
+
+
+    _onPressHandler(index) {
+        this.setState({ iconId: index });
     }
 
     _onSwipe: string => void;

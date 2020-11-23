@@ -39,12 +39,12 @@ class SignLanguageButton extends AbstractButton<Props, *> {
      * @returns {void}
      */
     _handleClick() {
-        if (this.props._isOpen) {
-            this.props.dispatch(hideDialog(SignLanguage_));
-        } else {
-            this.props.dispatch(openDialog(SignLanguage_));
-        }
-        // this.openSignLanguageList();
+        // if (this.props._isOpen) {
+        //     this.props.dispatch(hideDialog(SignLanguage_));
+        // } else {
+        //     this.props.dispatch(openDialog(SignLanguage_));
+        // }
+        this.props.onSignLanguageClick();
     }
 
     openSignLanguageList() {

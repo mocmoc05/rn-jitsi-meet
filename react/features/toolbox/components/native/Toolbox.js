@@ -39,6 +39,7 @@ type Props = {
      */
     _visible: boolean,
 
+    // signLanguageVisible: boolean,
     /**
      * The redux {@code dispatch} function.
      */

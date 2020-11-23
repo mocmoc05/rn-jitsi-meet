@@ -97,6 +97,25 @@ const styles = {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 5
+    },
+    signLanguageContainer: {
+        position: 'absolute',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 58,
+        width: 256,
+        display: 'flex',
+        flexDirection: 'row',
+        paddingBottom: 10
+    },
+    signLanguageItem: {
+        marginHorizontal: 5
+    },
+    btnPress: {
+        borderColor: 'blue',
+        borderWidth: 1,
+        height: 30,
+        width: 100,
     }
 };
 

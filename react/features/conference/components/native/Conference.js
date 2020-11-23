@@ -119,6 +119,11 @@ class Conference extends AbstractConference<Props, *> {
         this._onClick = this._onClick.bind(this);
         this._onHardwareBackPress = this._onHardwareBackPress.bind(this);
         this._setToolboxVisible = this._setToolboxVisible.bind(this);
+        this._setSignLanguageVisible = this._setSignLanguageVisible.bind(this);
+
+        // this.state = {
+        //     _signLanguageVisible: null
+        // }
     }
 
     /**
@@ -175,6 +180,7 @@ class Conference extends AbstractConference<Props, *> {
      */
     _onClick() {
         this._setToolboxVisible(!this.props._toolboxVisible);
+        // this._setSignLanguageVisible();
     }
 
     _onHardwareBackPress: () => boolean;
@@ -414,6 +420,13 @@ class Conference extends AbstractConference<Props, *> {
      */
     _setToolboxVisible(visible) {
         this.props.dispatch(setToolboxVisible(visible));
+    }
+
+    _setSignLanguageVisible: () => void;
+
+    _setSignLanguageVisible() {
+        console.log(this.state._signLanguageVisible);
+        this.setState({ _signLanguageVisible: false });
     }
 }
 
