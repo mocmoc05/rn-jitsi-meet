@@ -106,7 +106,7 @@ class LeftMenu extends PureComponent<Props, State> {
         this._onToggleMenu = this._onToggleMenu.bind(this);
         this._renderMenuExpandToggle = this._renderMenuExpandToggle.bind(this);
         this._onSignLanguageClick = this._onSignLanguageClick.bind(this);
-        this._onPressHandler = this._onPressHandler.bind(this);
+        this.onPressHandler = this.onPressHandler.bind(this);
     }
 
     /**
@@ -121,12 +121,10 @@ class LeftMenu extends PureComponent<Props, State> {
         const { showMore, showSignLanguageList, isPress, listIcon, iconId } = this.state;
 
         const buttonProps = {
-            afterClick: this._onCancel,
+            // afterClick: this._onCancel,
             showLabel: true,
             styles: _bottomSheetStyles.buttonsLeft,
             onSignLanguageClick: this._onSignLanguageClick
-
-            // _onClick: this._onSignLanguageClick
         };
 
         // const moreOptionsButtonProps = {
@@ -150,7 +148,7 @@ class LeftMenu extends PureComponent<Props, State> {
                 key = { index }
                 onShowUnderlay = { () => {
                     this.setState({ isPress: true });
-                    this._onPressHandler(index);
+                    this.onPressHandler(index);
                 } }>
                 <Icon
                     src = { icon }
@@ -261,7 +259,7 @@ class LeftMenu extends PureComponent<Props, State> {
     }
 
 
-    _onPressHandler(index) {
+    onPressHandler(index) {
         this.setState({ iconId: index });
     }
 
