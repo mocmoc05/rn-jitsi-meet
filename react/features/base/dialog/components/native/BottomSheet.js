@@ -118,7 +118,7 @@ class BottomSheet extends PureComponent<Props> {
                     {/*</View>*/}
                     <View style = { styles.audioRouteContainer }>
                         <View style = { { backgroundColor: '#f5f5f5', borderTopLeftRadius: 16, borderTopRightRadius: 16,  height: 60, justifyContent: 'center', paddingLeft: 25 }}>
-                            <Text style = { { fontWeight: '700', fontsize: SM_FONT_SIZE }}>Select sound device</Text>
+                            <Text style = { { fontWeight: '700', fontSize: SM_FONT_SIZE }}>Select sound device</Text>
                         </View>
                         <ScrollView
                             bounces = { false }

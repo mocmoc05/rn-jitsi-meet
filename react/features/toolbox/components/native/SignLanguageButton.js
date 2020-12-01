@@ -31,7 +31,6 @@ class SignLanguageButton extends AbstractButton<Props, *> {
     icon = IconRaisedHand;
     toggledIcon = IconRaisedHand;
     label = 'toolbar.raiseYourHand';
-
     /**
      * Handles clicking / pressing this {@code OverflowMenuButton}.
      *
@@ -47,18 +46,18 @@ class SignLanguageButton extends AbstractButton<Props, *> {
         this.props.onSignLanguageClick();
     }
 
-    openSignLanguageList() {
-        return (
-            <View accessibilityRole = 'toolbar'
-                  pointerEvents = 'box-none'
-                  style = {{ position: 'absolute', bottom: 400, left: 70, padding: 10, backgroundColor: 'rgba(0, 0, 0, 0.4)' }}>
-                <Text>Hello</Text>
-            </View>
-        );
-    }
-
     _isToggled() {
         return this.props._isOpen;
+    }
+
+    _getIcon() {
+        return (
+            this.props.icon ? this.props.icon : this.toggledIcon
+        ) || this.icon;
+    }
+
+    _onClick() {
+        this._handleClick();
     }
 }
 

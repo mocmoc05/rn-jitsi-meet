@@ -2,6 +2,9 @@
 
 export const CHAT_VIEW_MODAL_ID = 'chatView';
 
+export const SIGN_REPORT_VIEW_MODAL_ID = 'signReportView';
+
+export const VOTE_REPORT_VIEW_MODAL_ID = 'voteReportView';
 /**
  * The size of the chat.
  */

@@ -1,11 +1,6 @@
 // @flow
 
 import { type Dispatch } from 'redux';
-
-import {
-    createToolbarEvent,
-    sendAnalytics
-} from '../../../analytics';
 import { VOTE_BUTTON_ENABLED , getFeatureFlag } from '../../../base/flags';
 import { translate } from '../../../base/i18n';
 import { IconVote, IconVoteOff } from '../../../base/icons';
@@ -16,6 +11,7 @@ import {
 import { connect } from '../../../base/redux';
 import { AbstractButton } from '../../../base/toolbox';
 import type { AbstractButtonProps } from '../../../base/toolbox';
+import { createToolbarEvent, sendAnalytics } from '../../../analytics';
 
 /**
  * The type of the React {@code Component} props of {@link RaiseHandButton}.
@@ -103,7 +99,6 @@ class VoteButton extends AbstractButton<Props, *> {
  */
 function _mapStateToProps(state, ownProps): Object {
     const _localParticipant = getLocalParticipant(state);
-    // console.info(_localParticipant)
     const enabled = getFeatureFlag(state, VOTE_BUTTON_ENABLED , true);
     const { visible = enabled } = ownProps;
 

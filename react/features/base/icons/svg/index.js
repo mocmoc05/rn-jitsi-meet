@@ -140,3 +140,4 @@ export { default as IconDislike } from './dislike.svg';
 export { default as IconLove } from './love.svg';
 export { default as IconClap } from './clap.svg';
 export { default as IconWow } from './wow.svg';
+export { default as IconBack } from './chevron-left.svg';

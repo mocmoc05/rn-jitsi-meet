@@ -39,6 +39,13 @@ export default {
         statusBarContent: ColorPalette.white,
         text: ColorPalette.white
     },
+    'HeaderCustom': {
+        background: ColorPalette.white,
+        icon: ColorPalette.white,
+        statusBar: ColorPalette.white,
+        statusBarContent: ColorPalette.white,
+        text: ColorPalette.black
+    },
     'Modal': {},
     'LargeVideo': {
         background: 'rgb(42, 58, 75)'

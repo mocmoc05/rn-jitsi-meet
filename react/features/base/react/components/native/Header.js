@@ -97,7 +97,7 @@ class Header extends PureComponent<Props> {
         // on the header colors
         const { statusBar, screenHeader } = _styles;
 
-        if (isDarkColor(statusBar || screenHeader.backgroundColor)) {
+        if (isDarkColor(statusBar )) {
             return STATUSBAR_LIGHT;
         }
 
@@ -115,7 +115,7 @@ class Header extends PureComponent<Props> {
  */
 function _mapStateToProps(state) {
     return {
-        _styles: ColorSchemeRegistry.get(state, 'Header')
+        _styles: ColorSchemeRegistry.get(state, 'HeaderCustom')
     };
 }
 

@@ -673,6 +673,9 @@
         "dialInfoText": "\n\n=====\n\nJust want to dial in on your phone?\n\n{{defaultDialInNumber}}Click this link to see the dial in phone numbers for this meeting\n{{dialInfoPageUrl}}",
         "mainText": "Click the following link to join the meeting:\n{{roomUrl}}"
     },
+    "signLanguage": {
+        "title": "Sign language mode report"
+    },
     "speaker": "Speaker",
     "speakerStats": {
         "hours": "{{count}}h",
@@ -865,6 +868,9 @@
         "remoteControl": "Start / Stop remote control",
         "show": "Show on stage",
         "videomute": "Participant has stopped the camera"
+    },
+    "vote": {
+        "title": "Voted"
     },
     "welcomepage": {
         "accessibilityLabel": {

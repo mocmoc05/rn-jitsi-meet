@@ -12,6 +12,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import { appNavigate } from '../../../app/actions';
 import { PIP_ENABLED, getFeatureFlag } from '../../../base/flags';
+import { getLocalParticipant } from '../../../base/participants';
 import { Container, LoadingIndicator, TintedView } from '../../../base/react';
 import { connect } from '../../../base/redux';
 import { ASPECT_RATIO_NARROW } from '../../../base/responsive-ui/constants';
@@ -44,7 +45,8 @@ import Labels from './Labels';
 import LonelyMeetingExperience from './LonelyMeetingExperience';
 import NavigationBar from './NavigationBar';
 import styles, { NAVBAR_GRADIENT_COLORS } from './styles';
-import { getLocalParticipant } from '../../../base/participants';
+import ReportStat from '../../../toolbox/components/native/ReportStat';
+import VoteReport from '../../../toolbox/components/native/VoteReport';
 
 
 /**
@@ -120,10 +122,6 @@ class Conference extends AbstractConference<Props, *> {
         this._onHardwareBackPress = this._onHardwareBackPress.bind(this);
         this._setToolboxVisible = this._setToolboxVisible.bind(this);
         this._setSignLanguageVisible = this._setSignLanguageVisible.bind(this);
-
-        // this.state = {
-        //     _signLanguageVisible: null
-        // }
     }
 
     /**
@@ -135,7 +133,7 @@ class Conference extends AbstractConference<Props, *> {
      */
     componentDidMount() {
         BackButtonRegistry.addListener(this._onHardwareBackPress);
-        this.props.dispatch({type: 'JOINED'})
+        this.props.dispatch({ type: 'JOINED' });
     }
 
     /**
@@ -180,7 +178,6 @@ class Conference extends AbstractConference<Props, *> {
      */
     _onClick() {
         this._setToolboxVisible(!this.props._toolboxVisible);
-        // this._setSignLanguageVisible();
     }
 
     _onHardwareBackPress: () => boolean;
@@ -218,6 +215,8 @@ class Conference extends AbstractConference<Props, *> {
         return [
             <AddPeopleDialog key = 'addPeopleDialog' />,
             <Chat key = 'chat' />,
+            <ReportStat key = 'reportStat' />,
+            <VoteReport key = 'voteReport' />,
             <SharedDocument key = 'sharedDocument' />
         ];
     }
@@ -268,7 +267,9 @@ class Conference extends AbstractConference<Props, *> {
                   */
                     _shouldDisplayTileView
                         ? <TileView onClick = { this._onClick } />
-                        : <LargeVideo onClick = { this._onClick } _participantId = { this.props._localParticipantId } />
+                        : <LargeVideo
+                            onClick = { this._onClick }
+                            _participantId = { this.props._localParticipantId } />
                 }
 
                 {/*
@@ -291,7 +292,7 @@ class Conference extends AbstractConference<Props, *> {
                     pointerEvents = 'box-none'
                     style = { styles.toolboxAndFilmstripContainer }>
 
-                    {/*{ showGradient && <LinearGradient*/}
+                    {/* { showGradient && <LinearGradient*/}
                     {/*    colors = { NAVBAR_GRADIENT_COLORS }*/}
                     {/*    end = {{*/}
                     {/*        x: 0.0,*/}
@@ -309,11 +310,11 @@ class Conference extends AbstractConference<Props, *> {
 
                     {/* <Labels /> */}
 
-                    {/*<Captions onPress = { this._onClick } />*/}
+                    {/* <Captions onPress = { this._onClick } />*/}
 
                     { _shouldDisplayTileView || <Container style = { styles.displayNameContainer }>
                         <DisplayNameLabel participantId = { _largeVideoParticipantId } />
-                        {/*<DisplayNameLabel participantId = { this.props._localParticipantId } />*/}
+                        {/* <DisplayNameLabel participantId = { this.props._localParticipantId } />*/}
                     </Container> }
 
                     <LonelyMeetingExperience />
@@ -425,7 +426,6 @@ class Conference extends AbstractConference<Props, *> {
     _setSignLanguageVisible: () => void;
 
     _setSignLanguageVisible() {
-        console.log(this.state._signLanguageVisible);
         this.setState({ _signLanguageVisible: false });
     }
 }
@@ -459,6 +459,7 @@ function _mapStateToProps(state) {
     const connecting_
         = connecting || (connection && (!membersOnly && (joining || (!conference && !leaving))));
     const localParticipant = getLocalParticipant(state);
+
     return {
         ...abstractMapStateToProps(state),
         _aspectRatio: aspectRatio,

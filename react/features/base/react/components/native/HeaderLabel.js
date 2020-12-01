@@ -66,7 +66,7 @@ class HeaderLabel extends Component<Props> {
  */
 function _mapStateToProps(state) {
     return {
-        _headerStyles: ColorSchemeRegistry.get(state, 'Header')
+        _headerStyles: ColorSchemeRegistry.get(state, 'HeaderCustom')
     };
 }
 

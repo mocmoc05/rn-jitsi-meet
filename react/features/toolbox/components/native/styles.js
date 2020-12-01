@@ -116,6 +116,64 @@ const styles = {
         borderWidth: 1,
         height: 30,
         width: 100,
+    },
+    signLanguageReportContainer: {
+        flex: 1,
+        borderTopColor: '#E0E2E4',
+        borderTopWidth: 0.5
+    },
+    signLanguageReportHeader: {
+        height: 44,
+        borderBottomColor: '#E0E2E4',
+        borderBottomWidth: 0.5,
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    reportItem: {
+        alignItems: 'center',
+        padding: 10,
+        flex: 1
+    },
+    reportItemSelected: {
+        alignItems: 'center',
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#2D84AC',
+        flex: 1
+    },
+    signLanguageReportTextSelected: {
+        color: '#2D84AC',
+        marginRight: 5
+    },
+    signLanguageReportText: {
+        color: '#7B8086',
+        marginRight: 5,
+        fontSize: 14
+    },
+    voteReportTextSelected: {
+        color: '#2D84AC',
+        marginRight: 5,
+        fontSize: 16
+    },
+    privateChatButton: {
+        backgroundColor: '#2D84AC',
+        borderRadius: 4,
+        width: 100,
+        height: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        right: 20
+    },
+    privateChatText: {
+        color: '#fff'
+    },
+    borderReportItem: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#F5F5F5',
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
     }
 };
 

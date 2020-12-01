@@ -198,9 +198,10 @@ class Filmstrip extends Component<Props> {
                     }
                 </ScrollView>
                 {
-                    this._separateLocalThumbnail && isNarrowAspectRatio
-                        && <LocalThumbnail />
+                    // this._separateLocalThumbnail && isNarrowAspectRatio
+                    //     && <LocalThumbnail />
                 }
+                <LocalThumbnail />
             </Container>
         );
     }

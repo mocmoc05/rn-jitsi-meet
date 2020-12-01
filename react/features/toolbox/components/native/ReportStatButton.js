@@ -2,10 +2,6 @@
 
 import { type Dispatch } from 'redux';
 
-import {
-    createToolbarEvent,
-    sendAnalytics
-} from '../../../analytics';
 import { VOTE_BUTTON_ENABLED , getFeatureFlag } from '../../../base/flags';
 import { translate } from '../../../base/i18n';
 import { IconReportStat } from '../../../base/icons';
@@ -14,8 +10,12 @@ import {
     participantUpdated
 } from '../../../base/participants';
 import { connect } from '../../../base/redux';
-import { AbstractButton } from '../../../base/toolbox';
-import type { AbstractButtonProps } from '../../../base/toolbox';
+
+import { setActiveModalId } from '../../../base/modal';
+import { SIGN_REPORT_VIEW_MODAL_ID } from '../../../chat';
+import { openDisplayNamePrompt } from '../../../display-name';
+import { AbstractButtonProps } from '../../../base/toolbox/components';
+import AbstractButton from '../../../base/toolbox/components/AbstractButton';
 
 /**
  * The type of the React {@code Component} props of {@link RaiseHandButton}.
@@ -55,43 +55,23 @@ class VoteButton extends AbstractButton<Props, *> {
      * @returns {void}
      */
     _handleClick() {
-        this._toogleVote();
-    }
-
-    /**
-     * Indicates whether this button is in toggled state or not.
-     *
-     * @override
-     * @protected
-     * @returns {boolean}
-     */
-    _isToggled() {
-        return this.props._voted;
-    }
-
-    /**
-     * Toggles the rased hand status of the local participant.
-     *
-     * @returns {void}
-     */
-    _toogleVote() {
-        const enable = !this.props._voted;
-        sendAnalytics(createToolbarEvent('raise.hand', { enable }));
-
-        this.props.dispatch(participantUpdated({
-            // XXX Only the local participant is allowed to update without
-            // stating the JitsiConference instance (i.e. participant property
-            // `conference` for a remote participant) because the local
-            // participant is uniquely identified by the very fact that there is
-            // only one local participant.
-
-            id: this.props._localParticipant.id,
-            local: true,
-            voted: enable
-        }));
+        this.props._displaySignLanguageReport();
     }
 }
 
+function _mapDispatchToProps(dispatch: Function) {
+    return {
+        /**
+         * Launches native invite dialog.
+         *
+         * @private
+         * @returns {void}
+         */
+        _displaySignLanguageReport() {
+            dispatch(setActiveModalId(SIGN_REPORT_VIEW_MODAL_ID));
+        },
+    };
+}
 /**
  * Maps part of the Redux state to the props of this component.
  *
@@ -102,7 +82,6 @@ class VoteButton extends AbstractButton<Props, *> {
  */
 function _mapStateToProps(state, ownProps): Object {
     const _localParticipant = getLocalParticipant(state);
-    // console.info(_localParticipant)
     const enabled = getFeatureFlag(state, VOTE_BUTTON_ENABLED , true);
     const { visible = enabled } = ownProps;
 
@@ -113,4 +92,4 @@ function _mapStateToProps(state, ownProps): Object {
     };
 }
 
-export default translate(connect(_mapStateToProps)(VoteButton));
+export default translate(connect(_mapStateToProps, _mapDispatchToProps)(VoteButton));
