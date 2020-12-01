@@ -16,9 +16,7 @@ import { AudioRouteButton } from '../../../mobile/audio-mode';
 import { LiveStreamButton, RecordButton } from '../../../recording';
 import { RoomLockButton } from '../../../room-lock';
 import { ClosedCaptionButton } from '../../../subtitles';
-import { TileViewButton } from '../../../video-layout';
-import { VideoShareButton } from '../../../youtube-player/components';
-import HelpButton from '../HelpButton';
+import { shouldDisplayTileView, TileViewButton } from '../../../video-layout';
 
 import AudioOnlyButton from './AudioOnlyButton';
 import MoreOptionsButton from './MoreOptionsButton';
@@ -28,6 +26,12 @@ import styles from './styles';
 import VoteButton from './VoteButton';
 import KickUserButton from './KickUserButton';
 import SwitchModButton from './SwitchModButton';
+import {
+    getLocalParticipant,
+    getParticipantDisplayName
+} from '../../../base/participants';
+import MuteButton from './MuteButton';
+import PrivateChat from './PrivateChat';
 
 /**
  * The type of the React {@code Component} props of {@link OverflowMenu}.
@@ -109,7 +113,7 @@ class OverflowMenu extends PureComponent<Props, State> {
      * @returns {ReactElement}
      */
     render() {
-        const { _bottomSheetStyles } = this.props;
+        const { _bottomSheetStyles, _participantId, localParticipantId, _tileViewEnabled, _participantName } = this.props;
         const { showMore } = this.state;
 
         const buttonProps = {
@@ -124,6 +128,33 @@ class OverflowMenu extends PureComponent<Props, State> {
             visible: !showMore
         };
 
+        if ( _participantId !== localParticipantId && _tileViewEnabled) {
+            return (
+                <BottomSheet
+                    participantName = { _participantName }
+                    onCancel = { this._onCancel }
+                    onSwipe = { this._onSwipe }
+                    renderHeader = { this._renderMenuExpandToggle }>
+                    <MuteButton { ...buttonProps } />
+                    <KickUserButton { ...buttonProps } />
+                    <SwitchModButton { ...buttonProps } />
+                    <PrivateChat { ...buttonProps } />
+                    <TileViewButton { ...buttonProps } />
+                </BottomSheet>
+            )
+        } else if ( _participantId !== localParticipantId && !_tileViewEnabled) {
+            return (
+                <BottomSheet
+                    onCancel = { this._onCancel }
+                    onSwipe = { this._onSwipe }
+                    renderHeader = { this._renderMenuExpandToggle }>
+                    <KickUserButton { ...buttonProps } />
+                    <SwitchModButton { ...buttonProps } />
+                    <PrivateChat { ...buttonProps } />
+                </BottomSheet>
+            )
+        }
+
         return (
             <BottomSheet
                 onCancel = { this._onCancel }
@@ -131,8 +162,6 @@ class OverflowMenu extends PureComponent<Props, State> {
                 renderHeader = { this._renderMenuExpandToggle }>
                 <TileViewButton { ...buttonProps } />
                 <InviteButton { ...buttonProps } />
-                {/*<KickUserButton { ...buttonProps } />*/}
-                {/*<SwitchModButton { ...buttonProps } />*/}
                 <AudioOnlyButton { ...buttonProps } />
                 <AudioRouteButton { ...buttonProps } />
                 {/*<LobbyModeButton { ...buttonProps } />*/}
@@ -242,9 +271,16 @@ class OverflowMenu extends PureComponent<Props, State> {
  * @returns {Props}
  */
 function _mapStateToProps(state) {
+    const participantId = state['features/large-video'].participantId;
+    const localParticipant = getLocalParticipant(state);
     return {
         _bottomSheetStyles: ColorSchemeRegistry.get(state, 'BottomSheet'),
-        _isOpen: isDialogOpen(state, OverflowMenu_)
+        _isOpen: isDialogOpen(state, OverflowMenu_),
+        _participantId: participantId,
+        localParticipantId: localParticipant.id,
+        _tileViewEnabled: shouldDisplayTileView(state),
+        _participantName:
+            getParticipantDisplayName(state, participantId)
     };
 }
 

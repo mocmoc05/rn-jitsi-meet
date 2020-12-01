@@ -44,8 +44,7 @@ type Props = AbstractButtonProps & {
 class RaiseHandButton extends AbstractButton<Props, *> {
     accessibilityLabel = 'toolbar.accessibilityLabel.raiseHand';
     icon = IconKickUser;
-    label = 'Kickout 1 other user';
-    toggledLabel = 'toolbar.lowerYourHand';
+    label = 'toolbar.kickout';
 
     /**
      * Handles clicking / pressing the button.

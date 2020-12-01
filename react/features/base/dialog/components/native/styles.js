@@ -40,6 +40,18 @@ export const bottomSheetStyles = {
         paddingHorizontal: MD_ITEM_MARGIN_PADDING
     },
 
+    participantName: {
+        fontWeight: '700',
+        fontSize: 14
+    },
+
+    participantView: {
+        borderBottomColor: '#f5f5f5',
+        borderBottomWidth: 4,
+        paddingBottom: 12,
+        paddingHorizontal: MD_ITEM_MARGIN_PADDING
+    },
+
     /**
      * Style for the container of the sheet.
      */
