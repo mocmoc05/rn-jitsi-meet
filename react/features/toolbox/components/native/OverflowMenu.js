@@ -9,21 +9,13 @@ import { BottomSheet, hideDialog, isDialogOpen } from '../../../base/dialog';
 import { IconDragHandle } from '../../../base/icons';
 import { connect } from '../../../base/redux';
 import { StyleType } from '../../../base/styles';
-import { SharedDocumentButton } from '../../../etherpad';
 import { InviteButton } from '../../../invite';
-import { LobbyModeButton } from '../../../lobby/components/native';
 import { AudioRouteButton } from '../../../mobile/audio-mode';
-import { LiveStreamButton, RecordButton } from '../../../recording';
-import { RoomLockButton } from '../../../room-lock';
-import { ClosedCaptionButton } from '../../../subtitles';
 import { shouldDisplayTileView, TileViewButton } from '../../../video-layout';
 
 import AudioOnlyButton from './AudioOnlyButton';
-import MoreOptionsButton from './MoreOptionsButton';
-import RaiseHandButton from './RaiseHandButton';
 import ToggleCameraButton from './ToggleCameraButton';
 import styles from './styles';
-import VoteButton from './VoteButton';
 import KickUserButton from './KickUserButton';
 import SwitchModButton from './SwitchModButton';
 import {
@@ -164,18 +156,8 @@ class OverflowMenu extends PureComponent<Props, State> {
                 <InviteButton { ...buttonProps } />
                 <AudioOnlyButton { ...buttonProps } />
                 <AudioRouteButton { ...buttonProps } />
-                {/*<LobbyModeButton { ...buttonProps } />*/}
-                {/*<MoreOptionsButton { ...moreOptionsButtonProps } />*/}
                 <Collapsible collapsed = { !showMore }>
                     <ToggleCameraButton { ...buttonProps } />
-                    {/*<TileViewButton { ...buttonProps } />*/}
-                    {/*<RecordButton { ...buttonProps } />*/}
-                    {/*<LiveStreamButton { ...buttonProps } />*/}
-                    {/*<VideoShareButton { ...buttonProps } />*/}
-                    {/*<RoomLockButton { ...buttonProps } />*/}
-                    {/*<ClosedCaptionButton { ...buttonProps } />*/}
-                    {/*<SharedDocumentButton { ...buttonProps } />*/}
-                    {/*<HelpButton { ...buttonProps } />*/}
                 </Collapsible>
             </BottomSheet>
         );
@@ -273,6 +255,7 @@ class OverflowMenu extends PureComponent<Props, State> {
 function _mapStateToProps(state) {
     const participantId = state['features/large-video'].participantId;
     const localParticipant = getLocalParticipant(state);
+
     return {
         _bottomSheetStyles: ColorSchemeRegistry.get(state, 'BottomSheet'),
         _isOpen: isDialogOpen(state, OverflowMenu_),

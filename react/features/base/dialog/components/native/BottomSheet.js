@@ -15,7 +15,10 @@ import {
     IconVolumeMax,
     IconVolumeMin
 } from '../../../icons/svg';
-import { getParticipantDisplayName } from '../../../participants';
+import {
+    getLocalParticipant,
+    getParticipantDisplayName
+} from '../../../participants';
 
 /**
  * Minimal distance that needs to be moved by the finger to consider it a swipe.
@@ -89,7 +92,8 @@ class BottomSheet extends PureComponent<Props> {
      * @returns {ReactElement}
      */
     render() {
-        const { _styles, renderHeader, audioRoute, _participantName } = this.props;
+        const { _styles, renderHeader, audioRoute, _participantName, _participantId, localParticipantId } = this.props;
+
         if (audioRoute) {
             return (
                 <SlidingView
@@ -167,11 +171,12 @@ class BottomSheet extends PureComponent<Props> {
                                 _styles.sheet
                             ] }
                             { ...this.panResponder.panHandlers }>
-                            <View style={ styles.participantView }>
+                            { _participantId !== localParticipantId ? <View style={ styles.participantView }>
                                 <Text style={ styles.participantName }>
                                     { _participantName }
                                 </Text>
-                            </View>
+                            </View> : null }
+
                             <ScrollView
                                 bounces = { false }
                                 showsVerticalScrollIndicator = { false }
@@ -237,10 +242,14 @@ class BottomSheet extends PureComponent<Props> {
  */
 function _mapStateToProps(state) {
     const participantId = state['features/large-video'].participantId;
+    const localParticipant = getLocalParticipant(state);
+
     return {
         _styles: ColorSchemeRegistry.get(state, 'BottomSheet'),
         _participantName:
-            getParticipantDisplayName(state, participantId)
+            getParticipantDisplayName(state, participantId),
+        _participantId: participantId,
+        localParticipantId: localParticipant.id
     };
 }
 
