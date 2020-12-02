@@ -74,7 +74,7 @@ export function appNavigate(uri: ?string) {
         location.protocol || (location.protocol = 'https:');
         const { contextRoot, host, room } = location;
         const locationURL = new URL(location.toString());
-        console.log(locationURL);
+
         // Disconnect from any current conference.
         // FIXME: unify with web.
         if (navigator.product === 'ReactNative') {

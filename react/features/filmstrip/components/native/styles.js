@@ -67,7 +67,8 @@ export default {
         width: 100,
         position: 'absolute',
         height: 180,
-        top: -50
+        top: -50,
+        right: 0
     },
     flipCam: {
         position: 'absolute',

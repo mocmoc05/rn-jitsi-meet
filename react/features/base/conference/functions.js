@@ -157,11 +157,15 @@ export function getConferenceName(stateful: Function | Object): string {
     const { callee } = state['features/base/jwt'];
     const { callDisplayName } = state['features/base/config'];
     const { pendingSubjectChange, room, subject } = state['features/base/conference'];
-
+    let customRoom = room;
+    if ( room?.includes('Enkomm')) {
+        customRoom = 'Enkomm';
+    }
     return pendingSubjectChange
         || subject
         || callDisplayName
         || (callee && callee.name)
+        || customRoom
         || safeStartCase(safeDecodeURIComponent(room));
 }
 
