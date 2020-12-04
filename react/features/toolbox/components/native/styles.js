@@ -99,7 +99,7 @@ const styles = {
         marginBottom: 5
     },
     signLanguageContainer: {
-        position: 'absolute',
+        // position: 'absolute',
         justifyContent: 'center',
         alignItems: 'center',
         height: 58,

@@ -1,28 +1,35 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Dimensions } from 'react-native';
 
 import { ColorSchemeRegistry } from '../../../base/color-scheme';
+import { IconStopRecord } from '../../../base/icons/svg';
+import { JitsiRecordingConstants } from '../../../base/lib-jitsi-meet';
 import { Container } from '../../../base/react';
 import { connect } from '../../../base/redux';
 import { StyleType } from '../../../base/styles';
 import { ChatButton } from '../../../chat';
 import ChatAppCounter from '../../../chat/components/native/ChatAppCounter';
 import { getUnreadCount } from '../../../chat/functions';
+import { getActiveSession, RecordButton } from '../../../recording';
 import { isToolboxVisible } from '../../functions';
 import AudioMuteButton from '../AudioMuteButton';
 import HangupButton from '../HangupButton';
 import VideoMuteButton from '../VideoMuteButton';
-import VoteButton from './VoteButton';
-import { Dimensions } from 'react-native';
-import RaiseHandButton from './RaiseHandButton';
-import { RecordButton } from '../../../recording'
-import ShareScreenButton from './ShareScreenButton';
-import ReportStatButton from './ReportStatButton';
-import OverflowMenuButton from './OverflowMenuButton';
-import styles from './styles';
+
 import LeftMenuButton from './LeftMenuButton';
+import OverflowMenuButton from './OverflowMenuButton';
+import RaiseHandButton from './RaiseHandButton';
+import ReportStatButton from './ReportStatButton';
+import ShareScreenButton from './ShareScreenButton';
+import VoteButton from './VoteButton';
+
+
+import styles from './styles';
+import StopRecordingButton
+    from '../../../recording/components/Recording/native/StopRecordingButton';
+
 
 /**
  * The type of {@link Toolbox}'s React {@code Component} props.
@@ -105,43 +112,33 @@ class Toolbox extends PureComponent<Props> {
      * @returns {React$Node}
      */
     _renderToolbar() {
-        const { _styles, _unreadMessageCount } = this.props;
+        const { _styles, _isRecordingRunning } = this.props;
         const { buttonStyles, buttonStylesBorderless, hangupButtonStyles, toggledButtonStyles, toggledMenuButtonStyles } = _styles;
 
         return (
             <>
-                {/*<View accessibilityRole = 'toolbar'*/}
-                {/*      pointerEvents = 'box-none'*/}
-                {/*      style = { [styles.toolbar, { marginBottom: 10 } ] }>*/}
-                {/*    <RaiseHandButton*/}
-                {/*        styles = { smallButtonStyles }*/}
-                {/*    />*/}
-                {/*    <VoteButton*/}
-                {/*        styles = { smallButtonStyles }*/}
-                {/*    />*/}
-                {/*    <ShareScreenButton*/}
-                {/*        styles = { smallButtonStyles }*/}
-                {/*    />*/}
-                {/*    <RecordButton*/}
-                {/*        styles = { smallButtonStyles }/>*/}
-                {/*    <ReportStatButton*/}
-                {/*        styles = { smallButtonStyles }*/}
-                {/*    />*/}
-                {/*</View>*/}
+                { _isRecordingRunning ? <View
+                    accessibilityRole = 'toolbar'
+                    pointerEvents = 'box-none'
+                    style = { [ styles.toolbar, { marginBottom: 10 } ] }>
+                    <StopRecordingButton />
+                </View> : null }
                 <View
                     accessibilityRole = 'toolbar'
                     pointerEvents = 'box-none'
                     style = { styles.toolbar }>
-                    <View style = {{ position: 'absolute', left: 0 }}>
+                    <View
+                        style = {{ position: 'absolute',
+                            left: 0 }}>
                         <LeftMenuButton
                             styles = { buttonStylesBorderless }
                             toggledStyles = { toggledMenuButtonStyles } />
                     </View>
-                    {/*<ChatButton*/}
+                    {/* <ChatButton*/}
                     {/*    styles = { buttonStylesBorderless }*/}
                     {/*    toggledStyles = { this._getChatButtonToggledStyle(toggledButtonStyles) }>*/}
                     {/*    <ChatAppCounter _count = { _unreadMessageCount } />*/}
-                    {/*</ChatButton>*/}
+                    {/* </ChatButton>*/}
                     <AudioMuteButton
                         styles = { buttonStyles }
                         toggledStyles = { toggledButtonStyles } />
@@ -153,7 +150,9 @@ class Toolbox extends PureComponent<Props> {
                     {/* <VoteButton
                             styles = { buttonStyles }
                             toggledStyles = { toggledButtonStyles } /> */}
-                    <View style={{position: 'absolute', right: 0}}>
+                    <View
+                        style = {{ position: 'absolute',
+                            right: 0 }}>
                         <OverflowMenuButton
                             styles = { buttonStylesBorderless }
                             toggledStyles = { toggledButtonStyles } />
@@ -177,7 +176,8 @@ function _mapStateToProps(state: Object): Object {
     return {
         _styles: ColorSchemeRegistry.get(state, 'Toolbox'),
         _visible: isToolboxVisible(state),
-        _unreadMessageCount: getUnreadCount(state)
+        _unreadMessageCount: getUnreadCount(state),
+        _isRecordingRunning: Boolean(getActiveSession(state, JitsiRecordingConstants.mode.FILE))
     };
 }
 

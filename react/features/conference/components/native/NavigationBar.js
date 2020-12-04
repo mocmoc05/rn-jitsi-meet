@@ -15,6 +15,9 @@ import ConferenceTimer from '../ConferenceTimer';
 import FlipButton from './FlipCamera';
 import VolumeNew from './VolumeNew';
 import styles, { NAVBAR_GRADIENT_COLORS } from './styles';
+import RecordTimer from '../RecordTimer';
+import { getActiveSession } from '../../../recording';
+import { JitsiRecordingConstants } from '../../../base/lib-jitsi-meet';
 
 type Props = {
 
@@ -103,9 +106,16 @@ class NavigationBar extends Component<Props> {
                             { this.props._meetingName }
                         </Text>
                     }
-                    {
-                        this.props._conferenceTimerEnabled && <ConferenceTimer />
-                    }
+                    <View style = { { display: 'flex', flexDirection: 'row' }}>
+                        {
+                            this.props._conferenceTimerEnabled && <ConferenceTimer />
+                        }
+                        <View style = { { marginLeft: 10, display: 'flex', flexDirection: 'row' }}>
+                            {
+                                this.props._isRecordingRunning && <RecordTimer />
+                            }
+                        </View>
+                    </View>
                 </View>
             </View>
         ];
@@ -124,7 +134,8 @@ function _mapStateToProps(state) {
         _conferenceTimerEnabled: getFeatureFlag(state, CONFERENCE_TIMER_ENABLED, true),
         _meetingName: getConferenceName(state),
         _meetingNameEnabled: getFeatureFlag(state, MEETING_NAME_ENABLED, true),
-        _visible: isToolboxVisible(state)
+        _visible: isToolboxVisible(state),
+        _isRecordingRunning: Boolean(getActiveSession(state, JitsiRecordingConstants.mode.FILE))
     };
 }
 

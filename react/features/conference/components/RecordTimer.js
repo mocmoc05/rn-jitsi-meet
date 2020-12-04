@@ -2,10 +2,10 @@
 
 import { Component } from 'react';
 
-import { renderConferenceTimer } from '../';
 import { getConferenceTimestamp } from '../../base/conference/functions';
 import { getLocalizedDurationFormatter } from '../../base/i18n';
 import { connect } from '../../base/redux';
+import renderRecordTimer from './native/RecordTimerDisplay';
 
 /**
  * The type of the React {@code Component} props of {@link ConferenceTimer}.
@@ -40,7 +40,7 @@ type State = {
  * @class ConferenceTimer
  * @extends Component
  */
-class ConferenceTimer extends Component<Props, State> {
+class RecordTimer extends Component<Props, State> {
 
     /**
      * Handle for setInterval timer.
@@ -68,7 +68,9 @@ class ConferenceTimer extends Component<Props, State> {
      * @inheritdoc
      */
     componentDidMount() {
-        this._startTimer();
+        const ref = (new Date()).getTime();
+
+        this._startTimer(ref);
     }
 
     /**
@@ -95,7 +97,7 @@ class ConferenceTimer extends Component<Props, State> {
             return null;
         }
 
-        return renderConferenceTimer(timerValue);
+        return renderRecordTimer(timerValue);
     }
 
     /**
@@ -115,9 +117,8 @@ class ConferenceTimer extends Component<Props, State> {
         if (currentValueUTC < refValueUTC) {
             return;
         }
-
         const timerMsValue = currentValueUTC - refValueUTC;
-        // console.log(timerMsValue);
+
         const localizedTime = getLocalizedDurationFormatter(timerMsValue);
 
         this.setState({
@@ -130,12 +131,12 @@ class ConferenceTimer extends Component<Props, State> {
      *
      * @returns {void}
      */
-    _startTimer() {
+    _startTimer(ref) {
         if (!this._interval) {
-            this._setStateFromUTC(this.props._startTimestamp, (new Date()).getTime());
+            this._setStateFromUTC(0, (new Date()).getTime());
 
             this._interval = setInterval(() => {
-                this._setStateFromUTC(this.props._startTimestamp, (new Date()).getTime());
+                this._setStateFromUTC(ref, (new Date()).getTime());
             }, 1000);
         }
     }
@@ -173,4 +174,4 @@ export function _mapStateToProps(state: Object) {
     };
 }
 
-export default connect(_mapStateToProps)(ConferenceTimer);
+export default connect(_mapStateToProps)(RecordTimer);

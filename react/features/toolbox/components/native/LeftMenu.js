@@ -158,7 +158,7 @@ class LeftMenu extends PureComponent<Props, State> {
                 onShowUnderlay = { () => {
                     this.setState({ isPress: true });
                     this.onPressHandler(icon);
-                } }>
+                } } >
                 <View style={{ justifyContent: 'center', alignItems: 'center'}}>
                     <Icon
                         src = { icon }
@@ -178,6 +178,17 @@ class LeftMenu extends PureComponent<Props, State> {
                     left: 0,
                     right: 0,
                     zIndex: 9999 }}>
+                { showSignLanguageList
+                    ? <View style={{ position: 'absolute',
+                        bottom: 390,
+                        left: 20,
+                        display: 'flex',
+                        flexDirection: 'row', zIndex: 9999}}>
+                        {/*<IconSignBackground />*/}
+                        <View style = { styles.signLanguageContainer }>
+                            {iconList}
+                        </View>
+                    </View> : null }
                 <TouchableWithoutFeedback onPress = { this._onCancel }>
                     <View
                         accessibilityRole = 'toolbar'
@@ -189,6 +200,7 @@ class LeftMenu extends PureComponent<Props, State> {
                             backgroundColor: 'rgba(0, 0, 0, 0.4)',
                             borderRadius: 8 }}>
                         {/* <RaiseHandButton { ...buttonProps } />*/}
+
                         <SignLanguageButton
                             { ...buttonProps } icon = { iconId }>
                             { showSignLanguageList
@@ -198,13 +210,13 @@ class LeftMenu extends PureComponent<Props, State> {
                                     <View
                                         style = {{ position: 'absolute',
                                             top: -50,
-                                            left: -10
+                                            left: -10,
                                         }}>
                                         <View>
                                             <IconSignBackground />
-                                            <View style = { styles.signLanguageContainer }>
-                                                { iconList }
-                                            </View>
+                                            {/*<View style = { styles.signLanguageContainer }>*/}
+                                            {/*    { iconList }*/}
+                                            {/*</View>*/}
                                         </View>
                                     </View>
                                 </TouchableWithoutFeedback>

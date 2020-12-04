@@ -142,6 +142,12 @@ export default {
         paddingHorizontal: 14
     },
 
+    recordTimer: {
+        marginLeft: 5,
+        color: 'red',
+        fontSize: 15,
+        opacity: 0.6
+    },
     roomTimer: {
         color: ColorPalette.white,
         fontSize: 15,

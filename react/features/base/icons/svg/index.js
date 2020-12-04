@@ -143,3 +143,5 @@ export { default as IconWow } from './wow.svg';
 export { default as IconBack } from './chevron-left.svg';
 export { default as IconStageView } from './stage-view.svg';
 export { default as IconMute } from './mute.svg';
+export { default as IconStopRecord } from './stop-record.svg';
+export { default as IconRecording } from './recording-dot.svg';
