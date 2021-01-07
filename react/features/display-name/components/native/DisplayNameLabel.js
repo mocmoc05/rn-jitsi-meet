@@ -41,6 +41,8 @@ class DisplayNameLabel extends Component<Props> {
      * @inheritdoc
      */
     render() {
+        // console.log({props: this.props});
+
         // if (!this.props._render) {
         //     return null;
         // }

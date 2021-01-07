@@ -1,8 +1,8 @@
 // @flow
 
 import React, { PureComponent, type Node } from 'react';
-import { PanResponder, SafeAreaView, ScrollView, View, Text } from 'react-native';
-import Slider from '@react-native-community/slider';
+import { PanResponder, SafeAreaView, ScrollView, View, Text, Slider } from 'react-native';
+// import Slider from '@react-native-community/slider';
 import { ColorSchemeRegistry } from '../../../color-scheme';
 import { SlidingView } from '../../../react';
 import { connect } from '../../../redux';
