@@ -470,7 +470,7 @@ function _mapStateToProps(state) {
         _pictureInPictureEnabled: getFeatureFlag(state, PIP_ENABLED),
         _reducedUI: reducedUI,
         _toolboxVisible: isToolboxVisible(state),
-        _localParticipantId: localParticipant.id
+        _localParticipantId: localParticipant?.id
     };
 }
 

@@ -83,6 +83,7 @@ class Filmstrip extends Component<Props> {
     showMore() {
         this.setState({ isShowMore: !this.state.isShowMore });
     }
+
     /**
      * Implements React's {@link Component#render()}.
      *
@@ -104,15 +105,16 @@ class Filmstrip extends Component<Props> {
             right: 20
         };
         const extraUsers = this._sort(_participantsIncludeLocal, isNarrowAspectRatio).slice(4).length;
+
         if (!_enabled) {
             return null;
-        }
-        else if (this.props._participants.length >= 4) {
+        } else if (this.props._participants.length >= 4) {
             return (
                 <Container
                     style = { filmstripMoreUsers }
                     visible = { _visible }>
                     {
+
                         // this._separateLocalThumbnail
                         // && !isNarrowAspectRatio
                         // && <LocalThumbnail />
@@ -131,18 +133,18 @@ class Filmstrip extends Component<Props> {
                                 .slice(0, 3)
                                 .map(p => (
                                     <Thumbnail
-                                        styleOverrides={ style6OrMoreUsers }
+                                        styleOverrides = { style6OrMoreUsers }
                                         key = { p.id }
                                         participant = { p }
                                         moreUsers = { true } />))
                         }
                         {
-                            this.state.isShowMore ?
-                            this._sort(_participantsIncludeLocal, isNarrowAspectRatio)
+                            this.state.isShowMore
+                                ? this._sort(_participantsIncludeLocal, isNarrowAspectRatio)
                                 .slice(4)
                                 .map(p => (
                                     <Thumbnail
-                                        styleOverrides={ style6OrMoreUsers }
+                                        styleOverrides = { style6OrMoreUsers }
                                         key = { p.id }
                                         participant = { p } />)) : null
                         }
@@ -151,17 +153,26 @@ class Filmstrip extends Component<Props> {
                             && <LocalThumbnail />
                         }
                     </ScrollView>
-                    <TouchableOpacity style={{ width: 60, height: 60, backgroundColor: '#7B8086', borderRadius: 100, justifyContent: 'center', alignItems: 'center', activeOpacity: 0.1 }}
-                        onPress = { () => this.showMore() }
-                    >
-                        <Text style={{ color: '#C4C4C4', fontSize: 14, fontWeight: '700' }}>+{extraUsers}</Text>
+                    <TouchableOpacity
+                        style = {{ width: 60,
+                            height: 60,
+                            backgroundColor: '#7B8086',
+                            borderRadius: 100,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            activeOpacity: 0.1 }}
+                        onPress = { () => this.showMore() }>
+                        <Text
+                            style = {{ color: '#C4C4C4',
+                                fontSize: 14,
+                                fontWeight: '700' }}>+{extraUsers}</Text>
                     </TouchableOpacity>
                     {
                         this._separateLocalThumbnail && isNarrowAspectRatio
                         && <LocalThumbnail />
                     }
                 </Container>
-            )
+            );
         }
 
         const isNarrowAspectRatio = _aspectRatio === ASPECT_RATIO_NARROW;
@@ -186,6 +197,7 @@ class Filmstrip extends Component<Props> {
                             && <LocalThumbnail />
                     }
                     {
+
                         // this._sort(_participants, isNarrowAspectRatio)
                         // .map(p => (
                         // <Thumbnail
@@ -198,6 +210,7 @@ class Filmstrip extends Component<Props> {
                     }
                 </ScrollView>
                 {
+
                     // this._separateLocalThumbnail && isNarrowAspectRatio
                     //     && <LocalThumbnail />
                 }

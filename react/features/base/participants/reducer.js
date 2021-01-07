@@ -154,6 +154,25 @@ function _participant(state: Object = {}, action) {
                 }
             }
 
+            if (newState.conference) {
+                const { participants } = newState.conference;
+
+                const currentParticipant = participants[id];
+
+                if (currentParticipant) {
+                    const { _properties } = currentParticipant;
+
+                    // eslint-disable-next-line max-depth
+                    if (_properties._raisedHandType) {
+                        newState._raisedHandType = _properties._raisedHandType;
+                    }
+                    // eslint-disable-next-line max-depth
+                    if (_properties.voted) {
+                        newState.voted = _properties.voted === 'true';
+                    }
+                }
+            }
+
             return newState;
         }
         break;

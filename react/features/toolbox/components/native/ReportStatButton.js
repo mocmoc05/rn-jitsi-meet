@@ -55,6 +55,7 @@ class VoteButton extends AbstractButton<Props, *> {
      * @returns {void}
      */
     _handleClick() {
+        this.props.onCancel();
         this.props._displaySignLanguageReport();
     }
 }

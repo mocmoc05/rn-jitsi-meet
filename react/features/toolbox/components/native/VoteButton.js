@@ -72,8 +72,7 @@ class VoteButton extends AbstractButton<Props, *> {
      * @returns {void}
      */
     _toogleVote() {
-        const enable = !this.props._voted;
-        sendAnalytics(createToolbarEvent('raise.hand', { enable }));
+        const {_voted} = this.props;
 
         this.props.dispatch(participantUpdated({
             // XXX Only the local participant is allowed to update without
@@ -84,7 +83,7 @@ class VoteButton extends AbstractButton<Props, *> {
 
             id: this.props._localParticipant.id,
             local: true,
-            voted: enable
+            voted: !_voted,
         }));
     }
 }

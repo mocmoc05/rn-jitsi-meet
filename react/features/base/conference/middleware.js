@@ -8,19 +8,23 @@ import {
     sendAnalytics
 } from '../../analytics';
 import { openDisplayNamePrompt } from '../../display-name';
-import { showErrorNotification } from '../../notifications';
+import {
+    NOTIFICATION_TIMEOUT,
+    showErrorNotification,
+    showNotification
+} from '../../notifications';
 import { CONNECTION_ESTABLISHED, CONNECTION_FAILED, connectionDisconnected } from '../connection';
-import { JitsiConferenceErrors } from '../lib-jitsi-meet';
+import { JitsiConferenceErrors, JitsiConferenceEvents } from '../lib-jitsi-meet';
 import { MEDIA_TYPE } from '../media';
 import {
     getLocalParticipant,
-    getParticipantById,
+    getParticipantById, getParticipantDisplayName,
     getPinnedParticipant,
     PARTICIPANT_ROLE,
-    PARTICIPANT_UPDATED,
+    PARTICIPANT_UPDATED, participantUpdated,
     PIN_PARTICIPANT
 } from '../participants';
-import { MiddlewareRegistry } from '../redux';
+import { MiddlewareRegistry, StateListenerRegistry } from '../redux';
 import { TRACK_ADDED, TRACK_REMOVED } from '../tracks';
 
 import {
@@ -45,6 +49,7 @@ import {
     getCurrentConference
 } from './functions';
 import logger from './logger';
+
 
 declare var APP: Object;
 
@@ -100,6 +105,132 @@ MiddlewareRegistry.register(store => next => action => {
     return next(action);
 });
 
+StateListenerRegistry.register(
+    state => state['features/base/conference'].conference,
+    (conference, store) => {
+        if (conference) {
+            // We joined a conference
+            conference.on(
+                JitsiConferenceEvents.PARTICIPANT_PROPERTY_CHANGED,
+                (participant, propertyName, oldValue, newValue) => {
+
+                    switch (propertyName) {
+
+                    // case 'e2eeEnabled':
+                    //     _e2eeUpdated(store, conference, participant.getId(), newValue);
+                    //     break;
+                    // case 'features_e2ee':
+                    //     store.dispatch(participantUpdated({
+                    //         conference,
+                    //         id: participant.getId(),
+                    //         e2eeSupported: newValue
+                    //     }));
+                    //     break;
+                    // case 'features_jigasi':
+                    //     store.dispatch(participantUpdated({
+                    //         conference,
+                    //         id: participant.getId(),
+                    //         isJigasi: newValue
+                    //     }));
+                    //     break;
+                    // case 'features_screen-sharing':
+                    //     store.dispatch(participantUpdated({
+                    //         conference,
+                    //         id: participant.getId(),
+                    //         features: { 'screen-sharing': true }
+                    //     }));
+                    //     break;
+                    case 'raisedHand': {
+                        _raiseHandUpdated(store, conference, participant.getId(), newValue);
+                        break;
+                    }
+                    case '_raisedHandType': {
+                        _signReportUpdated(store, conference, participant.getId(), newValue);
+                        break;
+                    }
+                    case '_voteToggle': {
+                        _voteUpdated(store, conference, participant.getId(), newValue);
+                        break;
+                    }
+                    default:
+
+                        // Ignore for now.
+                    }
+
+                });
+        } else {
+            const localParticipantId = getLocalParticipant(store.getState).id;
+
+            // We left the conference, the local participant must be updated.
+            // _e2eeUpdated(store, conference, localParticipantId, false);
+            _raiseHandUpdated(store, conference, localParticipantId, false);
+            _voteUpdated(store, conference, localParticipantId, false);
+            _signReportUpdated(store, conference, localParticipantId, '');
+        }
+    }
+);
+
+// eslint-disable-next-line require-jsdoc
+function _raiseHandUpdated({ dispatch, getState }, conference, participantId, newValue) {
+    const raisedHand = newValue === 'true';
+
+    dispatch(participantUpdated({
+        conference,
+        id: participantId,
+        raisedHand
+    }));
+
+    if (raisedHand) {
+        dispatch(showNotification({
+            titleArguments: {
+                name: getParticipantDisplayName(getState, participantId)
+            },
+            titleKey: 'notify.raisedHand'
+        }, NOTIFICATION_TIMEOUT));
+    }
+}
+
+// eslint-disable-next-line require-jsdoc
+function _signReportUpdated({ dispatch, getState }, conference, participantId, newValue) {
+    const raisedHand = newValue !== '';
+
+    dispatch(participantUpdated({
+        conference,
+        id: participantId,
+        _raisedHandType: newValue
+    }));
+
+    if (raisedHand && typeof newValue !== 'undefined') {
+
+        dispatch(showNotification({
+            titleArguments: {
+                name: getParticipantDisplayName(getState, participantId)
+            },
+            titleKey: `signReport.notify.${newValue}`
+        }, NOTIFICATION_TIMEOUT));
+    }
+}
+
+// eslint-disable-next-line require-jsdoc
+function _voteUpdated({ dispatch, getState }, conference, participantId, newValue) {
+    const voted = newValue === 'true';
+
+    dispatch(participantUpdated({
+        conference,
+        id: participantId,
+        voted
+    }));
+
+    if (voted) {
+
+        dispatch(showNotification({
+            titleArguments: {
+                name: getParticipantDisplayName(getState, participantId)
+            },
+            titleKey: 'vote.notify.voted'
+        }, NOTIFICATION_TIMEOUT));
+    }
+}
 
 /**
  * Makes sure to leave a failed conference in order to release any allocated
