@@ -175,16 +175,6 @@ function Thumbnail(props: Props) {
                 { !participant.isFakeParticipant && <View
                     style = { [
                         styles.thumbnailTopIndicatorContainer,
-                        styles.thumbnailTopLeftIndicatorContainer
-                    ] }>
-                    <RaisedHandIndicator participantId = { participant.id } />
-                    <VotedIndicator participantId = { participant.id } />
-                    { renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }
-                </View> }
-
-                { !participant.isFakeParticipant && <View
-                    style = { [
-                        styles.thumbnailTopIndicatorContainer,
                         styles.thumbnailTopRightIndicatorContainer
                     ] }>
                     <ConnectionIndicator participantId = { participant.id } />
@@ -199,6 +189,15 @@ function Thumbnail(props: Props) {
                     {/* && <ScreenShareIndicator /> }*/}
                 </Container> }
             </Container>
+            { !participant.isFakeParticipant && <View
+                    style = { [
+                        styles.thumbnailTopIndicatorContainer,
+                        styles.thumbnailTopLeftIndicatorContainer
+                    ] }>
+                    <RaisedHandIndicator participantId = { participant.id } />
+                    <VotedIndicator participantId = { participant.id } />
+                    { renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }
+                </View> }
             { audioMuted
                 ? <View style = { styles.audioIndicator }>
                     <AudioMutedIndicator mute = { audioMuted } />

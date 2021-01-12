@@ -69,6 +69,7 @@ export default {
         height: 180,
         top: -50,
         right: 0
+
     },
     flipCam: {
         position: 'absolute',
@@ -114,7 +115,7 @@ export default {
         height: 15,
         backgroundColor: '#fff',
         position: 'absolute',
-        right: 10,
+        right: 3,
         bottom: 10,
         justifyContent: 'center',
         alignItems: 'center'
@@ -128,21 +129,27 @@ export default {
         flex: 1,
         flexDirection: 'row',
         left: 4,
-        position: 'absolute'
+        position: 'absolute',
+        top: 0,
+        left : 0,
     },
 
     thumbnailTopIndicatorContainer: {
         padding: 4,
         position: 'absolute',
-        top: 0
+        top: 0,
     },
 
     thumbnailTopLeftIndicatorContainer: {
-        left: 0
+        padding: 4,
+        left: 18,
+        top: 42,
+        position: 'absolute',
     },
 
     thumbnailTopRightIndicatorContainer: {
-        right: 0
+        right: 0,
+        position: 'absolute',
     },
 
     tileView: {
