@@ -107,7 +107,7 @@ export default {
         overflow: 'hidden',
         position: 'relative',
         // width: 80
-        width: 105
+        width: 105,
     },
     audioIndicator: {
         borderRadius: 100,
@@ -149,6 +149,7 @@ export default {
         position: 'absolute',
         bottom: 5,
         right: 20,
+        flexDirection: 'row',
     },
 
     thumbnailTopLeftIndicatorContainer: {
@@ -156,6 +157,7 @@ export default {
         left: 18,
         top: 42,
         position: 'absolute',
+        flexDirection: 'row',
     },
 
     thumbnailTopRightIndicatorContainer: {

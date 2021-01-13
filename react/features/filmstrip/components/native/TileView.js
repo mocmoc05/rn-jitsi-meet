@@ -214,9 +214,10 @@ class TileView extends Component<Props> {
      */
     _groupIntoRows(thumbnails, rowLength) {
         const rowElements = [];
+        console.log(rowElements)
 
         for (let i = 0; i < thumbnails.length; i++) {
-            if (i % rowLength === 0) {
+            if (i % rowLength === 0 ) {
                 const thumbnailsInRow = thumbnails.slice(i, i + rowLength);
 
                 rowElements.push(
@@ -252,7 +253,7 @@ class TileView extends Component<Props> {
             margin: 0
         };
 
-        if (this.props._participants.length === 4) {
+        if (this.props._participants.length === 3) {
             return this._getSortedParticipants()
                 .map(participant => (
                     <Thumbnail

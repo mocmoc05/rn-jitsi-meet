@@ -104,11 +104,12 @@ class Filmstrip extends Component<Props> {
             top: 60,
             right: 20
         };
-        const extraUsers = this._sort(_participantsIncludeLocal, isNarrowAspectRatio).slice(4).length;
+        const extraUsers = this._sort(_participantsIncludeLocal, isNarrowAspectRatio).slice(2).length;
+        console.log(_participants);
 
         if (!_enabled) {
             return null;
-        } else if (this.props._participants.length >= 4) {
+        } else if (this.props._participants.length >= 2) {
             return (
                 <Container
                     style = { filmstripMoreUsers }
@@ -130,7 +131,7 @@ class Filmstrip extends Component<Props> {
                         }
                         {
                             this._sort(_participantsIncludeLocal, isNarrowAspectRatio)
-                                .slice(0, 3)
+                                .slice(0, 1)
                                 .map(p => (
                                     <Thumbnail
                                         styleOverrides = { style6OrMoreUsers }
@@ -141,7 +142,7 @@ class Filmstrip extends Component<Props> {
                         {
                             this.state.isShowMore
                                 ? this._sort(_participantsIncludeLocal, isNarrowAspectRatio)
-                                .slice(4)
+                                .slice(2)
                                 .map(p => (
                                     <Thumbnail
                                         styleOverrides = { style6OrMoreUsers }
