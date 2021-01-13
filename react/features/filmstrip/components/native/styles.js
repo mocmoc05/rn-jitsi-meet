@@ -120,6 +120,16 @@ export default {
         justifyContent: 'center',
         alignItems: 'center'
     },
+    raiseHandIndicator: {
+        borderRadius: 100,
+        width: 15,
+        height: 15,
+        position: 'absolute',
+        right: 25,
+        bottom: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     /**
      * The thumbnails indicator container.
      */

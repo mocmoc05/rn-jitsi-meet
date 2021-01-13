@@ -2,7 +2,11 @@
 
 import React from 'react';
 
-import { IconRaisedHand } from '../../../base/icons';
+import { IconRaisedHand, IconClap,
+    IconConfuse, IconDislike,
+    IconDragHandle, IconLike, IconLove,
+    IconSignBackground,
+    IconSmile, IconWow, Icon } from '../../../base/icons';
 import { BaseIndicator } from '../../../base/react';
 import { connect } from '../../../base/redux';
 import AbstractRaisedHandIndicator, {
@@ -22,10 +26,37 @@ class RaisedHandIndicator extends AbstractRaisedHandIndicator<Props> {
      * @returns {React$Element<*>}
      */
     _renderIndicator() {
+        const raiseHandType = this.props._raisedHandType;
+        let icon;
+        switch (raiseHandType) {
+        case 'agreeRaiseHand':
+            icon = IconSmile;
+            break;
+        case 'disagreeRaiseHand':
+            icon = IconConfuse;
+            break;
+        case 'agree':
+            icon = IconLike;
+            break;
+        case 'disagree':
+            icon = IconDislike;
+            break;
+        case 'clapHands':
+            icon = IconClap;
+            break;
+        case 'empathetic':
+            icon = IconLove;
+            break;
+        case 'boring':
+            icon = IconWow;
+            break;
+        default:
+            icon = IconRaisedHand;
+        }
         return (
-            <BaseIndicator
-                highlight = { true }
-                icon = { IconRaisedHand } />
+            <Icon
+                size={18}
+                src = { icon } />
         );
     }
 }

@@ -176,7 +176,7 @@ function Thumbnail(props: Props) {
                         styles.thumbnailTopIndicatorContainer,
                         styles.thumbnailTopRightIndicatorContainer
                     ] }>
-                    <ConnectionIndicator participantId = { participant.id } />
+                    {/*<ConnectionIndicator participantId = { participant.id } />*/}
                 </View> }
 
                 { !participant.isFakeParticipant && <Container style = { styles.thumbnailIndicatorContainer }>
@@ -189,7 +189,7 @@ function Thumbnail(props: Props) {
                 </Container> }
             </Container>
             {/* { !participant.isFakeParticipant && <View
-                    style = { 
+                    style = {
                         styles.thumbnailTopLeftIndicatorContainer
                     }>
                     <RaisedHandIndicator participantId = { participant.id } />
@@ -200,19 +200,19 @@ function Thumbnail(props: Props) {
                 style = {
                     styles.thumbnailTopIndicatorContainer
                 }>
-                     <RaisedHandIndicator participantId = { participant.id } />
+                <RaisedHandIndicator participantId = { participant.id } />
                 <VotedIndicator participantId = { participant.id } />
-                { renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }
+                {/*{ renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }*/}
             </View>
                 : !participant.isFakeParticipant && <View
-                    style = { 
+                    style = {
                         styles.thumbnailTopLeftIndicatorContainer
                 }>
                 <RaisedHandIndicator participantId = { participant.id } />
                 <VotedIndicator participantId = { participant.id } />
-                { renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }
+                {/*{ renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }*/}
             </View> }
-            { audioMuted 
+            { audioMuted
                 ? <View style = { styles.audioIndicator }>
                     <AudioMutedIndicator mute = { audioMuted } />
                 </View> : <View style = { styles.audioIndicator }>

@@ -10,6 +10,7 @@ import {
     IconClap,
     IconConfuse, IconDislike,
     IconDragHandle, IconLike, IconLove,
+    IconRaisedHand,
     IconSignBackground,
     IconSmile, IconWow
 } from '../../../base/icons';
@@ -156,7 +157,11 @@ class LeftMenu extends PureComponent<Props, State> {
 
         const touchProps = {
             activeOpacity: 1,
-            onHideUnderlay: () => this.setState({ isPress: false }),
+            onHideUnderlay: () => {
+                const { showSignLanguageList } = this.state;
+                this.setState({ isPress: false })
+                this.setState({ showSignLanguageList: !showSignLanguageList });
+            },
             // onShowUnderlay: () => this.setState({ isPress: true }),
             onPress: () => {
                 this.setState({ isPressed: !isPressed });
@@ -216,7 +221,7 @@ class LeftMenu extends PureComponent<Props, State> {
 
                         <SignLanguageButton
                             {...buttonProps}
-                            icon={ iconId }>
+                            icon={ isPressed ? iconId : IconRaisedHand }>
                             { showSignLanguageList
                                 ? <TouchableWithoutFeedback
                                     styl= {{ flex: 1 }}
@@ -302,13 +307,21 @@ class LeftMenu extends PureComponent<Props, State> {
     }
 
     onPressHandler(e) {
-        this.setState({ iconId: e.icon }, () => {
+        if (e.icon === this.state.iconId && this.state.isPressed) {
             this.props.dispatch(participantUpdated({
                 id: this.props._localParticipant.id,
                 local: true,
-                _raisedHandType: e.name
+                _raisedHandType: false
             }));
-        });
+        }else {
+            this.setState({ iconId: e.icon }, () => {
+                this.props.dispatch(participantUpdated({
+                    id: this.props._localParticipant.id,
+                    local: true,
+                    _raisedHandType: e.name
+                }));
+            });
+        }
     }
 
     _onSwipe: string => void;

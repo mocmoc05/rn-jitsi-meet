@@ -30,7 +30,7 @@ export default class AbstractRaisedHandIndicator<P: Props>
      * @inheritdoc
      */
     render() {
-        if (!this.props._raisedHand) {
+        if (!this.props._raisedHandType) {
             return null;
         }
 
@@ -57,6 +57,6 @@ export function _mapStateToProps(state: Object, ownProps: Props): Object {
     const participant = getParticipantById(state, ownProps.participantId);
 
     return {
-        _raisedHand: participant && participant.raisedHand
+        _raisedHandType: participant && participant._raisedHandType
     };
 }
