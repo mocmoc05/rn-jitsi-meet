@@ -132,9 +132,8 @@ function Thumbnail(props: Props) {
         participant,
         renderDisplayName,
         tileView,
-        moreUsers
+        moreUsers,
     } = props;
-
     const participantId = participant.id;
     const participantInLargeVideo
         = participantId === largeVideo.participantId;
@@ -189,16 +188,31 @@ function Thumbnail(props: Props) {
                     {/* && <ScreenShareIndicator /> }*/}
                 </Container> }
             </Container>
-            { !participant.isFakeParticipant && <View
-                    style = { [
-                        styles.thumbnailTopIndicatorContainer,
+            {/* { !participant.isFakeParticipant && <View
+                    style = { 
                         styles.thumbnailTopLeftIndicatorContainer
-                    ] }>
+                    }>
                     <RaisedHandIndicator participantId = { participant.id } />
                     <VotedIndicator participantId = { participant.id } />
                     { renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }
-                </View> }
-            { audioMuted
+                </View> } */}
+            {  tileView ? !participant.isFakeParticipant && <View
+                style = {
+                    styles.thumbnailTopIndicatorContainer
+                }>
+                     <RaisedHandIndicator participantId = { participant.id } />
+                <VotedIndicator participantId = { participant.id } />
+                { renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }
+            </View>
+                : !participant.isFakeParticipant && <View
+                    style = { 
+                        styles.thumbnailTopLeftIndicatorContainer
+                }>
+                <RaisedHandIndicator participantId = { participant.id } />
+                <VotedIndicator participantId = { participant.id } />
+                { renderDominantSpeakerIndicator && <DominantSpeakerIndicator /> }
+            </View> }
+            { audioMuted 
                 ? <View style = { styles.audioIndicator }>
                     <AudioMutedIndicator mute = { audioMuted } />
                 </View> : <View style = { styles.audioIndicator }>

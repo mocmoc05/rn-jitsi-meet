@@ -137,7 +137,8 @@ export default {
     thumbnailTopIndicatorContainer: {
         padding: 4,
         position: 'absolute',
-        top: 0,
+        bottom: 5,
+        right: 20,
     },
 
     thumbnailTopLeftIndicatorContainer: {
