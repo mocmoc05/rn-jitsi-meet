@@ -60,7 +60,7 @@
     "lib-jitsi-meet": "github:jitsi/lib-jitsi-meet#ef7f59caaa04f89cd409fb0f2757d804f7d563e5",
     "libflacjs": "github:mmig/libflac.js#93d37e7f811f01cf7d8b6a603e38bd3c3810907d",
     "lodash": "4.17.19",
-    "moment": "2.19.4",
+    "moment": "2.29.2",
     "moment-duration-format": "2.2.2",
     "olm": "https://packages.matrix.org/npm/olm/olm-3.2.1.tgz",
     "pixelmatch": "5.1.0",
